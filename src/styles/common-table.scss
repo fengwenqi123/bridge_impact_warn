@@ -1,0 +1,108 @@
+.common-table {
+  height: 100%;
+  padding: 0 24px;
+
+  .title {
+    height: 46px;
+  }
+
+  .content {
+    width: 100%;
+    border-top: 3px solid rgba(24, 144, 255, 1);
+    padding: 0 13px;
+
+    .el-card__body {
+      padding: 10px 0;
+    }
+
+    .search {
+      padding: 4px 14px 0 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      .el-form{
+        width: 1200px;
+        .el-form-item{
+          margin-bottom: 10px;
+        }
+      }
+
+      span {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .el-input__inner {
+        height: 32px;
+        line-height: 32px;
+      }
+      .el-date-editor {
+        .el-input {
+          width: 200px !important;
+        }
+      }
+
+      .el-date-editor.el-input,
+      .el-date-editor.el-input {
+        width: 200px !important;
+      }
+    }
+
+    //表格
+    .table {
+      .el-table {
+        .el-table__body-wrapper {
+          text-align: left;
+        }
+
+        .success {
+          color: rgba(82, 196, 26, 1);
+
+          span {
+            color: #606266
+          }
+        }
+
+        .error {
+          color: rgba(245, 34, 45, 1);
+
+          span {
+            color: #606266
+          }
+        }
+      }
+      .operation{
+        .table_button {
+          margin: 0px;
+          padding: 0 5px;
+          font-weight: bold;
+          border-right: 1px solid rgba(233, 233, 233, 1);
+        }
+        .table_button:last-child{
+          border: none;
+        }
+      }
+    }
+
+    .bottom{
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .option{
+        .el-checkbox{
+          margin: 0 14px;
+        }
+        .checkNum{
+          margin: 0 14px;
+          font-size:12px;
+          font-weight:400;
+          color:rgba(96,98,102,1);
+        }
+      }
+
+    }
+  }
+}
+
+

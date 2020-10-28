@@ -1,0 +1,18 @@
+.information{
+  &-main{
+    height: 600px;
+    overflow: hidden;
+  }
+  &-foot{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .el-input{
+    width: 232px;
+  }
+  .el-textarea{
+    width: 540px;
+  }
+}

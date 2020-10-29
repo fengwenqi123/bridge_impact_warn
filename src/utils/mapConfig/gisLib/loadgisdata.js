@@ -12,11 +12,17 @@
 import store from '@/store'
 import { wgs84ToWebMct } from './HTool'
 import HSymbol from './HSymbol'
-import { bridgeList } from '../api/data'
+import { bridgeList, videoList } from '../api/data'
+import { Style, Icon } from 'ol/style'
+import { Feature } from 'ol'
+import { Point } from 'ol/geom'
+import { Vector as SVector, Cluster } from 'ol/source'
 const bridgeImg = require('@/utils/mapConfig/img/bridge.png')
+const videoImg = require('@/utils/mapConfig/img/video.png')
 
 export function loadInfoLayer (type) {
   if ((type == null || type === 'bridge') && store.getters.app.bridgeLayer) loadBridgeLayer()
+  if ((type == null || type === 'video') && store.getters.app.videoLayer) loadVideo()
 }
 
 /**
@@ -39,6 +45,57 @@ function loadBridgeLayer () {
       }
     })
     store.getters.app.bridgeLayer.addMarkerSymbol(markerSymbol)
+  })
+}
+
+function loadVideo () {
+  videoList().then(response => {
+    const markerSymbol = []
+    var videoStyle = new Style({
+      image: new Icon({
+        src: videoImg,
+        scale: 0.7
+      })
+    })
+    store.getters.app.videoLayer.layer.setStyle(videoStyle)
+    store.getters.app.videoLayer.layer.setMaxResolution(160)
+    response.data.forEach(item => {
+      if (item.longitude > 0 && item.longitude < 180 && item.latitude > 0 && item.latitude < 90 && item.enable === 1) {
+        var videoAttr = {
+          datatype: 'shipin',
+          name: item.name,
+          id: item.id,
+          rtmp: item.rtmp,
+          userName: item.userName,
+          password: item.password,
+          port: item.port,
+          ipAdress: item.ipAdress,
+          channel: item.channel,
+          longitude: item.longitude,
+          latitude: item.latitude,
+          patrolMileage: item.patrolMileage
+        }
+        var lonlat = wgs84ToWebMct(item.longitude, item.latitude)
+        var videoSymbol = new Feature({
+          geometry: new Point(lonlat)
+        })
+        videoSymbol.setProperties(videoAttr, false)
+        markerSymbol.push(videoSymbol)
+      } else {
+        // console.log(item.name)
+      }
+    })
+    // 在控制显示的分辨率范围内clustersource才会加载videosource，导致初始化时地图移动、框选、一键抓拍获取视频要素失效
+    // 为保证执行结果，将videoSource设置为全局变量
+    store.getters.app.videoSource = new SVector({
+      features: markerSymbol
+    })
+    var videoClusterSource = new Cluster({
+      source: store.getters.app.videoSource
+    })
+    store.getters.app.videoLayer.layer.setSource(videoClusterSource)
+    // /* var videofeatures = */store.getters.app.videoSource.getFeaturesInExtent(store.getters.app.currentExtent)
+    // showVideoNameIntable(videofeatures)
   })
 }
 

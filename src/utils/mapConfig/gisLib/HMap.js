@@ -80,6 +80,7 @@ function initMapEvent (map) {
  */
 export function addInfoLayers (app) {
   app.bridgeLayer = new HInfoLayer('bridge', true, 160, 0)// 桥梁
+  app.videoLayer = new HInfoLayer('video', true, 160, 0) // 视频监控图层 ps:聚合图层设置图层显示分辨率失效;
   app.chosenCircle = HSymbol.getCircleSymbol({ type: 'chc' }, mapconfig.mapCenterCoor, 20, [255, 255, 255, 0], [255, 255, 0], 3, true)
   app.chosenLayer = new Vector({
     source: new SVector({
@@ -89,6 +90,7 @@ export function addInfoLayers (app) {
     visible: false
   }) // 船舶要素选中图层
   app.map.addLayer(app.bridgeLayer.layer)
+  app.map.addLayer(app.videoLayer.layer)
 }
 /**
  * 所有地图资源加载完毕后执行的GIS操作

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import store from '@/store'
 import { showInfoLayer, webMctToWGS84, getDistance, locateTo, pointTo, addFlashMarker, formatLength, finaltime, wgs84ToWebMct, clearFeature } from './HTool'
 import Overlay from 'ol/Overlay'
@@ -28,7 +29,7 @@ const HUtils = new HUtil()
 const HShipLayers = new HShipLayer()
 function showShipNameIntable (shipFeatures) {
   var objList = []
-  if (shipFeatures.length != 0) {
+  if (shipFeatures.length !== 0) {
     for (var i = 0; i < shipFeatures.length; i++) {
       var obj = {}
       obj.shipName = shipFeatures[i].getProperties().shipname
@@ -181,10 +182,10 @@ export function showPopup (map) {
     if (feature === undefined) {
       toggleOptions('.selector')
       setTimeout(function () {
-        var overlays = store.getter.app.map.getOverlays()
+        var overlays = store.getters.app.map.getOverlays()
         overlays.forEach(function (e) {
           setTimeout(function () {
-            store.getter.app.map.removeOverlay(e)
+            store.getters.app.map.removeOverlay(e)
           }, 0)
         }, this)
       }, 1000)
@@ -543,6 +544,7 @@ function clickVideoButtonToShowShipMessage (lon, lat, xhlc) {
   }, '*')
 }
 
+
 /**
  * 定位到视频
  * @param name  监控视频名称
@@ -592,6 +594,10 @@ function createVideoOverlay (output, coor, length) {
     positioning: 'center-center'
   })
   videoElement.innerHTML = output
+  console.log(output)
+  $(".selector").find("label").click(function(){
+    alert(111)
+  })
   videoOverlay.setPosition(coor)
   setTimeout(function () {
     toggleOptions('.selector')
@@ -602,40 +608,39 @@ function createVideoOverlay (output, coor, length) {
 /**
  * 视频播放
  */
-function playVideo (id, name, ipaddress, channel, username, password, port, lon, lat, patrolMileage) {
-  $.ajax({
-    url: 'http://10.100.70.226:80/api/gis/videoSurveillance/live/' + id,
-    method: 'get',
-    success: function (data) {
-      if (patrolMileage && patrolMileage != '') {
-        var xhlc = parseInt(patrolMileage) / 1000
-        clickVideoButtonToShowShipMessage(lon, lat, xhlc)
-      }
-      parent.postMessage({
-        act: 'rtmp',
-        msg: {
-          name: name,
-          rtmp: data.data.rtmp,
-          id: id,
-          ip: ipaddress,
-          channel: channel,
-          userName: username,
-          password: password,
-          port: port
-        }
-      }, '*')
-    }
-  })
-  // console.log("视频名称:" + property['name']);
-  // console.log("播放地址:" + property['rtmp']);
-  // console.log("id:" + property['id']);
-  // console.log("ip:" + property['ipAdress']);
-  // console.log("通道:" + property['channel']);
-  // console.log("用户名:" + property['userName']);
-  // console.log("密码:" + property['password']);
-  // console.log("端口:" + property['port']);
-}
-
+// function playVideo (id, name, ipaddress, channel, username, password, port, lon, lat, patrolMileage) {
+//   $.ajax({
+//     url: 'http://10.100.70.226:80/api/gis/videoSurveillance/live/' + id,
+//     method: 'get',
+//     success: function (data) {
+//       if (patrolMileage && patrolMileage !== '') {
+//         var xhlc = parseInt(patrolMileage) / 1000
+//         clickVideoButtonToShowShipMessage(lon, lat, xhlc)
+//       }
+//       parent.postMessage({
+//         act: 'rtmp',
+//         msg: {
+//           name: name,
+//           rtmp: data.data.rtmp,
+//           id: id,
+//           ip: ipaddress,
+//           channel: channel,
+//           userName: username,
+//           password: password,
+//           port: port
+//         }
+//       }, '*')
+//     }
+//   })
+//   // console.log("视频名称:" + property['name']);
+//   // console.log("播放地址:" + property['rtmp']);
+//   // console.log("id:" + property['id']);
+//   // console.log("ip:" + property['ipAdress']);
+//   // console.log("通道:" + property['channel']);
+//   // console.log("用户名:" + property['userName']);
+//   // console.log("密码:" + property['password']);
+//   // console.log("端口:" + property['port']);
+// }
 /** **********************************************要素点击事件结束*****************************************/
 
 /** ************************************************地图操控开始*******************************************/
@@ -1164,16 +1169,16 @@ function navAlarmFlash () {
   })
 }
 
-function refreshNavAlarmFlash () {
+/* function refreshNavAlarmFlash () {
   navAlarmFlash()
   setInterval(() => {
     navAlarmFlash()
   }, 10000)
 }
 
-/**
+/!**
  * 获取框选区域内船舶信息
- */
+ *!/
 function getShipInfoOfMangerArea () {
   clearFeature()
   var source = new SVector({
@@ -1209,46 +1214,46 @@ function getShipInfoOfMangerArea () {
     store.getters.app.map.removeInteraction(draw)
   }, this)
   store.getters.app.map.addInteraction(draw)
-}
+} */
 
 // 框选区域显示分类船舶
-function showShipInfo (shipFeatures) {
-  var shipinfo = {}
-  var allShips = [] // 全部船舶名称
-  var hxtShips = [] // 海巡艇船舶名称
-  var passengerShips = [] // 客船名称
-  var goodsShips = [] // 货船名称
-  var dangerShips = [] // 危险品船舶名称
-  var otherShips = [] // 其他船舶名称
-  for (var i = 0; i < shipFeatures.length; i++) {
-    var shiptype = shipFeatures[i].getProperties().shiptype // 船舶种类 1:客船 2:货船 3:危险品船 0或99:其他
-    var shipname = shipFeatures[i].getProperties().shipname
-    allShips.push(shipname)
-    if (shipname.substr(0, 3) === GIS_HXTSHIP) {
-      hxtShips.push(shipname)
-    } else if (shiptype === GIS_PASSENGERSHIP) {
-      passengerShips.push(shipname)
-    } else if (shiptype === GIS_GOODSSHIP) {
-      goodsShips.push(shipname)
-    } else if (shiptype === GIS_DANGERSHIP) {
-      dangerShips.push(shipname)
-    } else {
-      otherShips.push(shipname)
-    }
-  }
-  shipinfo.all = allShips
-  shipinfo.hxt = hxtShips
-  shipinfo.passenger = passengerShips
-  shipinfo.goods = goodsShips
-  shipinfo.danger = dangerShips
-  shipinfo.other = otherShips
-  console.log(shipinfo)
-  parent.postMessage({
-    act: 'qySelect',
-    msg: {
-      obj: JSON.stringify(shipinfo)
-    }
-  }, '*')
-}
+// function showShipInfo (shipFeatures) {
+//   var shipinfo = {}
+//   var allShips = [] // 全部船舶名称
+//   var hxtShips = [] // 海巡艇船舶名称
+//   var passengerShips = [] // 客船名称
+//   var goodsShips = [] // 货船名称
+//   var dangerShips = [] // 危险品船舶名称
+//   var otherShips = [] // 其他船舶名称
+//   for (var i = 0; i < shipFeatures.length; i++) {
+//     var shiptype = shipFeatures[i].getProperties().shiptype // 船舶种类 1:客船 2:货船 3:危险品船 0或99:其他
+//     var shipname = shipFeatures[i].getProperties().shipname
+//     allShips.push(shipname)
+//     if (shipname.substr(0, 3) === GIS_HXTSHIP) {
+//       hxtShips.push(shipname)
+//     } else if (shiptype === GIS_PASSENGERSHIP) {
+//       passengerShips.push(shipname)
+//     } else if (shiptype === GIS_GOODSSHIP) {
+//       goodsShips.push(shipname)
+//     } else if (shiptype === GIS_DANGERSHIP) {
+//       dangerShips.push(shipname)
+//     } else {
+//       otherShips.push(shipname)
+//     }
+//   }
+//   shipinfo.all = allShips
+//   shipinfo.hxt = hxtShips
+//   shipinfo.passenger = passengerShips
+//   shipinfo.goods = goodsShips
+//   shipinfo.danger = dangerShips
+//   shipinfo.other = otherShips
+//   console.log(shipinfo)
+//   parent.postMessage({
+//     act: 'qySelect',
+//     msg: {
+//       obj: JSON.stringify(shipinfo)
+//     }
+//   }, '*')
+// }
 
 /** ***********************************************业务工具栏结束******************************************/

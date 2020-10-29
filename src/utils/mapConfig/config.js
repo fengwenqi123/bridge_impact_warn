@@ -7,7 +7,7 @@ import TileGrid from 'ol/tilegrid/TileGrid'
 import { transform, get } from 'ol/proj'
 import { GIS_HOST } from './gisLib/HConfig'
 
-const url = `${GIS_HOST}/geowebcache/service/wms`
+const url = GIS_HOST + '/geowebcache/service/wms'
 
 const zjExtent = [12266461.42492, 2459896.44427, 15086223.39814, 4351865.76839]
 
@@ -29,25 +29,25 @@ var streetmap = () => {
   switch (maptype) {
     case 0:
       maplayer = [
-        // new TileLayer({
-        //   title: '卫星影像图',
-        //   type: 'YXT',
-        //   source: new TileWMS({
-        //     url: url,
-        //     params: { LAYERS: 'zjimg', format: 'image/png', SRS: 'EPSG:3857' },
-        //     tileGrid: tileGrid
-        //   }),
-        //   visible: false
-        // }),
+        new TileLayer({
+          title: '卫星影像图',
+          type: 'YXT',
+          source: new TileWMS({
+            url: url,
+            params: { LAYERS: 'zjimg', format: 'image/png', SRS: 'EPSG:3857' },
+            tileGrid: tileGrid
+          }),
+          visible: false
+        }),
         new TileLayer({
           title: '电子地图',
           type: 'DZDT',
           source: new TileWMS({
-            url: 'http://192.168.1.129:8080/geoserver/gwc/service/wms',
-            params: { LAYERS: 'zhejiang_bz', format: 'image/png', SRS: 'EPSG:3857' },
+            url: url,
+            params: { LAYERS: 'zjdt', format: 'image/png', SRS: 'EPSG:3857' },
             tileGrid: tileGrid
           })
-        })/*,
+        }),
         new TileLayer({
           title: '电子航道图',
           type: 'DZHDT',
@@ -56,7 +56,7 @@ var streetmap = () => {
             params: { LAYERS: '1226hzjt', format: 'image/png', SRS: 'EPSG:3857' },
             tileGrid: tileGrid
           })
-        }) */
+        })
       ]
       break
     case 1:
@@ -100,8 +100,8 @@ var streetmap = () => {
   return maplayer
 }
 const config = {
-  mapCenterCoor: transform([120.1, 30.86], 'EPSG:4326', 'EPSG:3857'),
-  zoom: 10, // 地图缩放级别
+  mapCenterCoor: transform([120.172324, 30.102286], 'EPSG:4326', 'EPSG:3857'),
+  zoom: 16, // 地图缩放级别
   streetmap: streetmap,
   projection: get('EPSG:3857'),
   extent: zjExtent,

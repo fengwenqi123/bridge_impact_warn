@@ -7,3 +7,10 @@ export function bridgeList () {
     method: 'GET'
   })
 }
+
+export function videoList () {
+  return request({
+    url: '/gis/videoSurveillance/list',
+    method: 'GET'
+  })
+}

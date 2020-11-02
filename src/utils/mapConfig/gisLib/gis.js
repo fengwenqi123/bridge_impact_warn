@@ -227,7 +227,7 @@ export function showPopup (map) {
           olayhtml = olayhtml + `<div><button onclick="playVideo('${videoID}','${videoName}','${videoIPAdress}',${videoChannel},'${videoUsername}','${videoPassword}','${videoPort}','${videoLon}','${videoLat}','${videoPatrolMileage}')">${videoName}</button></div>`
         } else {
           videoChannel = videoChannel || null
-          olayhtml += `<li><input id=${i} type='checkbox'><label onclick="playVideo('${videoID}','${videoName}','${videoIPAdress}',${videoChannel},'${videoUsername}','${videoPassword}','${videoPort}','${videoLon}','${videoLat}','${videoPatrolMileage}')" for=${i}>${videoName}</label></li>`
+          olayhtml += `<li><input id=${i} type='checkbox'><label class="label1" for=${i}>${videoName}</label></li>`
         }
       }
       elementUl = videoFeatures.length > 5 ? olayhtml : '<ul>' + olayhtml + '</ul><button onclick="toggleOptions($(this).parent())"></button>'

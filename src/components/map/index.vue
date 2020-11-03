@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="map" ref="map"></div>
+    <div id="map" ref="map" @click="coordinate"></div>
     <div id="coor"></div>
     <div class="maplevel">
       级别：<span id="maplevel"></span>
@@ -20,6 +20,11 @@ export default {
   mounted () {
     var mapcontainer = this.$refs.map
     init(mapcontainer)
+  },
+  methods: {
+    coordinate (e) {
+      this.$emit('coordinate', e.clientX, e.clientY)
+    }
   }
 }
 </script>

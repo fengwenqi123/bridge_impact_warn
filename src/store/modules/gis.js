@@ -3,7 +3,9 @@ const gisApp = {
     app: {},
     coordinate: null,
     coverId: null,
-    lonAndLat: null
+    lonAndLat: null,
+    type: null,
+    factor: null
   },
   mutations: {
     addMap: (state, views) => {
@@ -21,6 +23,10 @@ const gisApp = {
     setLonAndLat: (state, views) => {
       state.lonAndLat = views
       console.log(state.lonAndLat)
+    },
+    setFactor: (state, type, factor) => {
+      state.factor = factor
+      state.type = type
     }
   }
 }

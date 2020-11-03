@@ -1,3 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,300,700);
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(#eee, #ccc);
+  overflow: hidden;
+}
 
 .selector {
   position: absolute;
@@ -15,25 +25,11 @@
 }
 
 .selector button {
-  /*background: #428bca;*/
-  opacity: 0;
-  border-radius: 50%;
-  border: 0;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-  transition: all .1s;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  margin-top: -6px;
-  margin-left: -6px;
+  display: none;
 }
 
 .selector button:hover {
-  /*background: #3071a9;*/
+  background: #3071a9;
 }
 
 .selector button:focus {
@@ -86,24 +82,20 @@
   background: #f0f0f0;
 }
 
-/*.selector li input:checked + label {*/
-/*  background: #5cb85c;*/
-/*  color: white;*/
-/*}*/
-
-/*.selector li input:checked + label:hover {*/
-/*  background: #449d44;*/
-/*}*/
-
-.selector.open li input + label {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  margin-left: -50px;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-  font-size: 10px;
+.selector li input:checked + label {
+  background: #5cb85c;
+  color: white;
 }
 
-.video-title{
-  position: fixed;
+.selector li input:checked + label:hover {
+  background: #449d44;
+}
+
+.selector.open li input + label {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  margin-left: -40px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
 }

@@ -11,6 +11,7 @@
 <script>
 import 'ol/ol.css'
 import { init } from '@/utils/mapConfig/gisLib/HMap'
+
 export default {
   data () {
     return {
@@ -25,8 +26,20 @@ export default {
 </script>
 
 <style>
-  #map{height:100%;}
-  /*隐藏ol的一些自带元素*/
-  .ol-attribution,.ol-zoom { display: none;}
+#map {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 
+/*隐藏ol的一些自带元素*/
+.ol-attribution, .ol-zoom {
+  display: none;
+}
+
+.maplevel {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+}
 </style>

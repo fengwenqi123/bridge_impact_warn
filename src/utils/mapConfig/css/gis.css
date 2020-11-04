@@ -53,7 +53,7 @@ input[type='button'] {
 
 .maplevel {
     position: fixed;
-    bottom: 1px;
+    bottom: 20px;
     right: 18px;
     width: 80px;
     text-align: center;

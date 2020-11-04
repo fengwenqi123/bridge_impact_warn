@@ -8,6 +8,8 @@ const getters = {
   app: state => state.gis.app,
   coordinate: state => state.gis.coordinate,
   coverId: state => state.gis.coverId,
-  lonAndLat: state => state.gis.lonAndLat
+  lonAndLat: state => state.gis.lonAndLat,
+  video: state => state.gis.video,
+  type: state => state.gis.type
 }
 export default getters

@@ -6,7 +6,7 @@ import 'normalize.css/normalize.css'
 import './icons'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// import './permission'
+import './permission'
 import './styles/index.scss'
 import * as filters from './filters' // global filters
 Vue.config.productionTip = false

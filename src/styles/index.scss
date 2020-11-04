@@ -6,7 +6,7 @@
 @import './common-table.scss';
 @import './common.scss';
 @import './information.scss';
-@import './videoList.scss';
+@import './popup.scss';
 
 body {
   height: 100%;
@@ -66,4 +66,12 @@ div:focus {
 // main-container global css
 .app-container {
   padding: 20px;
+}
+ul{
+  padding: 0px;
+  margin: 0px;
+}
+p{
+  padding: 0px;
+  margin: 0px;
 }

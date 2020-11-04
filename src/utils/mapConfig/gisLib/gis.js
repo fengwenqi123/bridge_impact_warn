@@ -1,9 +1,20 @@
 /* eslint-disable */
 import store from '@/store'
-import { showInfoLayer, webMctToWGS84, getDistance, locateTo, pointTo, addFlashMarker, formatLength, finaltime, wgs84ToWebMct, clearFeature } from './HTool'
+import bus from '@/components/bus'
+import {
+  showInfoLayer,
+  webMctToWGS84,
+  getDistance,
+  locateTo,
+  pointTo,
+  addFlashMarker,
+  formatLength,
+  finaltime,
+  wgs84ToWebMct,
+  clearFeature
+} from './HTool'
 import Overlay from 'ol/Overlay'
 import Select from 'ol/interaction/Select'
-import { toggleOptions } from './video'
 import HUtil from './HUtil'
 import HShipLayer from './HShipLayer.js'
 import { GeoJSON } from 'ol/format'
@@ -27,6 +38,7 @@ import { Feature } from 'ol'
  */
 const HUtils = new HUtil()
 const HShipLayers = new HShipLayer()
+
 function showShipNameIntable (shipFeatures) {
   var objList = []
   if (shipFeatures.length !== 0) {
@@ -180,7 +192,6 @@ export function showPopup (map) {
   singleClick.on('select', function (e) {
     var feature = e.target.getFeatures().getArray()[0]
     if (feature === undefined) {
-      toggleOptions('.selector')
       setTimeout(function () {
         var overlays = store.getters.app.map.getOverlays()
         overlays.forEach(function (e) {
@@ -197,41 +208,14 @@ export function showPopup (map) {
     // 只有视频要素没有datatype属性
 
     if (propertyType == undefined) {
-      var olayhtml = ''
-      var elementUl = null
       var videoFeatures = property.features
-      var videoOverCoor = videoFeatures[0].getGeometry().getFirstCoordinate(true)
+      var videoList = []
       for (var i = 0; i < videoFeatures.length; i++) {
-        var videoProperties = videoFeatures[i].getProperties()
-        // msg: {
-        //   name: property["name"],
-        //     rtmp: data.data.rtmp,
-        //     id: property["id"],
-        //     ip: property["ipAdress"],
-        //     channel: property["channel"],
-        //     userName: property["userName"],
-        //     password: property["password"],
-        //     port: property["port"]
-        // }
-        var videoID = videoProperties.id
-        var videoName = videoProperties.name
-        var videoIPAdress = videoProperties.ipAdress
-        var videoChannel = videoProperties.channel
-        var videoUsername = videoProperties.userName
-        var videoPassword = videoProperties.password
-        var videoPort = videoProperties.port
-        var videoPatrolMileage = videoProperties.patrolMileage
-        var videoLon = videoProperties.longitude
-        var videoLat = videoProperties.latitude
-        if (videoFeatures.length > 5) {
-          olayhtml = olayhtml + `<div><button onclick="playVideo('${videoID}','${videoName}','${videoIPAdress}',${videoChannel},'${videoUsername}','${videoPassword}','${videoPort}','${videoLon}','${videoLat}','${videoPatrolMileage}')">${videoName}</button></div>`
-        } else {
-          videoChannel = videoChannel || null
-          olayhtml += `<li><input id=${i} type='checkbox'><label class="label1" for=${i}>${videoName}</label></li>`
-        }
+        let video = videoFeatures[i].getProperties()
+        delete video.geometry
+        videoList.push(video)
       }
-      elementUl = videoFeatures.length > 5 ? olayhtml : '<ul>' + olayhtml + '</ul><button onclick="toggleOptions($(this).parent())"></button>'
-      createVideoOverlay(elementUl, videoOverCoor, videoFeatures.length)
+      bus.$emit('video', videoList)
       return
     }
     if (propertyType === 0 || propertyType === 1 || propertyType === 2 || propertyType === 3) {
@@ -263,8 +247,8 @@ export function showPopup (map) {
       chosenCircleGeometry.setCenter(newCirleCenter)
       HShipLayers.setChosenShipname(obj.shipName)
     }
-    console.log(property)
-    console.log(propertyType)
+    // console.log(property)
+    // console.log(propertyType)
     switch (propertyType) {
       case 0:
         parent.postMessage({
@@ -439,14 +423,15 @@ export function showPopup (map) {
         }, '*')
         break
       case 'bridge':
-        console.log(property.id)
-        console.log(property.name)
-        parent.postMessage({
-          act: 'bridge',
-          msg: {
-            id: property.id
-          }
-        }, '*')
+        bus.$emit('bridge', property.id)
+        // console.log(property.id)
+        // console.log(property.name)
+        // parent.postMessage({
+        //   act: 'bridge',
+        //   msg: {
+        //     id: property.id
+        //   }
+        // }, '*')
         break
       case 'anchorpoint':
         parent.postMessage({
@@ -544,7 +529,6 @@ function clickVideoButtonToShowShipMessage (lon, lat, xhlc) {
   }, '*')
 }
 
-
 /**
  * 定位到视频
  * @param name  监控视频名称
@@ -574,36 +558,6 @@ function locateToVideo (name) {
  * @param output
  * @param coor
  */
-function createVideoOverlay (output, coor, length) {
-  var overlays = store.getters.app.map.getOverlays()
-  overlays.forEach(function (e) {
-    setTimeout(function () {
-      store.getters.app.map.removeOverlay(e)
-    }, 0)
-  }, this)
-  var videoElement = document.createElement('div')
-  if (length > 5) {
-    videoElement.className = 'video-overlay'
-  } else {
-    videoElement.className = 'selector'
-  }
-
-  var videoOverlay = new Overlay({
-    element: videoElement,
-    offset: [0, 0],
-    positioning: 'center-center'
-  })
-  videoElement.innerHTML = output
-  console.log(output)
-  $(".selector").find("label").click(function(){
-    alert(111)
-  })
-  videoOverlay.setPosition(coor)
-  setTimeout(function () {
-    toggleOptions('.selector')
-  }, 100)
-  store.getters.app.map.addOverlay(videoOverlay)
-}
 
 /**
  * 视频播放

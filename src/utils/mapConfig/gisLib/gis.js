@@ -247,8 +247,8 @@ export function showPopup (map) {
       chosenCircleGeometry.setCenter(newCirleCenter)
       HShipLayers.setChosenShipname(obj.shipName)
     }
-    console.log(property)
-    console.log(propertyType)
+    // console.log(property)
+    // console.log(propertyType)
     switch (propertyType) {
       case 0:
         parent.postMessage({
@@ -423,14 +423,15 @@ export function showPopup (map) {
         }, '*')
         break
       case 'bridge':
-        console.log(property.id)
-        console.log(property.name)
-        parent.postMessage({
-          act: 'bridge',
-          msg: {
-            id: property.id
-          }
-        }, '*')
+        bus.$emit('bridge', property.id)
+        // console.log(property.id)
+        // console.log(property.name)
+        // parent.postMessage({
+        //   act: 'bridge',
+        //   msg: {
+        //     id: property.id
+        //   }
+        // }, '*')
         break
       case 'anchorpoint':
         parent.postMessage({

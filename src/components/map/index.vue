@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="map" ref="map" @click="coordinate"></div>
+    <div id="map" ref="map"></div>
     <div id="coor"></div>
     <div class="maplevel">
       级别：<span id="maplevel"></span>
@@ -11,6 +11,7 @@
 <script>
 import 'ol/ol.css'
 import { init } from '@/utils/mapConfig/gisLib/HMap'
+
 export default {
   data () {
     return {
@@ -20,18 +21,25 @@ export default {
   mounted () {
     var mapcontainer = this.$refs.map
     init(mapcontainer)
-  },
-  methods: {
-    coordinate (e) {
-      this.$emit('coordinate', e.clientX, e.clientY)
-    }
   }
 }
 </script>
 
 <style>
-  #map{height:100%;}
-  /*隐藏ol的一些自带元素*/
-  .ol-attribution,.ol-zoom { display: none;}
+#map {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 
+/*隐藏ol的一些自带元素*/
+.ol-attribution, .ol-zoom {
+  display: none;
+}
+
+.maplevel {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+}
 </style>

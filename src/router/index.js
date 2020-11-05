@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import base from './modules/base'
 import system from './modules/system'
+import video from './modules/video'
 
 Vue.use(Router)
 
@@ -12,7 +13,8 @@ Router.prototype.push = function push (location) {
 }
 
 export const constantRouterMap = [
-  ...base
+  ...base,
+  video
 ]
 
 export const asyncRouterMap = [

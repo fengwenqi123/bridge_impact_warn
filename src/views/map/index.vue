@@ -2,33 +2,18 @@
   <div class="container">
     <olMap>
     </olMap>
-    <div class="drawer">
-      <el-drawer
-        :visible.sync="drawer"
-        :with-header="false"
-        size="250px"
-        :direction="direction">
-        <div class="video-list" :style="{height:clientHeight+'px'}">
-          <el-scrollbar class="scrolls">
-            <ul>
-              <li v-for="(item) in videoList" :key="item.id">
-                <div class="item" @click="play(item)">
-                  <div class="name">
-                    {{ item.name }}
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </el-scrollbar>
-        </div>
-      </el-drawer>
-    </div>
+    <videoDrawer
+      :videoList="videoList"
+      :drawer.sync="drawer"
+      @checked="play">
+    </videoDrawer>
     <div v-for="(item,index) in checkedVideoList" :key="item.id">
       <div class="rtmp" v-if="item.show" v-focus>
         <p class="p1">{{ item.name }}<i @click="close(index)" class="el-icon-circle-close"></i></p>
         <videoCom :rtmp="item.rtmp" :id="item.id"></videoCom>
       </div>
     </div>
+    <shipInfo v-if="shipInfo" :shipInfo="shipInfo" @closeTab="closeTab"></shipInfo>
   </div>
 </template>
 
@@ -38,6 +23,10 @@ import olMap from '@/components/map/index'
 import { addInfoLayers, startGISWork } from '@/utils/mapConfig/gisLib/HMap.js'
 import bus from '@/components/bus'
 import videoCom from '@/components/video'
+import HShipLayer from '@/utils/mapConfig/gisLib/HShipLayer'
+import { GIS_SHIPWMS, GIS_SHIPWFS } from '@/utils/mapConfig/gisLib/HConfig'
+import videoDrawer from '@/views/map/videoDrawer'
+import shipInfo from '@/views/map/shipInfo'
 
 export default {
   computed: {
@@ -49,20 +38,24 @@ export default {
     return {
       videoList: null,
       drawer: false,
-      direction: 'ltr',
-      clientHeight: document.body.clientHeight,
       video: null,
-      checkedVideoList: []
+      checkedVideoList: [],
+      shipInfo: null
     }
   },
   components: {
     olMap,
-    videoCom
+    videoCom,
+    videoDrawer,
+    shipInfo
   },
   mounted () {
     addInfoLayers(this.app) // 增加业务图层
+    const shipLayer = new HShipLayer()
+    shipLayer.init(this.app.map, GIS_SHIPWMS, GIS_SHIPWFS) // 船舶图层初始化
+    shipLayer.refresh() // 船舶图层刷新
     startGISWork()
-    this.onBus()
+    this.onBus() // 接收地图发送的数据
   },
   methods: {
     // 点击要素触发事件
@@ -71,10 +64,11 @@ export default {
         this.videoList = obj
         this.drawer = true
       })
-      bus.$on('bridge', (obj) => {
-        console.log(obj)
+      bus.$on('shipManage', (obj) => {
+        this.shipInfo = obj
       })
     },
+    // 播放视频前判断
     play (item) {
       if (!item.rtmp) {
         this.$message({
@@ -95,10 +89,14 @@ export default {
         })
       }
     },
+    // 逻辑关闭视频
     close (index) {
       const item = JSON.parse(JSON.stringify(this.checkedVideoList[index]))
       item.show = false
       this.$set(this.checkedVideoList, index, item)
+    },
+    closeTab () {
+      this.shipInfo = null
     }
   },
   directives: {
@@ -130,31 +128,6 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  .drawer {
-    .video-list {
-      ul {
-        height: 100%;
-        overflow: auto;
-
-        li {
-          padding: 5px 10px;
-
-          .item {
-            height: 120px;
-            background: #000;
-            background-size: 100% 100%;
-
-            .name {
-              padding-top: 5px;
-              padding-left: 5px;
-              color: #fff;
-            }
-          }
-        }
-      }
-    }
-  }
-
   .rtmp {
     position: fixed;
     width: 484px;

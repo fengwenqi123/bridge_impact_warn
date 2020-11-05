@@ -1,5 +1,4 @@
-// import { Vector } from 'ol/layer'
-// import { Vector as SVector } from 'ol/source'
+/* eslint-disable */
 import { GeoJSON, WKT } from 'ol/format'
 import { Polygon, Point } from 'ol/geom'
 import { Image, Vector } from 'ol/layer'

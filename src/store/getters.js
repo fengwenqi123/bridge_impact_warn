@@ -10,6 +10,10 @@ const getters = {
   coverId: state => state.gis.coverId,
   lonAndLat: state => state.gis.lonAndLat,
   video: state => state.gis.video,
-  type: state => state.gis.type
+  type: state => state.gis.type,
+  shipInfo: state => state.ship.shipInfo,
+  phone: state => state.ship.phone,
+  shipType: state => state.ship.type,
+  pop: state => state.ship.pop
 }
 export default getters

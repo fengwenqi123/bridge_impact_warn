@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import base from './modules/base'
 import system from './modules/system'
 import video from './modules/video'
+import warning from './modules/warning'
 
 Vue.use(Router)
 
@@ -14,7 +15,9 @@ Router.prototype.push = function push (location) {
 
 export const constantRouterMap = [
   ...base,
+  warning,
   video
+
 ]
 
 export const asyncRouterMap = [

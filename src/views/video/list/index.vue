@@ -14,7 +14,7 @@
         </el-row>
       </div>
       <div class="video">
-        <videoRtmp rtmp="rtmp://172.16.151.135:1935/00bd003a0046006a0018002200f40096/34" :id="videoId"></videoRtmp>
+        <videoRtmp rtmp="http://10.100.70.228:9002/openUrl/8yxPRoA/live.m3u8" :id="videoId"></videoRtmp>
       </div>
     </div>
     <div class="line2">

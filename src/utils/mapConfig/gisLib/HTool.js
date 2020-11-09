@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * GIS基本操作工具集
  * created by zj on 2018.7.30

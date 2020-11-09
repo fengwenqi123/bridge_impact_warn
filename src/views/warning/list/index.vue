@@ -44,8 +44,6 @@
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
-          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">添加
-          </el-button>
         </div>
       </div>
       <div class="table">
@@ -130,7 +128,7 @@
         </div>
       </div>
     </el-card>
-    <el-dialog v-el-drag-dialog :title="title" :visible.sync="addDialog" :before-close="handleClose" top="6vh">
+    <el-dialog v-el-drag-dialog :title="title" :visible.sync="addDialog" :before-close="handleClose" top="1vh" width="90%">
       <information v-if="addDialog" :row="row" :readonly="readonly" @cancel="cancel" @submit="submit"/>
     </el-dialog>
   </div>

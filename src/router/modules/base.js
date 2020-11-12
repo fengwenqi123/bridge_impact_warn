@@ -1,6 +1,6 @@
 const base = [{
   path: '/',
-  redirect: '/home'
+  redirect: '/map'
 }, {
   path: '/home',
   component: () => import('@/views/home'),
@@ -12,10 +12,6 @@ const base = [{
 }, {
   path: '/404',
   component: () => import('@/views/404'),
-  hidden: true
-}, {
-  path: '/map',
-  component: () => import('@/views/map'),
   hidden: true
 }]
 export default base

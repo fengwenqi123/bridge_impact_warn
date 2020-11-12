@@ -14,6 +14,12 @@ const video = {
       name: 'video-list',
       component: () => import('@/views/video/list/index'),
       meta: { keepAlive: false, title: '视频列表', roles: [] }
+    },
+    {
+      path: 'videoManagement',
+      name: 'videoManagement',
+      component: () => import('@/views/video/videoManagement/index'),
+      meta: { keepAlive: false, title: '视频管理', roles: [] }
     }
   ]
 }

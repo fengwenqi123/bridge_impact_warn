@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>区域轨迹</title>
+  <link rel="stylesheet" type="text/css" href="../gis/css/ol.css"/>
+  <link rel="stylesheet" type="text/css" href="../gis/css/barstyle.css"/>
+  <link rel="stylesheet" type="text/css" href="../areatrack/trackcss/gis.css"/>
+  <link rel="stylesheet" type="text/css" href="../areatrack/trackcss/olpopup.css"/>
+  <!--基础js-->
+  <script type="text/javascript" src="../gis/js/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="../gis/js/ol.js"></script>
+
+  <!--基础配置和工具js-->
+  <script type="text/javascript" src="../gis/js/gislib/HConfig.js"></script>
+  <script type="text/javascript" src="../areatrack/trackjs/trackTool.js"></script>
+  <script type="text/javascript" src="../gis/js/gislib/HUtil.js"></script>
+  <script type="text/javascript" src="../gis/js/gislib/HSymbol.js"></script>
+  <script type="text/javascript" src="trackjs/HShip.js"></script>
+  <script type="text/javascript" src="../gis/js/jquery-PlayBar.min.js"></script>
+
+  <!--业务工具js-->
+  <script type="text/javascript" src="trackjs/HInfoLayerExt.js"></script>
+  <script type="text/javascript" src="../gis/js/gislib/HInfoLayer.js"></script>
+  <script type="text/javascript" src="../gis/js/gis.js"></script>
+
+  <!--最后引入初始化和业务js(页面渲染完成后) -->
+  <script type="text/javascript" src="trackjs/trackMap.js"></script>
+</head>
+<body>
+<!--公用弹出框-->
+<div id="popup" class="ol-popup">
+  <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+  <div id="popup-content"></div>
+</div>
+<!--地图容器-->
+<div id="map">
+  <div class="yaosu">
+    <div class="computed" id="coor"></div>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="trackjs/dataloading.js"></script>
+<script type="text/javascript" src="trackjs/dataquery.js"></script>
+<script type="text/javascript" src="trackjs/datashow.js"></script>
+</html>

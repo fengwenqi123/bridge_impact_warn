@@ -65,6 +65,9 @@
               </div>
               <div class="gj">
                 <div class="title">船舶航行轨迹</div>
+                <div class="item">
+                  <playBack></playBack>
+                </div>
               </div>
             </div>
           </el-card>
@@ -242,11 +245,12 @@
 import { add, findDep } from '@/api/DepManagement'
 import dialogFormMixin from '@/mixins/dialogFormMixin'
 import videoRtmp from '@/components/video'
+import playBack from '@/components/playBack/playBack'
 
 export default {
   mixins: [dialogFormMixin],
   components: {
-    videoRtmp
+    videoRtmp, playBack
   },
   props: {
     row: {
@@ -335,12 +339,16 @@ export default {
 
         .video {
           .item {
-            width: 500px;
-            height: 300px;
+            width: 800px;
+            height: 600px;
           }
         }
 
         .gj {
+          .item {
+            width: 800px;
+            height: 600px;
+          }
         }
       }
     }

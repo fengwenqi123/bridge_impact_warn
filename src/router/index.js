@@ -4,6 +4,10 @@ import base from './modules/base'
 import system from './modules/system'
 import video from './modules/video'
 import warning from './modules/warning'
+import journal from './modules/journal'
+import yawWarning from './modules/yawWarning'
+import electronicFence from './modules/electronicFence'
+import map from './modules/map'
 
 Vue.use(Router)
 
@@ -16,7 +20,11 @@ Router.prototype.push = function push (location) {
 export const constantRouterMap = [
   ...base,
   warning,
-  video
+  video,
+  journal,
+  yawWarning,
+  electronicFence,
+  map
 
 ]
 

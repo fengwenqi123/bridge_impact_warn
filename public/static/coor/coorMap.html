@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>绘制坐标</title>
+    <link rel="stylesheet" type="text/css" href="../gis/css/ol.css" />
+    <link rel="stylesheet" type="text/css" href="coorcss/gis.css" />
+    <!--基础js-->
+    <script type="text/javascript" src="../gis/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="../gis/js/ol.js"></script>
+    <script type="text/javascript" src="../gis/js/turf.min.js"></script>
+
+    <!--基础配置和工具js-->
+    <script type="text/javascript" src="../gis/js/gislib/HConfig.js"></script>
+    <script type="text/javascript" src="coorjs/coorTool.js"></script>
+    <script type="text/javascript" src="../gis/js/gislib/HUtil.js"></script>
+    <script type="text/javascript" src="../gis/js/gislib/HSymbol.js"></script>
+
+    <!--最后引入js -->
+    <script type="text/javascript" src="coorjs/coorMap.js"></script>
+    <script type="text/javascript" src="../gis/js/gis.js"></script>
+
+    <script
+      type="text/javascript"
+      src="../gis/js/gislib/HInfoLayer.js"
+    ></script>
+
+    <script type="text/javascript">
+      function getUrl(name) {
+        return (
+          decodeURIComponent(
+            (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(
+              location.href
+            ) || [, ''])[1].replace(/\+/g, '%20')
+          ) || null
+        )
+      }
+
+      $(function() {
+        /**
+         * 图画类型 type
+         * Point:点
+         * LineString:线
+         * Polygon:面
+         * Circle:圆
+         */
+        // 1.先定义一个原要素图层
+        var preLayer = new ol.layer.Vector({
+          source: new ol.source.Vector()
+        })
+        // 获取图画类型参数
+        var afterUrl = window.location.search.substring(1)
+        var typeParameter = getUrl('type')
+        if (typeParameter == 'Point') {
+          $('#edit').attr('value', '绘制点')
+          $('#edit').attr('editType', 'Point')
+
+          var aftercoor = getUrl('precoor')
+          if (aftercoor != 'nocoor') {
+            var afterlon = parseFloat(aftercoor.split(',')[0])
+            var afterlat = parseFloat(aftercoor.split(',')[1])
+            var lonlat = wgs84ToWebMct(afterlon, afterlat)
+            // 2.获取要素坐标后向preLayer添加要素
+            var prePoint = HSymbol.getMarkerSymbol({ type: 'point' }, lonlat, [
+              255,
+              106,
+              106
+            ])
+            preLayer.getSource().addFeatures([prePoint])
+
+            // 3.在map中添加图层
+            coorapp.map.addLayer(preLayer)
+          } else {
+            var areaName = getUrl('areaName')
+            if (areaName) {
+              setTimeout(function() {
+                locateTo('managearea', areaName)
+              }, 1000)
+            }
+          }
+        } else if (typeParameter == 'LineString') {
+          $('#edit').attr('value', '绘制线')
+          $('#edit').attr('editType', 'LineString')
+        } else if (typeParameter == 'Polygon') {
+          $('#edit').attr('value', '绘制面')
+          $('#edit').attr('editType', 'Polygon')
+
+          var aftercoor = afterUrl.split('&')[1].split('=')[1]
+          if (aftercoor != 'nocoor') {
+            // aftercoor = '{"brushColor":"","fillColor":"","brushThickness":10,"pointList":[{"x":120.08947030588065,"y":30.890239490292444},{"x":120.12134025523633,"y":30.900982198272914},{"x":120.12914305271774,"y":30.87339387222849},{"x":120.08217408435203,"y":30.8746080705089},{"x":120.08947030588065,"y":30.890239490292444}]}'
+            // 2.获取要素坐标后向preLayer添加要素
+            var polygonSymbol = []
+            var areaObj = JSON.parse(decodeURI(aftercoor))
+            var areaPoints = areaObj.pointList
+            var points = []
+            for (i = 0; i < areaPoints.length; i++) {
+              var lonlat = wgs84ToWebMct(areaPoints[i].x, areaPoints[i].y)
+              points.push(lonlat)
+            }
+            var mareaSymbol = HSymbol.getPolygonSymbol(
+              { type: 'prearea' },
+              [points],
+              [240, 248, 255, 0.8],
+              [112, 128, 144],
+              2,
+              false,
+              '原区域',
+              16
+            )
+            polygonSymbol.push(mareaSymbol)
+            preLayer.getSource().addFeatures(polygonSymbol)
+
+            // 3.在map中添加图层
+            coorapp.map.addLayer(preLayer)
+          } else {
+            var areaName = getUrl('areaName')
+            if (areaName) {
+              setTimeout(function() {
+                locateTo('managearea', areaName)
+              }, 1000)
+            }
+          }
+        } else if (typeParameter == 'Circle') {
+          $('#edit').attr('value', '绘制圆')
+          $('#edit').attr('editType', 'Circle')
+        }
+        $('#edit').css('visibility', 'visible')
+
+        // 4.定位
+        var targetFeature = preLayer.getSource().getFeatures()[0]
+        if (targetFeature) {
+          var mapView = coorapp.map.getView()
+          mapView.fit(targetFeature.getGeometry(), coorapp.map.getSize(), {
+            duration: 0
+          })
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <div id="coorMap" style="position: absolute;height: 100%;width: 100%">
+      <div class="yaosu">
+        <!-- <input
+          type="button"
+          name=""
+          id=""
+          value="电子地图"
+          onclick="openDZDT()"
+        />
+        <input
+          type="button"
+          name=""
+          id=""
+          value="影像地图"
+          onclick="openYXT()"
+        />
+        <input
+          id="DZHDT"
+          type="checkbox"
+          value="电子航道图"
+          name="show"
+          checked="checked"
+          onclick="switchDZHDT()"
+        /><label>电子航道图</label> -->
+        <input
+          type="button"
+          id="edit"
+          value=""
+          editType=""
+          style="visibility:hidden"
+          onclick="drawFeature()"
+        />
+        <!-- <div class="computed" id="coor"></div> -->
+      </div>
+    </div>
+  </body>
+</html>

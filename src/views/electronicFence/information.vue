@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item label="归属部门:">
               <el-select
-                v-model="form.affiliationDepartment"
+                v-model="form.deptId"
                 clearable
                 filterable
                 placeholder="请选择"
@@ -99,7 +99,9 @@ export default {
         cereaName: null,
         initiateState: null,
         remark: null,
-        affiliationDepartment: null
+        deptId: null,
+        deptName: null,
+        cereaCoordinates: null
       },
       rules: {}
     }
@@ -117,7 +119,20 @@ export default {
     },
     // 表单操作
     submit () {
-      add(this.form).then(response => {
+      this.departmentList.forEach(item => {
+        if (item.id === this.form.deptId) {
+          this.form.deptName = item.name
+        }
+      })
+      add({
+        id: this.form.id,
+        initiateState: this.form.initiateState,
+        cereaName: this.form.cereaName,
+        deptId: this.form.deptId,
+        deptName: this.form.deptName,
+        cereaCoordinates: this.form.cereaCoordinates,
+        remark: this.form.remark
+      }).then(response => {
         this.$message({
           message: response.msg,
           type: 'success'

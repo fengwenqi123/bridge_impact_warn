@@ -2,6 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import base from './modules/base'
 import system from './modules/system'
+import video from './modules/video'
+import warning from './modules/warning'
+import journal from './modules/journal'
+import yawWarning from './modules/yawWarning'
+import electronicFence from './modules/electronicFence'
+import map from './modules/map'
 
 Vue.use(Router)
 
@@ -12,7 +18,14 @@ Router.prototype.push = function push (location) {
 }
 
 export const constantRouterMap = [
-  ...base
+  ...base,
+  warning,
+  video,
+  journal,
+  yawWarning,
+  electronicFence,
+  map
+
 ]
 
 export const asyncRouterMap = [

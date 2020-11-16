@@ -247,44 +247,20 @@ export function showPopup (map) {
       chosenCircleGeometry.setCenter(newCirleCenter)
       HShipLayers.setChosenShipname(obj.shipName)
     }
-    // console.log(property)
+    console.log(property)
     // console.log(propertyType)
     switch (propertyType) {
       case 0:
-        parent.postMessage({
-          act: 'shipManage',
-          msg: {
-            name: property.shipname,
-            aisClass: obj
-          }
-        }, '*')
+        bus.$emit('shipManage', obj)
         break
       case 1:
-        parent.postMessage({
-          act: 'shipManage',
-          msg: {
-            name: property.shipname,
-            aisClass: obj
-          }
-        }, '*')
+        bus.$emit('shipManage', obj)
         break
       case 2:
-        parent.postMessage({
-          act: 'shipManage',
-          msg: {
-            name: property.shipname,
-            aisClass: obj
-          }
-        }, '*')
+        bus.$emit('shipManage', obj)
         break
       case 3:
-        parent.postMessage({
-          act: 'shipManage',
-          msg: {
-            name: property.shipname,
-            aisClass: obj
-          }
-        }, '*')
+        bus.$emit('shipManage', obj)
         break
       case 'aisBase':
         console.log('AIS基站名称:' + property.name)

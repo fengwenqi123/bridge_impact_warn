@@ -1,0 +1,238 @@
+/*gis.html中所需要的css*/
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.yaosu {
+    position: absolute;
+    z-index: 99;
+    right: 0px;
+    margin-right: 10px;
+    top: 30px;
+}
+
+#map {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    left: 0px;
+    width: 100%;
+}
+
+input[type='button'] {
+    border: none;
+    background: #01579b;
+    padding: 4px 14px;
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.ol-zoom {
+    display: none;
+}
+
+.label {
+    color: #000;
+}
+
+.computed {
+    position: fixed;
+    bottom: 30px;
+    right: 90px;
+    width: 200px;
+}
+
+/*层级和坐标颜色*/
+.ol-mouse-position {
+    width: 200px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.maplevel {
+    position: fixed;
+    bottom: 1px;
+    right: 18px;
+    width: 80px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.65);
+}
+
+/*报警点*/
+#css_animation {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background: rgba(255, 0, 0, 1);
+    transform: scale(0);
+    animation: myfirst 2s;
+    animation-iteration-count: infinite;
+}
+
+/*水位报警点*/
+.water_animation {
+  height: 30px;
+  width: 30px;
+  border-radius: 25px;
+  background: rgba(255, 0, 0, 1);
+  transform: scale(0);
+  animation: myfirst 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes myfirst {
+  to {
+    transform: scale(4);
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes myfirst {
+    to {
+        transform: scale(3);
+        background: rgba(0, 0, 0, 0);
+    }
+}
+
+/*测量工具*/
+.tooltip {
+    position: relative;
+    background: rgba(30, 144, 255, 0.9);
+    border-radius: 4px;
+    color: white;
+    padding: 4px 8px;
+    opacity: 1;
+    white-space: nowrap;
+}
+
+.tooltip-measure {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.tooltip-static {
+    background-color: '#1E90FF';
+    color: white;
+    border: solid yellow;
+    font-weight: bold;
+}
+
+/*大连海事要素图片弹出的popup弹出层*/
+.ol-imgpopup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 15px;
+  border-radius: 7px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  height: auto;
+  height: auto;
+}
+.ol-imgpopup:after, .ol-imgpopup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-imgpopup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-imgpopup:before {
+  border-top-color: black;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-imgpopup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 0px;
+  right: 8px;
+}
+.ol-imgpopup-closer:after {
+  content: "✖";
+}
+
+/*视频*/
+.video-overlay {
+  position: relative;
+  background: rgba(30, 144, 255, 0.9);
+  border-radius: 4px;
+  border: 2px solid;
+  color: white;
+  padding: 23px 10px 8px 10px;
+  font-size: 15px;
+}
+
+.button-div {
+  max-height: 146px;
+  overflow-y: auto;
+}
+
+.button-div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+.button-div::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+.button-div::-webkit-scrollbar-thumb {
+  background-color: #0ae;
+
+  background-image: -webkit-gradient(linear, 0 0, 0 100%,
+  color-stop(.5, rgba(255, 255, 255, .2)),
+  color-stop(.5, transparent), to(transparent));
+}
+
+.video-overlay span {
+  font-size: 20px;
+}
+
+.video-overlay button {
+  margin-bottom: 5px;
+  width: 170px;
+  background: #fff;
+  outline: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+
+.video-closer {
+  position: absolute;
+  right: 8px;
+  top: -3px;
+  cursor: pointer;
+}
+
+/*通航预警报警点*/
+.nav_animation {
+  height: 30px;
+  width: 30px;
+  border-radius: 25px;
+  background: rgba(255, 0, 0, 1);
+  transform: scale(0);
+  animation: myfirst 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes myfirst {
+  to {
+    transform: scale(4);
+    background: rgba(0, 0, 0, 0);
+  }
+}

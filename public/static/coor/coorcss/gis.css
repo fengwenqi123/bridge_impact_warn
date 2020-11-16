@@ -1,0 +1,45 @@
+/*gis.html中所需要的css*/
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.yaosu {
+  position: absolute;
+  z-index: 99;
+  right: 0px;
+  margin-right: 10px;
+  top: 30px;
+}
+
+#map {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  left: 0px;
+  width: 100%;
+}
+
+input[type='button'] {
+  border: none;
+  background: #01579b;
+  padding: 4px 14px;
+  color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.ol-zoom {
+  display: none;
+}
+
+.label {
+  color: #000;
+}
+.computed {
+  position: fixed;
+  bottom: 30px;
+  right: 0px;
+  width: 200px;
+}

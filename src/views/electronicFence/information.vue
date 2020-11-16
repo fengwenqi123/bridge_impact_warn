@@ -1,0 +1,159 @@
+<template>
+  <div class="information">
+    <div class="information-main">
+      <el-scrollbar class="scrolls">
+        <div class="information-form">
+          <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
+            <el-form-item label="围栏名称:">
+              <el-input
+                :readonly="readonly"
+                placeholder="请输入围栏名称"
+                clearable
+                v-model="form.cereaName"
+              />
+            </el-form-item>
+            <el-form-item label="启用状态:">
+              <el-radio v-model="form.initiateState" label="1">启用</el-radio>
+              <el-radio v-model="form.initiateState" label="2">禁用</el-radio>
+            </el-form-item>
+            <el-form-item label="归属部门:">
+              <el-select
+                v-model="form.deptId"
+                clearable
+                filterable
+                placeholder="请选择"
+              >
+                <el-option
+                  v-for="(item,index) in departmentList"
+                  :key="index"
+                  :label="item.name"
+                  :style="{ paddingLeft : (item.layer.length-2) * 10 + 'px' }"
+                  :value="item.id"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="围栏坐标:">
+              <el-input
+                :readonly="readonly"
+                placeholder="请输入围栏坐标"
+                clearable
+              />
+            </el-form-item>
+            <el-form-item label="备注:">
+              <el-input
+                type="textarea"
+                :rows="6"
+                placeholder="请输入内容"
+                v-model="form.remark">
+              </el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-scrollbar>
+    </div>
+    <div slot="footer" class="information-foot" v-if="!readonly">
+      <el-button
+        icon="el-icon-document"
+        size="small"
+        class="blueButton"
+        @click="submitForm('addForm')"
+      >
+        保存
+      </el-button>
+      <el-button
+        icon="el-icon-refresh-left"
+        size="small"
+        class="whiteButton"
+        @click="cancel"
+      >
+        返回
+      </el-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { findDepartmentsByPersonnel } from '@/api/DepManagement'
+import dialogFormMixin from '@/mixins/dialogFormMixin'
+import { add } from '@/api/electronicFence'
+
+export default {
+  mixins: [dialogFormMixin],
+  props: {
+    row: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    readonly: {
+      type: Boolean
+    }
+  },
+  data () {
+    return {
+      // 表单内容
+      departmentList: [],
+      form: {
+        id: null,
+        cereaName: null,
+        initiateState: null,
+        remark: null,
+        deptId: null,
+        deptName: null,
+        cereaCoordinates: null
+      },
+      rules: {}
+    }
+  },
+  created () {
+    this.init()
+    this.findAuth()
+  },
+
+  methods: {
+    init () {
+      if (this.row) {
+        this.form = JSON.parse(JSON.stringify(this.row))
+      }
+    },
+    // 表单操作
+    submit () {
+      this.departmentList.forEach(item => {
+        if (item.id === this.form.deptId) {
+          this.form.deptName = item.name
+        }
+      })
+      add({
+        id: this.form.id,
+        initiateState: this.form.initiateState,
+        cereaName: this.form.cereaName,
+        deptId: this.form.deptId,
+        deptName: this.form.deptName,
+        cereaCoordinates: this.form.cereaCoordinates,
+        remark: this.form.remark
+      }).then(response => {
+        this.$message({
+          message: response.msg,
+          type: 'success'
+        })
+        this.$emit('submit')
+      })
+    },
+    cancel () {
+      this.$emit('cancel')
+    },
+    findAuth () {
+      var id = this.$store.state.user.userInfo.id
+      findDepartmentsByPersonnel(id).then(response => {
+        this.departmentList = response.data
+      })
+    }
+  }
+
+}
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+
+</style>

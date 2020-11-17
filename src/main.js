@@ -8,6 +8,7 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './permission'
 import './styles/index.scss'
+import './assets/font/font.css'
 import * as filters from './filters' // global filters
 Vue.config.productionTip = false
 

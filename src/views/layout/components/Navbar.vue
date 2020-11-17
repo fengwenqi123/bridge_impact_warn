@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
          <div class="img">
-           <img :src="title" class="title" alt="">
+           钱江五桥桥梁防撞与预警监测系统
          </div>
     <div class="tabs">
       <el-popover placement="bottom" width="150" trigger="click">
@@ -62,6 +62,11 @@ export default {
     align-items: center;
     justify-content: space-between;
 
+    .img{
+      font-family: AdobeHeiti;
+      font-size: 30px;
+      color: #fff;
+    }
     .title {
       width: 290px;
     }

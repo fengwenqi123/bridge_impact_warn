@@ -71,7 +71,7 @@
             label="联系电话"
           />
           <el-table-column
-            prop="addTime"
+            prop="addTimeString"
             label="预警时间"
           />
           <el-table-column

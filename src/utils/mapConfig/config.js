@@ -1,6 +1,4 @@
 import TileLayer from 'ol/layer/Tile'
-import TileArcGISRest from 'ol/source/TileArcGISRest'
-import OSM from 'ol/source/OSM'
 import XYZ from 'ol/source/XYZ'
 import TileWMS from 'ol/source/TileWMS'
 import TileGrid from 'ol/tilegrid/TileGrid'
@@ -9,7 +7,7 @@ import { GIS_HOST } from './gisLib/HConfig'
 
 const url = GIS_HOST + '/geowebcache/service/wms'
 
-const zjExtent = [12266461.42492, 2459896.44427, 15086223.39814, 4351865.76839]
+const ypExtent = [13354372.33097,3496494.21754,13399393.74063,3537388.02767]
 
 const fullExtent = [-20037508.342787, -20037508.342781033, 20037508.342781033, 20037508.342787]
 
@@ -23,8 +21,8 @@ const tileGrid = new TileGrid({
   resolutions: resolutions
 })
 
-const maptype = 0 // 0表示部署的离线瓦片地图，1表示OSM,2表示使用Arcgis在线午夜蓝地图服务
-var streetmap = () => {
+const maptype = 0 // 0:发布的离线地图 1:天地图在线 需修改地址
+var basemap = () => {
   var maplayer = null
   switch (maptype) {
     case 0:
@@ -34,44 +32,14 @@ var streetmap = () => {
           type: 'YXT',
           source: new TileWMS({
             url: url,
-            params: { LAYERS: 'zjimg', format: 'image/png', SRS: 'EPSG:3857' },
+            params: { LAYERS: 'yp_image', format: 'image/jpeg', SRS: 'EPSG:3857' },
             tileGrid: tileGrid
           }),
           visible: false
         }),
-        new TileLayer({
-          title: '电子地图',
-          type: 'DZDT',
-          source: new TileWMS({
-            url: url,
-            params: { LAYERS: 'zjdt', format: 'image/png', SRS: 'EPSG:3857' },
-            tileGrid: tileGrid
-          })
-        }),
-        new TileLayer({
-          title: '电子航道图',
-          type: 'DZHDT',
-          source: new TileWMS({
-            url: url,
-            params: { LAYERS: '1226hzjt', format: 'image/png', SRS: 'EPSG:3857' },
-            tileGrid: tileGrid
-          })
-        })
       ]
       break
     case 1:
-      maplayer = new TileLayer({
-        source: new OSM()
-      })
-      break
-    case 2:
-      maplayer = new TileLayer({
-        source: new TileArcGISRest({
-          url: 'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer'
-        })
-      })
-      break
-    case 3:
       maplayer = [
         new TileLayer({
           title: '影像地图',
@@ -100,11 +68,11 @@ var streetmap = () => {
   return maplayer
 }
 const config = {
-  mapCenterCoor: transform([120.172324, 30.102286], 'EPSG:4326', 'EPSG:3857'),
+  mapCenterCoor: transform([120.172378, 30.102054], 'EPSG:4326', 'EPSG:3857'),
   zoom: 16, // 地图缩放级别
-  streetmap: streetmap,
+  basemap: basemap,
   projection: get('EPSG:3857'),
-  extent: zjExtent,
+  extent: ypExtent,
   minZoom: 9,
   maxZoom: 18
 }

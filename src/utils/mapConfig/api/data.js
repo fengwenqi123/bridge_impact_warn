@@ -17,7 +17,7 @@ export function videoList () {
 
 export function checkAreaList () {
   return request({
-    url: '/zoneAdministration/getZoneDataList',
+    url: '/zoneAdministration/getZoneDataList?pageSize=30',
     method: 'GET'
   })
 }

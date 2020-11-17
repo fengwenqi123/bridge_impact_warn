@@ -13,12 +13,20 @@
               />
             </el-form-item>
             <el-form-item label="预警类型:">
-              <el-input
-                :readonly="readonly"
-                placeholder="请输入预警类型"
-                clearable
-                v-model="form.warningType"
-              />
+              <el-select v-model="form.warningType" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in warningTypeList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+<!--              <el-input-->
+<!--                :readonly="readonly"-->
+<!--                placeholder="请输入预警类型"-->
+<!--                clearable-->
+<!--                v-model="form.warningType"-->
+<!--              />-->
             </el-form-item>
             <el-form-item label="录音内容:">
               <el-input
@@ -96,7 +104,20 @@ export default {
         warningMethod: []
       },
       // 表单验证
-      rules: {}
+      rules: {},
+      warningTypeList: [{
+        value: '1',
+        label: '预警警告（一级)'
+      }, {
+        value: '2',
+        label: '紧急警告（二级)'
+      }, {
+        value: '3',
+        label: '危急警告（三级)'
+      }, {
+        value: '4',
+        label: '碰撞警告（四级)'
+      }]
     }
   },
   created () {

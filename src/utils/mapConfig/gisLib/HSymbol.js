@@ -231,6 +231,35 @@ var HSymbol = (function () {
       return polygonSymbol
     },
     /**
+     * 返回一个无标注面符号
+     * @param {Object} polygonAttr  面属性   {'type':'polygon',..}
+     * @param {Array} polygoncoor 点数组 [[[lon1,lat1],[lon2,lat2],[lon3,lat3]]]
+     * @param {Array} fillColor [R,G,B,A]数组  A:alpha 透明度 [255,255,255,0]
+     * @param {String|Array} lineColor 边界线颜色
+     * @param {Number} width 边界线宽
+     * @param {Boolean} isDash 是否是虚线
+     * @return {ol.Feature} polygonSymbol
+     */
+    getPolygonSymbolWithoutLabel: function (polygonAttr, polygoncoor, fillColor, lineColor, width, isDash) {
+      var polygonSymbol = new Feature({
+        geometry: new Polygon(polygoncoor)
+      })
+      polygonSymbol.setStyle(
+        new Style({
+          fill: new Fill({
+            color: fillColor
+          }),
+          stroke: new Stroke({
+            color: lineColor,
+            width: width,
+            lineDash: isDash === true ? [1, 2, 3, 4] : [0]
+          })
+        })
+      )
+      polygonSymbol.setProperties(polygonAttr, false)
+      return polygonSymbol
+    },
+    /**
      * 返回一个圆符号
      * @param {Object} polygonAttr  圆属性   {'type':'polygon',..}
      * @param {Array} center 圆心 [lon,lat]

@@ -34,8 +34,7 @@ var basemap = () => {
             url: url,
             params: { LAYERS: 'yp_image', format: 'image/jpeg', SRS: 'EPSG:3857' },
             tileGrid: tileGrid
-          }),
-          visible: false
+          })
         })
       ]
       break

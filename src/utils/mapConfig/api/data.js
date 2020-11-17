@@ -1,4 +1,4 @@
-import request from '@/utils/mapConfig/request'
+import request from '@/utils/request1'
 // import qs from 'qs'
 
 export function bridgeList () {
@@ -11,6 +11,13 @@ export function bridgeList () {
 export function videoList () {
   return request({
     url: '/gis/videoSurveillance/list',
+    method: 'GET'
+  })
+}
+
+export function checkAreaList () {
+  return request({
+    url: '/zoneAdministration/getZoneDataList',
     method: 'GET'
   })
 }

@@ -12,7 +12,7 @@
 import store from '@/store'
 import { wgs84ToWebMct } from './HTool'
 import HSymbol from './HSymbol'
-import { bridgeList, videoList } from '../api/data'
+import { bridgeList, videoList, checkAreaList } from '../api/data'
 import { Style, Icon } from 'ol/style'
 import { Feature } from 'ol'
 import { Point } from 'ol/geom'
@@ -23,6 +23,42 @@ const videoImg = require('@/utils/mapConfig/img/video.png')
 export function loadInfoLayer (type) {
   if ((type == null || type === 'bridge') && store.getters.app.bridgeLayer) loadBridgeLayer()
   if ((type == null || type === 'video') && store.getters.app.videoLayer) loadVideo()
+  if ((type == null || type === 'checkarea') && store.getters.app.checkAreaLayer) loadCheckArea()
+}
+
+function loadCheckArea () {
+  checkAreaList().then(response => {
+    console.log(response)
+  })
+  // $.ajax({
+  //   url: GIS_SERVERIP + 'zoneAdministration/getZoneDataList?pageNum=1&pageSize=30',
+  //   type: 'get',
+  //   dataType: 'json',
+  //   success: function (d) {
+  //     console.log(d)
+  // var areadata = d.data
+  // var polygonSymbol = []
+  // app.safeworkareaLayer.clear()
+  // $.each(areadata, function(i, item) {
+  //   var sareaAttr = {
+  //     'datatype': 'safework',
+  //     'name': item.name
+  //   }
+  //   if (item.area != null && item.area != '') {
+  //     var areaObj = JSON.parse(item.area)
+  //     var areaPoints = areaObj.pointList
+  //     var points = []
+  //     for (i = 0; i < areaPoints.length; i++) {
+  //       var lonlat = wgs84ToWebMct(areaPoints[i].x, areaPoints[i].y)
+  //       points.push(lonlat)
+  //     }
+  //     var sareaSymbol = HSymbol.getPolygonSymbol(sareaAttr, [points], [255, 255, 255, 0.2], [50, 205, 50], 2, false, sareaAttr['name'], 16, [255, 165, 0])
+  //     polygonSymbol.push(sareaSymbol)
+  //   }
+  // })
+  // app.safeworkareaLayer.addPolygonSymbol(polygonSymbol)
+  //   }
+  // })
 }
 
 /**

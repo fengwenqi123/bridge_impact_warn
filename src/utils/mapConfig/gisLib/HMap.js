@@ -16,7 +16,7 @@ import HSymbol from './HSymbol'
 export function init (mapContainer) {
   const map = new Map({
     target: mapContainer,
-    layers: mapconfig.streetmap(),
+    layers: mapconfig.basemap(),
     view: new View({
       center: mapconfig.mapCenterCoor,
       zoom: mapconfig.zoom,
@@ -80,6 +80,7 @@ function initMapEvent (map) {
  */
 export function addInfoLayers (app) {
   app.videoLayer = new HInfoLayer('video', true, 160, 0) // 视频监控图层 ps:聚合图层设置图层显示分辨率失效;
+  app.checkAreaLayer = new HInfoLayer('checkarea', true, 300, 0)// 提醒区域
   app.chosenCircle = HSymbol.getCircleSymbol({ type: 'chc' }, mapconfig.mapCenterCoor, 20, [255, 255, 255, 0], [255, 255, 0], 3, true)
   app.chosenLayer = new Vector({
     source: new SVector({
@@ -89,6 +90,7 @@ export function addInfoLayers (app) {
     visible: false
   }) // 船舶要素选中图层
   app.map.addLayer(app.videoLayer.layer)
+  app.map.addLayer(app.checkAreaLayer.layer)
 }
 /**
  * 所有地图资源加载完毕后执行的GIS操作

@@ -54,12 +54,14 @@
               />
             </el-form-item>
             <el-form-item label="视频类型:">
-              <el-input
-                :readonly="readonly"
-                placeholder="请输入视频类型"
-                clearable
-                v-model="form.videoType"
-              />
+              <el-select v-model="form.videoType" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in videoList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="h5地址:">
               <el-input
@@ -94,12 +96,20 @@
               />
             </el-form-item>
             <el-form-item label="回放类型:">
-              <el-input
-                :readonly="readonly"
-                placeholder="请输入回放类型"
-                clearable
-                v-model="form.playbackType"
-              />
+              <el-select v-model="form.playbackType" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in playBackList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+<!--              <el-input-->
+<!--                :readonly="readonly"-->
+<!--                placeholder="请输入回放类型"-->
+<!--                clearable-->
+<!--                v-model="form.playbackType"-->
+<!--              />-->
             </el-form-item>
           </el-form>
         </div>
@@ -162,7 +172,18 @@ export default {
         playbackType: null
       },
       // 表单验证
-      rules: {}
+      rules: {},
+      videoList: [{
+        value: '枪机',
+        label: '枪机'
+      }, {
+        value: '球机',
+        label: '球机'
+      }],
+      playBackList: [{
+        value: '录播回放',
+        label: '录播回放'
+      }]
     }
   },
   created () {
@@ -177,7 +198,21 @@ export default {
     },
     // 表单操作
     submit () {
-      add(this.form).then(response => {
+      add({
+        id: this.form.id,
+        ipAddress: this.form.ipAddress,
+        porte: this.form.porte,
+        aisleNumber: this.form.aisleNumber,
+        userName: this.form.userName,
+        password: this.form.password,
+        videoName: this.form.videoName,
+        videoType: this.form.videoType,
+        h5Address: this.form.h5Address,
+        rtmpSite: this.form.rtmpSite,
+        hisAddress: this.form.hisAddress,
+        serveInterfaceAddress: this.form.serveInterfaceAddress,
+        playbackType: this.form.playbackType
+      }).then(response => {
         this.$message({
           message: response.msg,
           type: 'success'

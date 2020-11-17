@@ -34,6 +34,7 @@
 
 <script>
 import videoRtmp from '@/components/video'
+import { lists } from '@/api/video.js'
 export default {
   components: {
     videoRtmp
@@ -42,6 +43,16 @@ export default {
     return {
       videoId: 'videoId',
       jk: require('@/assets/img/jk.jpg')
+    }
+  },
+  created () {
+    this.list()
+  },
+  methods: {
+    list () {
+      lists(1, 500).then(response => {
+        this.tableData = response.data.dataList
+      })
     }
   }
 }

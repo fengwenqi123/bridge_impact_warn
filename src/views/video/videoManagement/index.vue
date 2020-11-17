@@ -57,19 +57,18 @@
           </el-table-column>
           <el-table-column
             label="IP地址"
-            width="400">
+            prop="ipAddress">
           </el-table-column>
           <el-table-column
-            prop="code"
+            prop="porte"
             label="端口"
-            width="180"
           />
           <el-table-column
-            prop="description"
+            prop="videoType"
             label="视频类型"
           />
           <el-table-column
-            prop="modifyTimeString"
+            prop="playbackType"
             label="回放类型"
             width="180"
           />
@@ -129,7 +128,7 @@
 
 <script>
 import titleHeader from '@/components/title/index'
-import { lists } from '@/api/videoManagement'
+import { lists, delt } from '@/api/videoManagement'
 import information from './information'
 import Pagination from '@/components/Paginations'
 import elDragDialog from '@/directive/el-drag-dialog'
@@ -165,6 +164,15 @@ export default {
       lists(this.page.pageNum, this.page.pageSize, this.cercaCoordinates, this.initiateState).then(response => {
         this.tableData = response.data.dataList
         this.page = response.data.page
+      })
+    },
+    _delt (listId) {
+      delt(listId).then(response => {
+        this.$message({
+          message: response.msg,
+          type: 'success'
+        })
+        this.list()
       })
     }
   }

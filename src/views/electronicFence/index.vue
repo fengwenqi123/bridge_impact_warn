@@ -82,7 +82,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="affiliationDepartment"
+            prop="deptName"
             label="归属部门"
           />
           <el-table-column

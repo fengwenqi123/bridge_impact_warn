@@ -14,7 +14,7 @@ export function lists (pageNum, pageSize, cercaCoordinates, initiateState) {
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/videoManagement/saveOrUpdate',
+    url: '/zoneAdministration/saveOrUpdate',
     method: 'POST',
     data
   })
@@ -22,7 +22,7 @@ export function add (form) {
 
 export function delt (id) {
   return request({
-    url: '/videoManagement/remove',
+    url: '/zoneAdministration/remove',
     method: 'delete',
     params: {
       idList: id.join(',')

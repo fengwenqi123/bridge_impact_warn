@@ -8,7 +8,7 @@
         <el-form :inline="true" class="form-inline" label-width="100px">
           <el-form-item label="中文船名">
             <el-input
-              v-model="keyword"
+              v-model="name"
               placeholder="请输入中文船名"
               clearable
             />
@@ -16,16 +16,9 @@
           <el-form-item label="预警时间">
             <el-date-picker
               v-model="startTime"
-              type="datetime"
+              type="date"
               placeholder="选择开始日期"
-              value-format="yyyy-MM-dd HH:mm:ss">
-            </el-date-picker>
-            <span>至</span>
-            <el-date-picker
-              v-model="endTime"
-              type="datetime"
-              placeholder="选择开始日期"
-              value-format="yyyy-MM-dd HH:mm:ss">
+              value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
           <el-form-item label="预警类型">
@@ -66,36 +59,26 @@
           </el-table-column>
           <el-table-column
             label="中文船名"
-            width="400"
+            prop="zwShipName"
           >
-            <template slot-scope="scope">
-              <div :style="{paddingLeft:(scope.row.layer.length-3)*10+'px',textAlign:'left'}"
-                   v-text="scope.row.name"/>
-            </template>
           </el-table-column>
           <el-table-column
-            prop="code"
+            prop="mmsi"
             label="船舶识别号"
-            width="180"
           />
           <el-table-column
             prop="description"
             label="联系电话"
           />
           <el-table-column
-            prop="modifyTimeString"
+            prop="addTime"
             label="预警时间"
-            width="180"
           />
           <el-table-column
-            prop="modifyTimeString"
             label="预警类型"
-            width="180"
           />
           <el-table-column
-            prop="modifyTimeString"
             label="预警方式"
-            width="180"
           />
           <el-table-column
             label="操作"
@@ -136,7 +119,7 @@
 
 <script>
 import titleHeader from '@/components/title/index'
-import { lists } from '@/api/DepManagement'
+import { lists } from '@/api/warning'
 import information from './information'
 import Pagination from '@/components/Paginations'
 import elDragDialog from '@/directive/el-drag-dialog'
@@ -159,26 +142,19 @@ export default {
   data () {
     return {
       border: true,
-      keyword: '',
+      name: null,
       startTime: null,
-      endTime: null,
       tableData: [],
       warnValue: null,
       warnType: [{
-        value: '选项1',
-        label: '黄金糕'
+        value: '预警警告（一级）',
+        label: '预警警告（一级）'
       }, {
-        value: '选项2',
-        label: '双皮奶'
+        value: '紧急警告（二级）',
+        label: '紧急警告（二级）'
       }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
+        value: '危急警告（三级）',
+        label: '危急警告（三级）'
       }]
     }
   },
@@ -187,7 +163,7 @@ export default {
   },
   methods: {
     list () {
-      lists(this.page.pageNum, this.page.pageSize, this.order, this.sort, this.status, this.keyword, this.selected).then(response => {
+      lists(this.page.pageNum, this.page.pageSize, this.name, this.startTime, this.warnValue).then(response => {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })

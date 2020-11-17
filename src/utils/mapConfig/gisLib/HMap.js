@@ -81,8 +81,8 @@ function initMapEvent (map) {
 export function addInfoLayers (app) {
   app.videoLayer = new HInfoLayer('video', true, 160, 0) // 视频监控图层 ps:聚合图层设置图层显示分辨率失效;
   app.chosenCircle = HSymbol.getCircleSymbol({ type: 'chc' }, mapconfig.mapCenterCoor, 20, [255, 255, 255, 0], [255, 255, 0], 3, true)
-    app.chosenLayer = new Vector({
-      source: new SVector({
+  app.chosenLayer = new Vector({
+    source: new SVector({
       features: [app.chosenCircle]
     }),
     type: 'draw',

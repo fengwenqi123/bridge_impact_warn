@@ -7,7 +7,7 @@ import { GIS_HOST } from './gisLib/HConfig'
 
 const url = GIS_HOST + '/geowebcache/service/wms'
 
-const ypExtent = [13354372.33097,3496494.21754,13399393.74063,3537388.02767]
+const ypExtent = [13354372.33097, 3496494.21754, 13399393.74063, 3537388.02767]
 
 const fullExtent = [-20037508.342787, -20037508.342781033, 20037508.342781033, 20037508.342787]
 
@@ -36,7 +36,7 @@ var basemap = () => {
             tileGrid: tileGrid
           }),
           visible: false
-        }),
+        })
       ]
       break
     case 1:

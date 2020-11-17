@@ -3,14 +3,11 @@
  * created by zj on 2020.11.16
  */
 
-
-/*************************************测试***************************************/
+/** ***********************************测试***************************************/
 export const GIS_HOST = 'http://192.168.1.209:8090' // 桥梁防撞底图地址
 export const GIS_SHIPWMS = 'https://map.cjbe88.com/geoserver/geobasedata/wms'
 export const GIS_SHIPWFS = 'https://map.cjbe88.com/geoserver/geobasedata/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geobasedata:zjghship&maxFeatures=20000&outputFormat=application/json'
 /*******************************************************************************/
-
-
 
 // export const GIS_HOST = 'http://10.100.70.227:8080' // 桥梁防撞底图地址
 // export const GIS_SERVERIP = 'http://10.100.70.226/api' // 通航要素接口(桥梁防撞只保留视频)

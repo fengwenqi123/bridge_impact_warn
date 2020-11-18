@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * GIS要素数据加载js
  * created by zj on 2018.8.30

@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * GIS要素数据加载js
  * created by zj on 2018.8.30
@@ -18,7 +17,6 @@ import { Style, Icon } from 'ol/style'
 import { Feature } from 'ol'
 import { Point } from 'ol/geom'
 import { Vector as SVector, Cluster } from 'ol/source'
-
 const bridgeImg = require('@/utils/mapConfig/img/bridge.png')
 const videoImg = require('@/utils/mapConfig/img/video.png')
 
@@ -29,34 +27,38 @@ export function loadInfoLayer (type) {
 }
 
 function loadCheckArea () {
-  checkAreaList().then(d => {
-    var areadata = d.data.dataList
-    var polygonSymbol = []
-    store.getters.app.checkAreaLayer.clear()
-    $.each(areadata, function (i, item) {
-      var careaAttr = {
-        datatype: 'checkarea'
-      }
-      if (item.cereaCoordinates != null && item.cereaCoordinates !== '') {
-        var areaPoints = JSON.parse(item.cereaCoordinates)
-        var points = []
-        for (var i = 0; i < areaPoints.length; i++) {
-          var lonlat = wgs84ToWebMct(areaPoints[i].x, areaPoints[i].y)
-          points.push(lonlat)
-        }
-        var careaSymbol
-        if (item.areaType === '1') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [30, 144, 255, 0.8], [30, 144, 255], 2, false)
-        } else if (item.areaType === '2') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 165, 0, 0.8], [255, 165, 0], 2, false)
-        } else if (item.areaType === '3') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 0, 0, 0.8], [255, 0, 0], 2, false)
-        }
-        polygonSymbol.push(careaSymbol)
-      }
-    })
-    store.getters.app.checkAreaLayer.addPolygonSymbol(polygonSymbol)
+  checkAreaList().then(response => {
+    // console.log(response)
   })
+  // $.ajax({
+  //   url: GIS_SERVERIP + 'zoneAdministration/getZoneDataList?pageNum=1&pageSize=30',
+  //   type: 'get',
+  //   dataType: 'json',
+  //   success: function (d) {
+  //     console.log(d)
+  // var areadata = d.data
+  // var polygonSymbol = []
+  // app.safeworkareaLayer.clear()
+  // $.each(areadata, function(i, item) {
+  //   var sareaAttr = {
+  //     'datatype': 'safework',
+  //     'name': item.name
+  //   }
+  //   if (item.area != null && item.area != '') {
+  //     var areaObj = JSON.parse(item.area)
+  //     var areaPoints = areaObj.pointList
+  //     var points = []
+  //     for (i = 0; i < areaPoints.length; i++) {
+  //       var lonlat = wgs84ToWebMct(areaPoints[i].x, areaPoints[i].y)
+  //       points.push(lonlat)
+  //     }
+  //     var sareaSymbol = HSymbol.getPolygonSymbol(sareaAttr, [points], [255, 255, 255, 0.2], [50, 205, 50], 2, false, sareaAttr['name'], 16, [255, 165, 0])
+  //     polygonSymbol.push(sareaSymbol)
+  //   }
+  // })
+  // app.safeworkareaLayer.addPolygonSymbol(polygonSymbol)
+  //   }
+  // })
 }
 
 /**
@@ -94,6 +96,9 @@ function loadVideo () {
     store.getters.app.videoLayer.layer.setStyle(videoStyle)
     store.getters.app.videoLayer.layer.setMaxResolution(160)
     response.data.dataList.forEach(item => {
+      var lon = parseFloat(item.longitude)
+      var lat = parseFloat(item.latitude)
+      if (lon > 0 && lon < 180 && lat > 0 && lat < 90) {
         var videoAttr = {
           datatype: 'shipin',
           name: item.videoName,
@@ -103,17 +108,18 @@ function loadVideo () {
           password: item.password,
           port: item.porte,
           ipAdress: item.ipAddress,
-          // channel: item.channel,
           longitude: item.longitude,
-          latitude: item.latitude,
-          // patrolMileage: item.patrolMileage
+          latitude: item.latitude
         }
-        var lonlat = wgs84ToWebMct(item.longitude, item.latitude)
+        var lonlat = wgs84ToWebMct(lon, lat)
         var videoSymbol = new Feature({
           geometry: new Point(lonlat)
         })
         videoSymbol.setProperties(videoAttr, false)
         markerSymbol.push(videoSymbol)
+      } else {
+        // console.log(item.name)
+      }
     })
     // 在控制显示的分辨率范围内clustersource才会加载videosource，导致初始化时地图移动、框选、一键抓拍获取视频要素失效
     // 为保证执行结果，将videoSource设置为全局变量
@@ -123,6 +129,7 @@ function loadVideo () {
     var videoClusterSource = new Cluster({
       source: store.getters.app.videoSource
     })
+    console.log(videoClusterSource)
     store.getters.app.videoLayer.layer.setSource(videoClusterSource)
     // /* var videofeatures = */store.getters.app.videoSource.getFeaturesInExtent(store.getters.app.currentExtent)
     // showVideoNameIntable(videofeatures)

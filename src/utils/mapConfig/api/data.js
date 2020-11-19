@@ -1,5 +1,4 @@
 import request from '@/utils/request1'
-import request_video from '@/utils/mapConfig/request/index'
 // import qs from 'qs'
 
 export function bridgeList () {
@@ -10,15 +9,15 @@ export function bridgeList () {
 }
 
 export function videoList () {
-  return request_video({
-    url: '/videoManagement/getVideoDataList?pageSize=100000',
+  return request({
+    url: '/videoManagement/getVideoDataList?pageSize=30',
     method: 'GET'
   })
 }
 
 export function checkAreaList () {
-  return request_video({
-    url: '/zoneAdministration/getZoneDataList',
+  return request({
+    url: '/zoneAdministration/getZoneDataList?pageSize=30',
     method: 'GET'
   })
 }

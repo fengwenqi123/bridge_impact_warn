@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="line1">
+    <div class="line1" v-if="tableData">
       <div class="img">
         <el-row :gutter="20">
-          <el-col :span="6" v-for="item in 12" :key="item">
+          <el-col :span="6" v-for="(item) in tableData" :key="item.id">
             <div class="item">
-             <div class="title"> {{item}}</div>
+             <div class="title"> {{item.videoName}}</div>
               <div class="value">
                 <img :src="jk" alt="">
               </div>
@@ -13,27 +13,27 @@
           </el-col>
         </el-row>
       </div>
-      <div class="video">
-        <videoRtmp rtmp="http://10.100.70.228:9002/openUrl/8yxPRoA/live.m3u8" :id="videoId"></videoRtmp>
+      <div class="video" v-if="bannerUrl">
+        <videoRtmp :url="bannerUrl" :ids="ids"></videoRtmp>
       </div>
     </div>
-    <div class="line2">
-      <el-row :gutter="20">
-        <el-col :span="4" v-for="item in 12" :key="item">
-          <div class="item">
-            <div class="title"> {{item}}</div>
-            <div class="value">
-              <img :src="jk" alt="">
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
+<!--    <div class="line2">-->
+<!--      <el-row :gutter="20">-->
+<!--        <el-col :span="4" v-for="item in 12" :key="item">-->
+<!--          <div class="item">-->
+<!--            <div class="title"> {{item}}</div>-->
+<!--            <div class="value">-->
+<!--              <img :src="jk" alt="">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </el-col>-->
+<!--      </el-row>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script>
-import videoRtmp from '@/components/video'
+import videoRtmp from '@/components/video/flv1.vue'
 import { lists } from '@/api/video.js'
 export default {
   components: {
@@ -42,7 +42,10 @@ export default {
   data () {
     return {
       videoId: 'videoId',
-      jk: require('@/assets/img/jk.jpg')
+      jk: require('@/assets/img/jk.jpg'),
+      tableData: null,
+      bannerUrl: null,
+      ids: null
     }
   },
   created () {
@@ -51,7 +54,11 @@ export default {
   methods: {
     list () {
       lists(1, 500).then(response => {
-        this.tableData = response.data.dataList
+        if (response.data.dataList.length <= 12) {
+          this.tableData = response.data.dataList
+          this.bannerUrl = this.tableData[0].h5Address
+          this.ids = this.tableData[0].id
+        }
       })
     }
   }

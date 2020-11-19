@@ -44,24 +44,33 @@ export function add (form) {
 }
 
 export function delt (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/personnel/remove',
+    method: 'PUT',
+    params: {
+      id: id.join('.')
+    }
   })
-  return request.put('/personnel/remove', data)
 }
 
 export function enable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/personnel/enable',
+    method: 'PUT',
+    params: {
+      id: id.join('.')
+    }
   })
-  return request.put('/personnel/enable', data)
 }
 
 export function disable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/personnel/disable',
+    method: 'PUT',
+    params: {
+      id: id.join('.')
+    }
   })
-  return request.put('/personnel/disable', data)
 }
 
 export function getDepartArr () {

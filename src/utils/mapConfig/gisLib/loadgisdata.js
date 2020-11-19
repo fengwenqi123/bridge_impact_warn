@@ -95,24 +95,23 @@ function loadVideo () {
     })
     store.getters.app.videoLayer.layer.setStyle(videoStyle)
     store.getters.app.videoLayer.layer.setMaxResolution(160)
-    response.data.forEach(item => {
-      if (item.longitude > 0 && item.longitude < 180 && item.latitude > 0 && item.latitude < 90 && item.enable === 1) {
-        console.log(item)
+    response.data.dataList.forEach(item => {
+      var lon = parseFloat(item.longitude)
+      var lat = parseFloat(item.latitude)
+      if (lon > 0 && lon < 180 && lat > 0 && lat < 90) {
         var videoAttr = {
           datatype: 'shipin',
-          name: item.name,
+          name: item.videoName,
           id: item.id,
-          rtmp: item.rtmp,
+          rtmp: item.h5Address,
           userName: item.userName,
           password: item.password,
-          port: item.port,
-          ipAdress: item.ipAdress,
-          channel: item.channel,
+          port: item.porte,
+          ipAdress: item.ipAddress,
           longitude: item.longitude,
-          latitude: item.latitude,
-          patrolMileage: item.patrolMileage
+          latitude: item.latitude
         }
-        var lonlat = wgs84ToWebMct(item.longitude, item.latitude)
+        var lonlat = wgs84ToWebMct(lon, lat)
         var videoSymbol = new Feature({
           geometry: new Point(lonlat)
         })
@@ -130,6 +129,7 @@ function loadVideo () {
     var videoClusterSource = new Cluster({
       source: store.getters.app.videoSource
     })
+    console.log(videoClusterSource)
     store.getters.app.videoLayer.layer.setSource(videoClusterSource)
     // /* var videofeatures = */store.getters.app.videoSource.getFeaturesInExtent(store.getters.app.currentExtent)
     // showVideoNameIntable(videofeatures)

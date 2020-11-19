@@ -71,8 +71,11 @@
           </el-table-column>
           <el-table-column
             prop="warningType"
-            label="预警类型"
-          />
+            label="预警类型">
+            <template slot-scope="scope">
+              {{scope.row.warningType==='1'?'预警警告（一级)':scope.row.warningType==='2'?'紧急警告（二级)':scope.row.warningType==='3'?'危急警告（三级)':scope.row.warningType==='4'?'碰撞警告（四级)':''}}
+            </template>
+          </el-table-column>
           <el-table-column
             prop="warningMethod"
             label="预警方式"
@@ -167,14 +170,17 @@ export default {
       }],
       warningType: null,
       warningTypeList: [{
-        value: '预警警告（一级）',
-        label: '预警警告（一级）'
+        value: '1',
+        label: '预警警告（一级)'
       }, {
-        value: '紧急警告（二级）',
-        label: '紧急警告（二级）'
+        value: '2',
+        label: '紧急警告（二级)'
       }, {
-        value: '危急警告（三级）',
-        label: '危急警告（三级）'
+        value: '3',
+        label: '危急警告（三级)'
+      }, {
+        value: '4',
+        label: '碰撞警告（四级)'
       }]
     }
   },

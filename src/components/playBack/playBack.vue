@@ -3,7 +3,7 @@
     <playGis></playGis>
     <trackBack v-if="showTime" :timeArr="time"></trackBack>
     <div class="Giscomponents" style="position: absolute;right: 14px;top: 14px;">
-      <giscom></giscom>
+<!--      <giscom></giscom>-->
     </div>
     <div class="setting">
       <div class="tab" v-if="!showTime">
@@ -73,7 +73,7 @@
 import playGis from './playBackIframe.vue'
 import trackBack from './index'
 import playIndeterminate from './playbackIndeterminate.vue'
-import giscom from './Giscomponents'
+// import giscom from './Giscomponents'
 import { timeToString } from '@/utils/index.js'
 import { mapGetters } from 'vuex'
 import { shipList } from '@/api/shipTrack.js'
@@ -87,9 +87,10 @@ export default {
   components: {
     playGis,
     trackBack,
-    playIndeterminate,
-    giscom
+    playIndeterminate
+    // giscom
   },
+  props: ['mmsi'],
   data () {
     return {
       activeName: '1',
@@ -130,9 +131,9 @@ export default {
     this.getGisInfo()
   },
   mounted () {
-    setTimeout(() => {
-      $('iframe[name="playback"]').get(0).contentWindow.pointTo(parseFloat(this.center[0]), parseFloat(this.center[1]))
-    }, 2000)
+    // setTimeout(() => {
+    //   $('iframe[name="playback"]').get(0).contentWindow.pointTo(parseFloat(this.center[0]), parseFloat(this.center[1]))
+    // }, 2000)
   },
   methods: {
     drowBoxs () {
@@ -201,15 +202,11 @@ export default {
       this.shipNameArr = null
     },
     shipPlay () {
-      if (!this.shipName) {
-        this.$message('请先输入船名')
-        return
-      }
       if (!this.shipTime) {
         this.$message('请先选择时间')
         return
       }
-      $('iframe[name="playback"]').get(0).contentWindow.addHistoryTrack(this.shipName, this.shipTime[0], this.shipTime[1], this.shipType1)
+      $('iframe[name="playback"]').get(0).contentWindow.addHistoryTrack(this.mmsi, this.shipTime[0], this.shipTime[1]/*, this.shipType1 */)
     },
     // tab切换事件
     handleClick (tab) {

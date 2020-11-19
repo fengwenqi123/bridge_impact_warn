@@ -139,7 +139,8 @@ function showInfoLayer(type, isVisible) {
   try {
     if (type) {
       var mapLayers = trackapp.map.getLayers().getArray()
-      for (i = 0; i < mapLayers.length; i++) {
+      console.log(mapLayers)
+      for (var i = 0; i < mapLayers.length; i++) {
         var layerType = mapLayers[i].getProperties()['type']
         if (layerType == type) {
           var showedLayer = mapLayers[i]
@@ -345,14 +346,14 @@ function clearShipTrack() {
   trackapp.historyTrackLayer.clear()
 }
 
-function addHistoryTrack(shipName, minReceiveTime, maxReceiveTime, type) {
+function addHistoryTrack(mmsi, starTime, endTime) {
   trackapp.historyTrackLayer.clear()
   var distanceElement // 当前测量值
   var distanceoverlay // 当前测试提示
   var lastPt //上点坐标
   var lastTime //上点时间
-  var getUrl = GIS_HISTORYSHIP + 'minReceiveTime=' + minReceiveTime + '&' + 'maxReceiveTime=' + maxReceiveTime + '&'
-    + 'shipName=' + shipName + '&pageNum=1&pageSize=5000&type=' + type
+  var getUrl = GIS_HISTORYSHIP + 'mmsi=' + mmsi + '&' + 'starTime=' + starTime + '&'
+    + 'endTime=' + endTime
   $.ajax({
     url: getUrl,
     type: 'get',

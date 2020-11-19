@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function lists (pageNum, pageSize, order, sort, classification, type, status, keyword) {
   return request({
-    url: '/account/dataDictionary/list',
+    url: '/dataDictionary/list',
     method: 'GET',
     params: {
       pageNum,
@@ -21,36 +21,57 @@ export function lists (pageNum, pageSize, order, sort, classification, type, sta
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/account/dataDictionary',
+    url: '/dataDictionary',
     method: 'POST',
     data
   })
 }
 
 export function delt (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/dataDictionary/remove',
+    method: 'PUT',
+    params: {
+      id: id.join('.')
+    }
   })
-  return request.put('/account/dataDictionary/remove', data)
+  // const data = qs.stringify({
+  //   id: id.join(',')
+  // })
+  // return request.put('/dataDictionary/remove', data)
 }
 
 export function enable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/dataDictionary/enable',
+    method: 'PUT',
+    params: {
+      id: id.join('.')
+    }
   })
-  return request.put('/account/dataDictionary/enable', data)
+  // const data = qs.stringify({
+  //   id: id.join(',')
+  // })
+  // return request.put('/dataDictionary/enable', data)
 }
 
 export function disable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/dataDictionary/disable',
+    method: 'PUT',
+    params: {
+      id: id.join('.')
+    }
   })
-  return request.put('/account/dataDictionary/disable', data)
+  // const data = qs.stringify({
+  //   id: id.join(',')
+  // })
+  // return request.put('/dataDictionary/disable', data)
 }
 
 export function classification (classification, status) {
   return request({
-    url: '/account/dataDictionary/findListByClassification',
+    url: '/dataDictionary/findListByClassification',
     method: 'GET',
     params: {
       classification, status

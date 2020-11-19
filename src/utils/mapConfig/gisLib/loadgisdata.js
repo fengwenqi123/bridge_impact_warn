@@ -93,21 +93,20 @@ function loadVideo () {
     })
     store.getters.app.videoLayer.layer.setStyle(videoStyle)
     store.getters.app.videoLayer.layer.setMaxResolution(160)
-    response.data.forEach(item => {
-      if (item.longitude > 0 && item.longitude < 180 && item.latitude > 0 && item.latitude < 90 && item.enable === 1) {
+    response.data.dataList.forEach(item => {
         var videoAttr = {
           datatype: 'shipin',
-          name: item.name,
+          name: item.videoName,
           id: item.id,
-          rtmp: item.rtmp,
+          rtmp: item.h5Address,
           userName: item.userName,
           password: item.password,
-          port: item.port,
-          ipAdress: item.ipAdress,
-          channel: item.channel,
+          port: item.porte,
+          ipAdress: item.ipAddress,
+          // channel: item.channel,
           longitude: item.longitude,
           latitude: item.latitude,
-          patrolMileage: item.patrolMileage
+          // patrolMileage: item.patrolMileage
         }
         var lonlat = wgs84ToWebMct(item.longitude, item.latitude)
         var videoSymbol = new Feature({
@@ -115,9 +114,6 @@ function loadVideo () {
         })
         videoSymbol.setProperties(videoAttr, false)
         markerSymbol.push(videoSymbol)
-      } else {
-        // console.log(item.name)
-      }
     })
     // 在控制显示的分辨率范围内clustersource才会加载videosource，导致初始化时地图移动、框选、一键抓拍获取视频要素失效
     // 为保证执行结果，将videoSource设置为全局变量

@@ -157,7 +157,6 @@ function drawFeature() {
       }
       coorapp.areaObj.pointList = coorapp.areaPoints
       coorapp.areaObjStr = JSON.stringify(coorapp.areaObj)
-      console.log(coorapp.areaObjStr)// 区域坐标字符串
       parent.postMessage({
         act: 'coor',
         msg: {

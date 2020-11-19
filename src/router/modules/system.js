@@ -26,19 +26,19 @@ const system = {
       name: 'DepManagement',
       component: () => import('@/views/system/DepManagement/index'),
       meta: { keepAlive: false, title: '部门管理', roles: ['sys:department'] }
+    },
+    {
+      path: 'DicManagement',
+      name: 'DicManagement',
+      component: () => import('@/views/system/DicManagement/index'),
+      meta: { keepAlive: false, title: '系统字典管理', roles: ['sys:dictionary'] }
+    },
+    {
+      path: 'UserManagement',
+      name: 'UserManagement',
+      component: () => import('@/views/system/UserManagement/index'),
+      meta: { keepAlive: false, title: '用户管理', roles: ['sys:personnel'] }
     }
-    // {
-    //   path: 'DicManagement',
-    //   name: 'DicManagement',
-    //   component: () => import('@/views/system/DicManagement/index'),
-    //   meta: { keepAlive: false, title: '系统字典管理', roles: ['sys:dictionary'] }
-    // },
-    // {
-    //   path: 'UserManagement',
-    //   name: 'UserManagement',
-    //   component: () => import('@/views/system/UserManagement/index'),
-    //   meta: { keepAlive: false, title: '用户管理', roles: ['sys:personnel'] }
-    // }
   ]
 }
 

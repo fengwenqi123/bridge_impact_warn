@@ -13,6 +13,13 @@
                 v-model="form.ipAddress"
               />
             </el-form-item>
+            <el-form-item label="区域位置">
+              <el-button type="primary" size="mini" @click.native="modgis()">绘制区域</el-button>
+              <p v-if="form.longitude" style="display: inline-block;">
+                <span>{{form.longitude}}</span>,
+                <span>{{form.latitude}}</span>
+              </p>
+            </el-form-item>
             <el-form-item label="端口号:">
               <el-input
                 :readonly="readonly"
@@ -133,12 +140,16 @@
         返回
       </el-button>
     </div>
+    <el-dialog title="地图坐标" :visible.sync="dialogTableVisible" append-to-body>
+      <areas :url="url"></areas>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { add } from '@/api/videoManagement'
 import dialogFormMixin from '@/mixins/dialogFormMixin'
+import areas from '@/components/iframe/area'
 
 export default {
   mixins: [dialogFormMixin],
@@ -153,9 +164,14 @@ export default {
       type: Boolean
     }
   },
+  components: {
+    areas
+  },
   data () {
     return {
       // 表单内容
+      dialogTableVisible: false,
+      url: null,
       form: {
         id: null,
         ipAddress: null,
@@ -169,7 +185,9 @@ export default {
         rtmpSite: null,
         hisAddress: null,
         serveInterfaceAddress: null,
-        playbackType: null
+        playbackType: null,
+        longitude: null,
+        latitude: null
       },
       // 表单验证
       rules: {},
@@ -189,7 +207,9 @@ export default {
   created () {
     this.init()
   },
-
+  mounted () {
+    this.getgis()
+  },
   methods: {
     init () {
       if (this.row) {
@@ -211,7 +231,9 @@ export default {
         rtmpSite: this.form.rtmpSite,
         hisAddress: this.form.hisAddress,
         serveInterfaceAddress: this.form.serveInterfaceAddress,
-        playbackType: this.form.playbackType
+        playbackType: this.form.playbackType,
+        longitude: this.form.longitude,
+        latitude: this.form.latitude
       }).then(response => {
         this.$message({
           message: response.msg,
@@ -222,6 +244,24 @@ export default {
     },
     cancel () {
       this.$emit('cancel')
+    },
+    // 定位
+    modgis () {
+      if (this.form.longitude) {
+        this.url = '/static/coor/coorMap.html?type=Point&precoor=' + this.form.longitude + ',' + this.form.latitude
+      } else {
+        this.url = '/static/coor/coorMap.html?type=Point&precoor=nocoor'
+      }
+      this.dialogTableVisible = true
+    },
+    getgis () {
+      var _this = this
+      window.addEventListener('message', function (e) {
+        if (e.data.act === 'modgis') {
+          _this.form.longitude = e.data.msg.coordinate[0]
+          _this.form.latitude = e.data.msg.coordinate[1]
+        }
+      }, false)
     }
   }
 

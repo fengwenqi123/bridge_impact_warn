@@ -36,8 +36,10 @@
               <el-input
                 :readonly="readonly"
                 placeholder="请输入围栏坐标"
+                v-model="form.cereaCoordinates"
                 clearable
               />
+              <svg-icon icon-class="dingwei" @click.native="coor()" style="cursor: pointer; font-size: 15px;"></svg-icon>
             </el-form-item>
             <el-form-item label="备注:">
               <el-input
@@ -69,6 +71,9 @@
         返回
       </el-button>
     </div>
+    <el-dialog title="地图坐标" :visible.sync="dialogTableVisible" append-to-body>
+      <areas :url="url"></areas>
+    </el-dialog>
   </div>
 </template>
 
@@ -76,9 +81,13 @@
 import { findDepartmentsByPersonnel } from '@/api/DepManagement'
 import dialogFormMixin from '@/mixins/dialogFormMixin'
 import { add } from '@/api/electronicFence'
+import areas from './area'
 
 export default {
   mixins: [dialogFormMixin],
+  components: {
+    areas
+  },
   props: {
     row: {
       type: Object,
@@ -94,8 +103,8 @@ export default {
     return {
       // 表单内容
       departmentList: [],
+      dialogTableVisible: false,
       form: {
-        id: null,
         cereaName: null,
         initiateState: null,
         remark: null,
@@ -103,6 +112,7 @@ export default {
         deptName: null,
         cereaCoordinates: null
       },
+      url: null,
       rules: {}
     }
   },
@@ -110,7 +120,9 @@ export default {
     this.init()
     this.findAuth()
   },
-
+  mounted () {
+    this.getCoor()
+  },
   methods: {
     init () {
       if (this.row) {
@@ -148,6 +160,23 @@ export default {
       findDepartmentsByPersonnel(id).then(response => {
         this.departmentList = response.data
       })
+    },
+    // 定位
+    coor () {
+      this.dialogTableVisible = true
+      if (this.form.cereaCoordinates) {
+        this.url = `/static/coor/coorMap.html?type=Polygon&precoor=${this.form.cereaCoordinates.toString()}`
+      } else {
+        this.url = '/static/coor/coorMap.html?type=Polygon&precoor=nocoor'
+      }
+    },
+    getCoor () {
+      var _this = this
+      window.addEventListener('message', function (e) {
+        if (e.data.act === 'coor') {
+          _this.form.cereaCoordinates = e.data.msg.name
+        }
+      }, false)
     }
   }
 

@@ -10,7 +10,7 @@ export function bridgeList () {
 
 export function videoList () {
   return request({
-    url: '/gis/videoSurveillance/list',
+    url: '/videoManagement/getVideoDataList?pageSize=30',
     method: 'GET'
   })
 }

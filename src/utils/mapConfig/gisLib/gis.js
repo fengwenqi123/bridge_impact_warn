@@ -248,7 +248,7 @@ export function showPopup (map) {
       HShipLayers.setChosenShipname(obj.shipName)
     }
     console.log(property)
-    // console.log(propertyType)
+    console.log(obj)
     switch (propertyType) {
       case 0:
         bus.$emit('shipManage', obj)

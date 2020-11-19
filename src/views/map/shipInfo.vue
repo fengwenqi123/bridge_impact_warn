@@ -6,19 +6,18 @@
       <div class="con">
         <el-row>
           <el-col :span="14" class="font">
-            <div class="grid-content bg-purple"><span>联系人：</span><span>{{pop}}</span></div>
-            <div class="grid-content bg-purple"><span>联系电话：</span><span>{{phone}}</span></div>
+            <div class="grid-content bg-purple"><span>联系人：</span><span></span></div>
+            <div class="grid-content bg-purple"><span>联系电话：</span><span></span></div>
           </el-col>
         </el-row>
       </div>
     </div>
-    <tabs :name="shipInfo.shipName" :ais="shipInfo" :shipType="shipInfo.shipType"></tabs>
+    <tabs :mmsi="shipInfo.shipName"></tabs>
   </div>
 </template>
 
 <script>
 import tabs from '@/components/tabs'
-import { mapGetters } from 'vuex'
 export default {
   name: 'shipInfo',
   props: {
@@ -29,11 +28,6 @@ export default {
   },
   components: {
     tabs
-  },
-  computed: {
-    ...mapGetters([
-      'pop', 'phone'
-    ])
   },
   methods: {
     closeTab () {

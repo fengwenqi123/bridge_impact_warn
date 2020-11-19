@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="line1" v-if="tableData">
+    <div class="line1" v-if="tableData.length">
       <div class="img">
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item) in tableData" :key="item.id">
@@ -17,18 +17,18 @@
         <videoRtmp :url="bannerUrl" :ids="ids"></videoRtmp>
       </div>
     </div>
-<!--    <div class="line2">-->
-<!--      <el-row :gutter="20">-->
-<!--        <el-col :span="4" v-for="item in 12" :key="item">-->
-<!--          <div class="item">-->
-<!--            <div class="title"> {{item}}</div>-->
-<!--            <div class="value">-->
-<!--              <img :src="jk" alt="">-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </el-col>-->
-<!--      </el-row>-->
-<!--    </div>-->
+    <div class="line2" v-if="tableData1.length">
+      <el-row :gutter="20">
+        <el-col :span="4" v-for="item in tableData1" :key="item.id">
+          <div class="item">
+            <div class="title"> {{item.videoName}}</div>
+            <div class="value">
+              <img :src="jk" alt="">
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -43,7 +43,8 @@ export default {
     return {
       videoId: 'videoId',
       jk: require('@/assets/img/jk.jpg'),
-      tableData: null,
+      tableData: [],
+      tableData1: [],
       bannerUrl: null,
       ids: null
     }
@@ -56,9 +57,17 @@ export default {
       lists(1, 500).then(response => {
         if (response.data.dataList.length <= 12) {
           this.tableData = response.data.dataList
-          this.bannerUrl = this.tableData[0].h5Address
-          this.ids = this.tableData[0].id
+        } else {
+          response.data.dataList.forEach((item, index) => {
+            if (index < 12) {
+              this.tableData.push(item)
+            } else {
+              this.tableData1.push(item)
+            }
+          })
         }
+        this.bannerUrl = this.tableData[0].h5Address
+        this.ids = this.tableData[0].id
       })
     }
   }
@@ -70,6 +79,7 @@ export default {
   padding: 10px;
   .line1{
     display: flex;
+    align-items: flex-start;
     .img{
       margin-right: 20px;
       flex: 1;

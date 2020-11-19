@@ -28,7 +28,7 @@ export function loadInfoLayer (type) {
 
 function loadCheckArea () {
   checkAreaList().then(response => {
-    console.log(response)
+    // console.log(response)
   })
   // $.ajax({
   //   url: GIS_SERVERIP + 'zoneAdministration/getZoneDataList?pageNum=1&pageSize=30',
@@ -97,6 +97,7 @@ function loadVideo () {
     store.getters.app.videoLayer.layer.setMaxResolution(160)
     response.data.forEach(item => {
       if (item.longitude > 0 && item.longitude < 180 && item.latitude > 0 && item.latitude < 90 && item.enable === 1) {
+        console.log(item)
         var videoAttr = {
           datatype: 'shipin',
           name: item.name,

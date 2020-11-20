@@ -111,12 +111,48 @@
                   :value="item.value">
                 </el-option>
               </el-select>
-<!--              <el-input-->
-<!--                :readonly="readonly"-->
-<!--                placeholder="请输入回放类型"-->
-<!--                clearable-->
-<!--                v-model="form.playbackType"-->
-<!--              />-->
+            </el-form-item>
+            <el-form-item label="直播方式:">
+              <el-select v-model="form.playType" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in playList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="回放流名称:">
+              <el-input
+                :readonly="readonly"
+                placeholder="请输入回放流名称"
+                clearable
+                v-model="form.playbackName"
+              />
+            </el-form-item>
+            <el-form-item label="回放频道:">
+              <el-input
+                :readonly="readonly"
+                placeholder="请输入回放频道"
+                clearable
+                v-model="form.playbackChannel"
+              />
+            </el-form-item>
+            <el-form-item label="回放超时:">
+              <el-input
+                :readonly="readonly"
+                placeholder="请输入回放超时"
+                clearable
+                v-model="form.playbackOvertime"
+              />
+            </el-form-item>
+            <el-form-item label="设备编号:">
+              <el-input
+                :readonly="readonly"
+                placeholder="请输入设备编号"
+                clearable
+                v-model="form.equipmentNumber"
+              />
             </el-form-item>
           </el-form>
         </div>
@@ -173,7 +209,6 @@ export default {
       dialogTableVisible: false,
       url: null,
       form: {
-        id: null,
         ipAddress: null,
         porte: null,
         aisleNumber: null,
@@ -187,7 +222,12 @@ export default {
         serveInterfaceAddress: null,
         playbackType: null,
         longitude: null,
-        latitude: null
+        latitude: null,
+        playType: null,
+        playbackName: null,
+        playbackChannel: null,
+        playbackOvertime: null,
+        equipmentNumber: null
       },
       // 表单验证
       rules: {},
@@ -201,6 +241,10 @@ export default {
       playBackList: [{
         value: '录播回放',
         label: '录播回放'
+      }],
+      playList: [{
+        value: 'flv',
+        label: 'flv'
       }]
     }
   },
@@ -233,6 +277,11 @@ export default {
         serveInterfaceAddress: this.form.serveInterfaceAddress,
         playbackType: this.form.playbackType,
         longitude: this.form.longitude,
+        playType: this.form.playType,
+        playbackName: this.form.playbackName,
+        playbackChannel: this.form.playbackChannel,
+        playbackOvertime: this.form.playbackOvertime,
+        equipmentNumber: this.form.equipmentNumber,
         latitude: this.form.latitude
       }).then(response => {
         this.$message({

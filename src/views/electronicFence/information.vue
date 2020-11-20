@@ -32,6 +32,24 @@
                 />
               </el-select>
             </el-form-item>
+            <el-form-item label="围栏编号:">
+              <el-input
+                :readonly="readonly"
+                placeholder="请输入围栏编号"
+                v-model="form.serialNumber"
+                clearable
+              />
+            </el-form-item>
+            <el-form-item label="预警类型:">
+              <el-select v-model="form.areaType" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in warningTypeList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item label="围栏坐标:">
               <el-input
                 :readonly="readonly"
@@ -110,10 +128,25 @@ export default {
         remark: null,
         deptId: null,
         deptName: null,
-        cereaCoordinates: null
+        cereaCoordinates: null,
+        serialNumber: null,
+        areaType: null
       },
       url: null,
-      rules: {}
+      rules: {},
+      warningTypeList: [{
+        value: '1',
+        label: '预警警告（一级)'
+      }, {
+        value: '2',
+        label: '紧急警告（二级)'
+      }, {
+        value: '3',
+        label: '危急警告（三级)'
+      }, {
+        value: '4',
+        label: '碰撞警告（四级)'
+      }]
     }
   },
   created () {
@@ -143,7 +176,9 @@ export default {
         deptId: this.form.deptId,
         deptName: this.form.deptName,
         cereaCoordinates: this.form.cereaCoordinates,
-        remark: this.form.remark
+        remark: this.form.remark,
+        areaType: this.form.areaType,
+        serialNumber: this.form.serialNumber
       }).then(response => {
         this.$message({
           message: response.msg,

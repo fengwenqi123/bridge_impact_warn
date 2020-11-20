@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     play () {
-      // const url = '/ddata' + this.url.split('ddata')[1]
       const url = this.url
       if (flvjs.isSupported()) {
         var videoElement = document.getElementById(this.videoId)

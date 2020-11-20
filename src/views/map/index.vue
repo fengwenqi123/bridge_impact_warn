@@ -10,7 +10,7 @@
     <div v-for="(item,index) in checkedVideoList" :key="item.id">
       <div class="rtmp" v-if="item.show" v-focus>
         <p class="p1">{{ item.name }}<i @click="close(index)" class="el-icon-circle-close"></i></p>
-        <videoCom :rtmp="item.rtmp" :id="item.id"></videoCom>
+        <videoCom :url="item.rtmp" :ids="item.id"></videoCom>
       </div>
     </div>
     <shipInfo v-if="shipInfo" :shipInfo="shipInfo" @closeTab="closeTab"></shipInfo>
@@ -22,13 +22,14 @@ import { mapGetters } from 'vuex'
 import olMap from '@/components/map/index'
 import { addInfoLayers, startGISWork } from '@/utils/mapConfig/gisLib/HMap.js'
 import bus from '@/components/bus'
-import videoCom from '@/components/video'
+import videoCom from '@/components/video/flv1'
 import HShipLayer from '@/utils/mapConfig/gisLib/HShipLayer'
 import { GIS_SHIPWMS, GIS_SHIPWFS } from '@/utils/mapConfig/gisLib/HConfig'
 import videoDrawer from '@/views/map/videoDrawer'
 import shipInfo from '@/views/map/shipInfo'
 
 export default {
+  name: 'mapView',
   computed: {
     ...mapGetters([
       'app'
@@ -48,6 +49,8 @@ export default {
     videoCom,
     videoDrawer,
     shipInfo
+  },
+  created () {
   },
   mounted () {
     addInfoLayers(this.app) // 增加业务图层

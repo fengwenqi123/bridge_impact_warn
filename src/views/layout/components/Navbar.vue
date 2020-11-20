@@ -4,6 +4,7 @@
            钱江五桥桥梁防撞与预警监测系统
          </div>
     <div class="tabs">
+      <el-button round icon="el-icon-map-location" @click="toMap">地图</el-button>
       <el-popover placement="bottom" width="150" trigger="click">
         <ul class="ul1">
           <li>
@@ -47,6 +48,9 @@ export default {
       this.$store.dispatch('LogOut').then(() => {
         location.reload() // 为了重新实例化vue-router对象 避免bug
       })
+    },
+    toMap () {
+      this.$router.push({ path: '/' })
     }
   }
 }
@@ -72,6 +76,8 @@ export default {
     }
 
     .tabs {
+      display: flex;
+      align-items: center;
       span {
         color: #ffff;
         display: flex;

@@ -12,7 +12,7 @@
         </el-row>
       </div>
     </div>
-    <tabs :mmsi="shipInfo.shipName"></tabs>
+    <tabs :shipName="shipInfo.shipName"></tabs>
   </div>
 </template>
 

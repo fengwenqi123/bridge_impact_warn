@@ -14,7 +14,6 @@ export default {
   props: ['url', 'ids'],
   methods: {
     play () {
-      // const url = '/flv' + this.url.split('flv')[1]
       const url = this.url
       if (flvjs.isSupported()) {
         var videoElement = document.getElementById(this.ids)

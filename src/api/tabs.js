@@ -1,21 +1,21 @@
-import request from '@/utils/request'
+import request from '@/utils/request1'
 import qs from 'qs'
 
-export function lists (zwcm) {
+export function getSignal (zwShipName) {
   return request({
-    url: '/collaboration/ship/findByZwcm',
+    url: '/signalSupervisory/getSignalNameList',
     method: 'GET',
     params: {
-      zwcm
+      zwShipName
     }
   })
 }
 
-export function shipchufa (chufa) {
+export function getShipInfo (zwcm) {
   return request({
-    url: '/collaboration/violation',
+    url: '/shipAdministration/getSipAdminDataList',
     method: 'GET',
-    params: chufa
+    params: zwcm
   })
 }
 

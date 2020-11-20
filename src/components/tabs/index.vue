@@ -1,49 +1,48 @@
 <template>
   <el-tabs type="border-card">
-    <el-tab-pane label="档案">
+    <el-tab-pane label="船舶信息">
       <el-scrollbar class="scrolls">
-        <el-row v-if="shipxinxi"
-                class="el6">
+        <el-row class="el6">
           <el-col :span="12"><span>中文船名</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.zwcm }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>曾用中文船名</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cyzwcm }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span> 船舶总长(米)</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cbzc }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船舶登记号</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cbdjh }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船籍港代码</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cjgdm }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>参考载重吨(吨) </span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.ckzzd }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船舶种类代码 </span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cbzldm }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船检登记号 </span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cjdjh }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>空载吃水(米)</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.kzcs }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span> 满载吃水(米) </span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.mzcs }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>净吨位</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.jdw }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船舶型宽(米) </span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cbxk }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船舶型深(米)</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.cbxs }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>牌簿号</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.pbh }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>造船厂名称</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.zccmc }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>造船地点</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.zcdd }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>安放龙骨日期 </span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.aflgrq }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>龙骨以上最大高度</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.lgyszdgd }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>所有人</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.syr }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>所有人联系电话</span></el-col>
-          <el-col :span="12"><span>{{ shipxinxi.syrlxdh }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
         </el-row>
       </el-scrollbar>
     </el-tab-pane>
@@ -51,35 +50,54 @@
       <el-scrollbar class="scrolls">
         <el-row class="el1">
           <el-col :span="12"><span>信号接收时间</span></el-col>
-          <el-col :span="12"><span>{{ ais.receiveTime }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>航向</span></el-col>
-          <el-col :span="12"><span>{{ ais.shipDirection }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>纬度</span></el-col>
-          <el-col :span="12"><span>{{ ais.shipLat }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>经度</span></el-col>
-          <el-col :span="12"><span>{{ ais.shipLon }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船舶信息</span></el-col>
-          <el-col :span="12"><span>{{ ais.shipMessage }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船舶名称</span></el-col>
-          <el-col :span="12"><span>{{ ais.shipName }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>速度</span></el-col>
-          <el-col :span="12"><span>{{ ais.shipSpeed }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
           <el-col :span="12"><span>船艏向</span></el-col>
-          <el-col :span="12"><span>{{ ais.shipheadDirection }}</span></el-col>
+          <el-col :span="12"><span>{{}}</span></el-col>
         </el-row>
       </el-scrollbar>
     </el-tab-pane>
   </el-tabs>
 </template>
 <script>
-
+import { getSignal, getShipInfo } from '@/api/tabs'
 export default {
-  props: ['mmsi'],
+  props: ['shipName'],
   data () {
     return {
     }
   },
-  methods: {}
+  mounted () {
+    this.getSignalFun()
+    this.getShipInfoFun()
+  },
+  methods: {
+    getSignalFun () {
+      getSignal(this.shipName).then(response => {
+      })
+    },
+    getShipInfoFun () {
+      getShipInfo(this.shipName).then(response => {
+      })
+    }
+  },
+  watch: {
+    shipName () {
+      this.getSignalFun()
+      this.getShipInfoFun()
+    }
+  }
 }
 </script>
 

@@ -602,9 +602,11 @@ class HShipLayer {
   refresh () {
     this.queryWMSShips()
     this.queryWFSShips(true)
-    setTimeout(() => {
-      this.refresh()
-    }, 5000)
+   if(window.location.pathname==='/map/mapView'){
+     setTimeout(() => {
+       this.refresh()
+     }, 5000)
+   }
   }
 
   /**

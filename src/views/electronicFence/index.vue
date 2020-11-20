@@ -86,6 +86,16 @@
             label="归属部门"
           />
           <el-table-column
+            label="围栏编号"
+            prop="serialNumber">
+          </el-table-column>
+          <el-table-column
+            label="告警等级">
+            <template slot-scope="scope">
+              {{scope.row.areaType==='1'?'预警警告（一级)':scope.row.areaType==='2'?'紧急警告（二级)':scope.row.areaType==='3'?'危急警告（三级)':scope.row.areaType==='4'?'碰撞警告（四级)':''}}
+            </template>
+          </el-table-column>
+          <el-table-column
             label="操作"
             fixed="right"
             width="220"

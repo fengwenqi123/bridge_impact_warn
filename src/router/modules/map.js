@@ -11,8 +11,7 @@ const map = {
     {
       path: 'mapView',
       name: 'mapView',
-      component: () => import('@/views/map/index'),
-      hidden: true
+      component: () => import('@/views/map/index')
     }
   ]
 }

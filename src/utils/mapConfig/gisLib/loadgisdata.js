@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * GIS要素数据加载js
  * created by zj on 2018.8.30
@@ -27,38 +28,34 @@ export function loadInfoLayer (type) {
 }
 
 function loadCheckArea () {
-  checkAreaList().then(response => {
-    // console.log(response)
+  checkAreaList().then(d => {
+    var areadata = d.data.dataList
+    var polygonSymbol = []
+    store.getters.app.checkAreaLayer.clear()
+    $.each(areadata, function (i, item) {
+      var careaAttr = {
+        datatype: 'checkarea'
+      }
+      if (item.cereaCoordinates != null && item.cereaCoordinates !== '') {
+        var areaPoints = JSON.parse(item.cereaCoordinates)
+        var points = []
+        for (var i = 0; i < areaPoints.length; i++) {
+          var lonlat = wgs84ToWebMct(areaPoints[i].x, areaPoints[i].y)
+          points.push(lonlat)
+        }
+        var careaSymbol
+        if (item.areaType === '1') {
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [30, 144, 255, 0.8], [30, 144, 255], 2, false)
+        } else if (item.areaType === '2') {
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 165, 0, 0.8], [255, 165, 0], 2, false)
+        } else if (item.areaType === '3') {
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 0, 0, 0.8], [255, 0, 0], 2, false)
+        }
+        polygonSymbol.push(careaSymbol)
+      }
+    })
+    store.getters.app.checkAreaLayer.addPolygonSymbol(polygonSymbol)
   })
-  // $.ajax({
-  //   url: GIS_SERVERIP + 'zoneAdministration/getZoneDataList?pageNum=1&pageSize=30',
-  //   type: 'get',
-  //   dataType: 'json',
-  //   success: function (d) {
-  //     console.log(d)
-  // var areadata = d.data
-  // var polygonSymbol = []
-  // app.safeworkareaLayer.clear()
-  // $.each(areadata, function(i, item) {
-  //   var sareaAttr = {
-  //     'datatype': 'safework',
-  //     'name': item.name
-  //   }
-  //   if (item.area != null && item.area != '') {
-  //     var areaObj = JSON.parse(item.area)
-  //     var areaPoints = areaObj.pointList
-  //     var points = []
-  //     for (i = 0; i < areaPoints.length; i++) {
-  //       var lonlat = wgs84ToWebMct(areaPoints[i].x, areaPoints[i].y)
-  //       points.push(lonlat)
-  //     }
-  //     var sareaSymbol = HSymbol.getPolygonSymbol(sareaAttr, [points], [255, 255, 255, 0.2], [50, 205, 50], 2, false, sareaAttr['name'], 16, [255, 165, 0])
-  //     polygonSymbol.push(sareaSymbol)
-  //   }
-  // })
-  // app.safeworkareaLayer.addPolygonSymbol(polygonSymbol)
-  //   }
-  // })
 }
 
 /**

@@ -9,18 +9,18 @@ const system = {
   alwaysShow: true,
   meta: { title: '系统管理', icon: 'sys', roles: ['sys'] },
   children: [
-    // {
-    //   path: 'AuthorizeManagement',
-    //   name: 'AuthorizeManagement',
-    //   component: () => import('@/views/system/AuthorizeManagement/index'),
-    //   meta: { keepAlive: false, title: '权限管理', roles: ['sys:authorize'] }
-    // },
-    // {
-    //   path: 'RoleManagement',
-    //   name: 'RoleManagement',
-    //   component: () => import('@/views/system/RoleManagement/index'),
-    //   meta: { keepAlive: false, title: '角色管理', roles: ['sys:role'] }
-    // },
+    {
+      path: 'AuthorizeManagement',
+      name: 'AuthorizeManagement',
+      component: () => import('@/views/system/AuthorizeManagement/index'),
+      meta: { keepAlive: false, title: '权限管理', roles: ['sys:authorize'] }
+    },
+    {
+      path: 'RoleManagement',
+      name: 'RoleManagement',
+      component: () => import('@/views/system/RoleManagement/index'),
+      meta: { keepAlive: false, title: '角色管理', roles: ['sys:role'] }
+    },
     {
       path: 'DepManagement',
       name: 'DepManagement',

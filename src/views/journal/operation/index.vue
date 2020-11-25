@@ -34,7 +34,7 @@
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
-          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">重置
+          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="reset">重置
           </el-button>
         </div>
       </div>
@@ -65,15 +65,11 @@
             label="登录用户名"
           />
           <el-table-column
-            prop="ipAdmin"
-            label="登录IP"
-          />
-          <el-table-column
             prop="description"
             label="操作内容"
           />
           <el-table-column
-            prop="addTime"
+            prop="addTimeString"
             label="操作时间"
           />
         </el-table>
@@ -131,6 +127,11 @@ export default {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
+    },
+    reset () {
+      this.userLoginName = null
+      this.description = null
+      this.addTime = null
     }
   }
 }

@@ -31,7 +31,7 @@ export function delt (id) {
     url: '/department/remove',
     method: 'PUT',
     params: {
-      id: id.join('.')
+      id: id.join(',')
     }
   })
 }

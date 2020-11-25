@@ -30,22 +30,22 @@ export function delt (id) {
     }
   })
 }
-export function getShipInfo (mmsi) {
+export function getShipInfo (zwcm) {
   return request({
     url: '/shipAdministration/getSipAdminDataList',
     method: 'GET',
     params: {
-      mmsi
+      zwcm
     }
   })
 }
 
-export function getShipSignal (mmsi) {
+export function getShipSignal (zwcm) {
   return request({
     url: '/signalSupervisory/getSignalNameList',
     method: 'GET',
     params: {
-      mmsi
+      zwcm
     }
   })
 }

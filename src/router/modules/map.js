@@ -6,12 +6,14 @@ const map = {
   component: Layout,
   redirect: '/map/mapView',
   name: 'map',
-  hidden: true,
+  alwaysShow: true,
+  meta: { title: '地图', icon: 'sys', roles: [] },
   children: [
     {
       path: 'mapView',
       name: 'mapView',
-      component: () => import('@/views/map/index')
+      component: () => import('@/views/map/index'),
+      meta: { title: '地图' }
     }
   ]
 }

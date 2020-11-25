@@ -48,7 +48,7 @@ export function delt (id) {
     url: '/personnel/remove',
     method: 'PUT',
     params: {
-      id: id.join('.')
+      id: id.join(',')
     }
   })
 }
@@ -58,7 +58,7 @@ export function enable (id) {
     url: '/personnel/enable',
     method: 'PUT',
     params: {
-      id: id.join('.')
+      id: id.join(',')
     }
   })
 }
@@ -68,7 +68,7 @@ export function disable (id) {
     url: '/personnel/disable',
     method: 'PUT',
     params: {
-      id: id.join('.')
+      id: id.join(',')
     }
   })
 }
@@ -96,10 +96,17 @@ export function getRoleArr () {
 }
 
 export function resetpassword (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/personnel/passwordReset',
+    method: 'PUT',
+    params: {
+      id: id.join(',')
+    }
   })
-  return request.put('/personnel/passwordReset', data)
+  // const data = qs.stringify({
+  //   id: id.join(',')
+  // })
+  // return request.put('/personnel/passwordReset', data)
 }
 
 export function findRoleById (id) {

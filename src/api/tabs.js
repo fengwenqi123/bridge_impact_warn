@@ -1,12 +1,12 @@
 import request from '@/utils/request1'
 import qs from 'qs'
 
-export function getSignal (zwShipName) {
+export function getSignal (zwcm) {
   return request({
     url: '/signalSupervisory/getSignalNameList',
     method: 'GET',
     params: {
-      zwShipName
+      zwcm
     }
   })
 }
@@ -15,7 +15,7 @@ export function getShipInfo (zwcm) {
   return request({
     url: '/shipAdministration/getSipAdminDataList',
     method: 'GET',
-    params: zwcm
+    params: { zwcm }
   })
 }
 

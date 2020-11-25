@@ -67,7 +67,7 @@
             label="船舶识别号"
           />
           <el-table-column
-            prop="description"
+            prop="phone"
             label="联系电话"
           />
           <el-table-column
@@ -75,9 +75,14 @@
             label="预警时间"
           />
           <el-table-column
-            label="预警类型"
-          />
+            prop="warnLevel"
+            label="预警类型">
+            <template slot-scope="scope">
+              {{scope.row.warnLevel==='1'?'预警警告（一级)':scope.row.warnLevel==='2'?'紧急警告（二级)':scope.row.warnLevel==='3'?'危急警告（三级)':scope.row.warnLevel==='4'?'碰撞警告（四级)':''}}
+            </template>
+          </el-table-column>
           <el-table-column
+            prop="warningmethod"
             label="预警方式"
           />
           <el-table-column
@@ -147,14 +152,17 @@ export default {
       tableData: [],
       warnValue: null,
       warnType: [{
-        value: '预警警告（一级）',
-        label: '预警警告（一级）'
+        value: '1',
+        label: '预警警告（一级)'
       }, {
-        value: '紧急警告（二级）',
-        label: '紧急警告（二级）'
+        value: '2',
+        label: '紧急警告（二级)'
       }, {
-        value: '危急警告（三级）',
-        label: '危急警告（三级）'
+        value: '3',
+        label: '危急警告（三级)'
+      }, {
+        value: '4',
+        label: '碰撞警告（四级)'
       }]
     }
   },

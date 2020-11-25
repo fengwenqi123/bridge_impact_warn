@@ -13,6 +13,9 @@
         <videoCom :url="item.rtmp" :ids="item.id"></videoCom>
       </div>
     </div>
+   <div class="video-list">
+     <videoList :list="videoListData" @checked="play"></videoList>
+   </div>
     <shipInfo v-if="shipInfo" :shipInfo="shipInfo" @closeTab="closeTab"></shipInfo>
   </div>
 </template>
@@ -27,6 +30,8 @@ import HShipLayer from '@/utils/mapConfig/gisLib/HShipLayer'
 import { GIS_SHIPWMS, GIS_SHIPWFS } from '@/utils/mapConfig/gisLib/HConfig'
 import videoDrawer from '@/views/map/videoDrawer'
 import shipInfo from '@/views/map/shipInfo'
+import videoList from '@/views/map/videoList'
+import { lists } from '@/api/videoManagement'
 
 export default {
   name: 'mapView',
@@ -41,16 +46,19 @@ export default {
       drawer: false,
       video: null,
       checkedVideoList: [],
-      shipInfo: null
+      shipInfo: null,
+      videoListData: null
     }
   },
   components: {
     olMap,
     videoCom,
     videoDrawer,
-    shipInfo
+    shipInfo,
+    videoList
   },
   created () {
+    this.getVideoListFun()
   },
   mounted () {
     addInfoLayers(this.app) // 增加业务图层
@@ -73,6 +81,7 @@ export default {
     },
     // 播放视频前判断
     play (item) {
+      console.log(item)
       if (!item.rtmp) {
         this.$message({
           message: '该地点暂无视频',
@@ -100,6 +109,12 @@ export default {
     },
     closeTab () {
       this.shipInfo = null
+    },
+    // 视频列表
+    getVideoListFun () {
+      lists(1, 30).then(response => {
+        this.videoListData = response.data.dataList
+      })
     }
   },
   directives: {
@@ -140,6 +155,7 @@ export default {
     top: 50%;
     left: 50%;
     z-index: 3000;
+    background: #fff;
 
     p {
       background: #1890ff;
@@ -158,6 +174,12 @@ export default {
         cursor: pointer;
       }
     }
+  }
+  .video-list{
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    width: 400px;
   }
 }
 </style>

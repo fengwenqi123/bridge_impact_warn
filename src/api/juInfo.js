@@ -3,7 +3,7 @@ import request from '@/utils/request1'
 
 export function lists (pageNum, pageSize, shipName, warningTime) {
   return request({
-    url: '/signalSupervisory/getMsgLog',
+    url: '/eventRecording/getMsgLog',
     method: 'GET',
     params: {
       pageNum, pageSize, shipName, warningTime

@@ -98,6 +98,7 @@ export default {
     }
     .video{
       width: 600px;
+      height: 460px;
     }
   }
   .line2{

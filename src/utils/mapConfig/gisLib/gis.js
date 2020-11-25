@@ -510,7 +510,7 @@ function clickVideoButtonToShowShipMessage (lon, lat, xhlc) {
  * @param name  监控视频名称
  * @description 监控视频属于聚合图层，定位要素方法单独使用
  */
-function locateToVideo (name) {
+export function locateToVideo (name) {
   var targetFeature
   var clusterFeatures = store.getters.app.videoLayer.layer.getSource().getSource().getFeatures()
   if (clusterFeatures.length !== 0) {

@@ -220,6 +220,7 @@ export default {
       })
     },
     _enable (listId) {
+      console.log(listId)
       enable(listId).then(response => {
         this.$message({
           message: response.msg,

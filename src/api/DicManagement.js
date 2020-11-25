@@ -32,7 +32,7 @@ export function delt (id) {
     url: '/dataDictionary/remove',
     method: 'PUT',
     params: {
-      id: id.join('.')
+      id: id.join(',')
     }
   })
   // const data = qs.stringify({
@@ -46,7 +46,7 @@ export function enable (id) {
     url: '/dataDictionary/enable',
     method: 'PUT',
     params: {
-      id: id.join('.')
+      id: id.join(',')
     }
   })
   // const data = qs.stringify({
@@ -60,7 +60,7 @@ export function disable (id) {
     url: '/dataDictionary/disable',
     method: 'PUT',
     params: {
-      id: id.join('.')
+      id: id.join(',')
     }
   })
   // const data = qs.stringify({

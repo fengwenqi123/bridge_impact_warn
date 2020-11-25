@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function lists (pageNum, pageSize, order, sort, status, keyword) {
   return request({
-    url: '/account/authorize',
+    url: '/authorize',
     method: 'GET',
     params: {
       pageNum,
@@ -19,36 +19,45 @@ export function lists (pageNum, pageSize, order, sort, status, keyword) {
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/account/authorize',
+    url: '/authorize',
     method: 'POST',
     data
   })
 }
 
 export function delt (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/authorize/remove',
+    method: 'PUT',
+    params: {
+      id: id.join(',')
+    }
   })
-  return request.put('/account/authorize/remove', data)
 }
 
 export function enable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/authorize/enable',
+    method: 'PUT',
+    params: {
+      id: id.join(',')
+    }
   })
-  return request.put('/account/authorize/enable', data)
 }
 
 export function disable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/authorize/disable',
+    method: 'PUT',
+    params: {
+      id: id.join(',')
+    }
   })
-  return request.put('/account/authorize/disable', data)
 }
 
 export function findAuthorize () {
   return request({
-    url: '/account/authorize',
+    url: '/authorize',
     method: 'GET',
     params: {
       pageNum: 1,

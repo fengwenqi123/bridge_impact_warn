@@ -17,12 +17,14 @@
               </el-form-item>
               <el-form-item label="船舶识别号">
                 <el-input
+                  v-model="form.identifynumber"
                   placeholder="请输入船舶识别号"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="联系电话">
                 <el-input
+                  v-model="form.phone"
                   placeholder="请输入联系电话"
                   clearable
                 />
@@ -37,11 +39,13 @@
               <el-form-item label="预警地址">
                 <el-input
                   placeholder="请输入预警地址"
+                  v-model="form.warningways"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="预警方式">
                 <el-input
+                  v-model="form.warningmethod"
                   placeholder="请输入预警方式"
                   clearable
                 />
@@ -71,40 +75,40 @@
             <div slot="header" class="clearfix">
               <span>信号</span>
             </div>
-            <el-form :inline="true" class="form-inline" label-width="120px">
+            <el-form v-if="ShipSignal" :inline="true" class="form-inline" label-width="120px">
               <el-form-item label="信号接收时间">
                 <el-input
-                  v-model="shipName"
+                  v-model="ShipSignal.signalReceivedTime"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="经度">
                 <el-input
-                  v-model="shipName"
+                  v-model="ShipSignal.longitude"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="纬度">
                 <el-input
-                  v-model="shipName"
+                  v-model="ShipSignal.latitude"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="船舶信息">
                 <el-input
-                  v-model="shipName"
+                  v-model="ShipSignal.shipMessage"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="速度">
                 <el-input
-                  v-model="shipName"
+                  v-model="ShipSignal.speed"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="航向">
                 <el-input
-                  v-model="shipName"
+                  v-model="ShipSignal.courseAngle"
                   clearable
                 />
               </el-form-item>
@@ -278,21 +282,21 @@ export default {
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))
-        this.getShipInfoFun(this.form.mmsi)
-        this.getShipSignalFun(this.form.mmsi)
-        this.getPaybackListFun('0c21970f-e694-4bb8-a2dc-1b93049b421f')
-        // this.getPaybackListFun(this.form.objid)
+        this.getShipInfoFun(this.form.zwShipName)
+        this.getShipSignalFun(this.form.zwShipName)
+        // this.getPaybackListFun('0c21970f-e694-4bb8-a2dc-1b93049b421f')
+        this.getPaybackListFun(this.form.objid)
       }
     },
     // 船舶信息
-    getShipInfoFun (mmsi) {
-      getShipInfo(mmsi).then(response => {
+    getShipInfoFun (zwShipName) {
+      getShipInfo(zwShipName).then(response => {
         this.shipInfo = response.data[0]
       })
     },
     // 信号
-    getShipSignalFun (mmsi) {
-      getShipSignal(mmsi).then(response => {
+    getShipSignalFun (zwShipName) {
+      getShipSignal(zwShipName).then(response => {
         this.ShipSignal = response.data
       })
     },
@@ -304,7 +308,7 @@ export default {
     },
     getRtmpFun (list) {
       list.forEach(item => {
-        getRtmp(item.webcamId, 'test').then(response => {
+        getRtmp(item.webcamId, item.playbackId).then(response => {
           this.videoUrl = response.data.url
         })
       })

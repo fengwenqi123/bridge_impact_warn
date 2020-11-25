@@ -27,7 +27,7 @@
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
-          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">重置
+          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="reset">重置
           </el-button>
         </div>
       </div>
@@ -50,7 +50,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="warningTime"
+            prop="goTime"
             label="告警时间"
           />
           <el-table-column
@@ -58,8 +58,8 @@
             label="船舶名称"
           />
           <el-table-column
-            prop="description"
-            label="告警内容"
+            prop="warningmethod"
+            label="告警方式"
           />
 
         </el-table>
@@ -116,6 +116,10 @@ export default {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
+    },
+    reset () {
+      this.shipName = null
+      this.warningTime = null
     }
   }
 }

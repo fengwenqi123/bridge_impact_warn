@@ -22,7 +22,7 @@
             </el-date-picker>
           </el-form-item>
           <el-form-item label="预警类型">
-            <el-select v-model=" warnValue" clearable placeholder="请选择">
+            <el-select v-model="warnValue" clearable placeholder="请选择">
               <el-option
                 v-for="item in warnType"
                 :key="item.value"

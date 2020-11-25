@@ -35,7 +35,7 @@
                 :key="index"
                 :label="item.name"
                 :style="{ paddingLeft : (item.layer.length-2) * 10 + 'px' }"
-                :value="item.id"
+                :value="item.name"
               />
             </el-select>
           </el-form-item>

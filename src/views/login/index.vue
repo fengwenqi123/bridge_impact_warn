@@ -5,13 +5,15 @@
       <div class="p2">桥梁防撞与预警监测系统</div>
     </div>
     <div class="login-container">
+
       <el-form class="login-form"
                auto-complete="on"
                :model="loginForm"
                ref="loginForm"
                :rules="loginRules"
                label-position="left">
-        <h3 class="title">用户登录</h3>
+        <img src="../../assets/img/login.png" alt="">
+        <p>严格 规范 智能 科学</p>
         <el-form-item prop="username">
           <span class="svg-container svg-container_login">
             <svg-icon icon-class="user" />
@@ -277,6 +279,16 @@ $light_gray: #eee;
     z-index: 11;
     background: #fff;
     border-radius: 5px;
+    img{
+      width: 140px;
+      margin-bottom: 10px;
+    }
+    p{
+      text-align: right;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: #888;
+    }
   }
 
   .tips {

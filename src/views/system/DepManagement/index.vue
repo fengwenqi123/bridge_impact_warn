@@ -196,6 +196,11 @@ export default {
         })
         this.list()
       })
+    },
+    submit () {
+      this.handleClose()
+      this.findAuth()
+      this.list()
     }
   }
 }

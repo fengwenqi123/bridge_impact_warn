@@ -132,6 +132,7 @@ export default {
       this.userLoginName = null
       this.description = null
       this.addTime = null
+      this.list()
     }
   }
 }

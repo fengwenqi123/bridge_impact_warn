@@ -120,6 +120,7 @@ export default {
     reset () {
       this.shipName = null
       this.warningTime = null
+      this.list()
     }
   }
 }

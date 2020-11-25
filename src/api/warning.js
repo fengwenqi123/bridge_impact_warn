@@ -2,12 +2,12 @@ import request from '@/utils/request1'
 import request2 from '@/utils/request2'
 import qs from 'qs'
 
-export function lists (pageNum, pageSize, name, warningTime, entryState) {
+export function lists (pageNum, pageSize, name, warningTime, warnLevel) {
   return request({
     url: '/eventRecording/getEventDataList',
     method: 'GET',
     params: {
-      pageNum, pageSize, name, warningTime, entryState
+      pageNum, pageSize, name, warningTime, warnLevel
     }
   })
 }

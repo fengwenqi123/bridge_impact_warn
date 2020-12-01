@@ -10,7 +10,7 @@ var GIS_DXNFEATURES = 'https://10.100.70.226/dxl_api'// 合作方要素
 var GIS_POINT = 'http://172.16.103.40:8083' // 污染物接收点
 var GIS_DLHSFEATURES = 'http://10.100.70.227/JXChannel'
 var GIS_AREASHIP = 'http://10.100.70.226/api/gps/track/trackQueryByRect?' // 区域轨迹接口
-var GIS_HISTORYSHIP = 'http://192.168.1.120:8001/alerta-service/signalSupervisory/getSignalDataList?' // 历史轨迹接口
+var GIS_HISTORYSHIP = 'http://192.168.1.120:8001/ais-service/signal/getSignalDataList?' // 历史轨迹接口
 
 // 智慧海事船舶图层
 var GIS_SHIPWMS = 'http://10.100.70.227:8090/geoserver/geobase/wms'

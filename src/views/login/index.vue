@@ -1,51 +1,53 @@
 <template>
   <div class="container">
     <div class="tip">
-      <div class="p1">杭州绕城高速公路</div>
-      <div class="p2">桥梁防撞与预警监测系统</div>
-    </div>
-    <div class="login-container">
+      <img src="../../assets/img/tip.jpg" alt="">
+<!--      <div class="p1">杭州绕城高速公路</div>-->
+<!--      <div class="p2">桥梁防撞与预警监测系统</div>-->
+      <div class="login-container">
 
-      <el-form class="login-form"
-               auto-complete="on"
-               :model="loginForm"
-               ref="loginForm"
-               :rules="loginRules"
-               label-position="left">
-        <img src="../../assets/img/login.png" alt="">
-        <p>严格 规范 智能 科学</p>
-        <el-form-item prop="username">
+        <el-form class="login-form"
+                 auto-complete="on"
+                 :model="loginForm"
+                 ref="loginForm"
+                 :rules="loginRules"
+                 label-position="left">
+          <img src="../../assets/img/login.png" alt="">
+          <p>严格 规范 智能 科学</p>
+          <el-form-item prop="username">
           <span class="svg-container svg-container_login">
             <svg-icon icon-class="user" />
           </span>
-          <el-input type="text"
-                    v-model="loginForm.username"
-                    auto-complete="on"
-                    placeholder="请输入用户名"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
+            <el-input type="text"
+                      v-model="loginForm.username"
+                      auto-complete="on"
+                      placeholder="请输入用户名"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
           <span class="svg-container">
             <svg-icon icon-class="password"></svg-icon>
           </span>
-          <el-input name="password"
-                    :type="pwdType"
-                    @keyup.enter.native="handleLogin"
-                    v-model="loginForm.password"
-                    auto-complete="on"
-                    placeholder="请输入密码"></el-input>
-          <span class="show-pwd"
-                @click="showPwd">
+            <el-input name="password"
+                      :type="pwdType"
+                      @keyup.enter.native="handleLogin"
+                      v-model="loginForm.password"
+                      auto-complete="on"
+                      placeholder="请输入密码"></el-input>
+            <span class="show-pwd"
+                  @click="showPwd">
             <svg-icon :icon-class="eye" />
           </span>
-        </el-form-item>
-        <div class="login-button">
-          <el-checkbox v-model="checked">记住密码</el-checkbox>
-          <el-button type="primary"
-                     :loading="loading"
-                     @click.native.prevent="handleLogin">登录</el-button>
-        </div>
-      </el-form>
+          </el-form-item>
+          <div class="login-button">
+            <el-checkbox v-model="checked">记住密码</el-checkbox>
+            <el-button type="primary"
+                       :loading="loading"
+                       @click.native.prevent="handleLogin">登录</el-button>
+          </div>
+        </el-form>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -181,23 +183,24 @@ $light_gray: #eee;
   position: absolute;
   height: 100%;
   width: 100%;
-  background: url("../../assets/img/background.jpg") no-repeat;
+  background: url("../../assets/img/background.png") no-repeat;
   background-size: 100% 100%;
   .tip{
    position: absolute;
-    top: 100px;
-    left: 500px;
+    top: 140px;
+    left: 50%;
+    margin-left: -586px;
     .p1{
       font-family: AdobeHeiti;
-      font-size: 36px;
-      color: #0f67b9;
+      font-size: 50px;
+      color: #255cae;
     }
     .p2{
       margin-top: 30px;
       font-family: AdobeHeiti;
-      margin-left: 300px;
-      font-size: 36px;
-      color: #0f67b9;
+      margin-left: 280px;
+      font-size: 50px;
+      color: #255cae;
     }
   }
 }
@@ -268,11 +271,13 @@ $light_gray: #eee;
   }
 
   .login-form {
-    position: absolute;
-    right: 180px;
-    top: 0;
+    //position: absolute;
+    margin-left: 623px;
+    //margin: auto;
+    margin-top: 20px;
+    //margin-left: -105px;
+    top: 60px;
     bottom: 0;
-    margin: auto;
     width: 350px;
     height: 400px;
     padding: 35px 35px 15px 35px;

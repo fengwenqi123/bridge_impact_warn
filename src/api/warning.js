@@ -41,8 +41,8 @@ export function getShipInfo (zwcm) {
 }
 
 export function getShipSignal (zwcm) {
-  return request({
-    url: '/signalSupervisory/getSignalNameList',
+  return request2({
+    url: '/ais-service/signal/getSignalNameList',
     method: 'GET',
     params: {
       zwcm

@@ -1,9 +1,10 @@
 import request from '@/utils/request1'
+import request2 from '@/utils/request2'
 import qs from 'qs'
 
 export function getSignal (zwcm) {
-  return request({
-    url: '/signalSupervisory/getSignalNameList',
+  return request2({
+    url: '/ais-service/signal/getSignalNameList',
     method: 'GET',
     params: {
       zwcm

@@ -5,8 +5,9 @@
         <div class="information-form">
           <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
             <el-form-item label="上级权限:" prop="supAuth">
-              <el-input v-if="form.id" v-model="parent" disabled />
-              <el-select v-if="!form.id" filterable clearable v-model="form.supLayer" placeholder="请选择">
+              <el-input v-if="form.id" v-model="parent" disabled/>
+              <el-select v-if="!form.id" filterable clearable v-model="form.supLayer"
+                         :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="(item,index) in authArr"
                   :key="index"
@@ -17,16 +18,20 @@
               </el-select>
             </el-form-item>
             <el-form-item label="权限名称:" prop="name">
-              <el-input v-model="form.name" :readonly="readonly" placeholder="请输入权限名称" clearable />
+              <el-input v-model="form.name" :readonly="readonly"
+                        :placeholder="havePlaceholder('请输入权限名称')" clearable/>
             </el-form-item>
             <el-form-item label="权限值:" prop="actionValue">
-              <el-input v-model="form.actionValue" :readonly="readonly" placeholder="请输入权限值" clearable />
+              <el-input v-model="form.actionValue" :readonly="readonly"
+                        :placeholder="havePlaceholder('请输入权限值')" clearable/>
             </el-form-item>
             <el-form-item label="排序:" prop="sort">
-              <el-input v-model="form.sort" :readonly="readonly" placeholder="请输入排序" clearable />
+              <el-input v-model="form.sort" :readonly="readonly"
+                        :placeholder="havePlaceholder('请输入排序')" clearable/>
             </el-form-item>
             <el-form-item label="备注:" prop="description">
-              <el-input v-model="form.description" :readonly="readonly" type="textarea" :rows="6" placeholder="请输入备注" />
+              <el-input v-model="form.description" :readonly="readonly" type="textarea" :rows="6"
+                        :placeholder="havePlaceholder('请输入备注')"/>
             </el-form-item>
             <el-form-item label="状态:" prop="status">
               <el-radio v-model="form.status" :readonly="readonly" label="1">启用</el-radio>
@@ -36,7 +41,7 @@
         </div>
       </el-scrollbar>
     </div>
-    <div slot="footer" class="information-foot"  v-if="!readonly">
+    <div slot="footer" class="information-foot" v-if="!readonly">
       <el-button
         icon="el-icon-document"
         size="small"
@@ -92,11 +97,23 @@ export default {
       },
       // 表单验证
       rules: {
-        name: [{ required: true, message: '请输入权限名称', trigger: 'blur' }],
+        name: [{
+          required: true,
+          message: '请输入权限名称',
+          trigger: 'blur'
+        }],
         actionValue: [
-          { required: true, message: '请输入权限值', trigger: 'blur' }
+          {
+            required: true,
+            message: '请输入权限值',
+            trigger: 'blur'
+          }
         ],
-        sort: [{ required: true, message: '请输入排序', trigger: 'blur' }]
+        sort: [{
+          required: true,
+          message: '请输入排序',
+          trigger: 'blur'
+        }]
       }
     }
   },
@@ -105,6 +122,9 @@ export default {
     this.findAuth()
   },
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))
@@ -147,8 +167,8 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .active {
-    background: #67c23a;
-    color: #fff;
-  }
+.active {
+  background: #67c23a;
+  color: #fff;
+}
 </style>

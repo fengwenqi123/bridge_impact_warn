@@ -8,7 +8,7 @@
             <el-form-item label="IP地址:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入IP地址"
+                :placeholder="havePlaceholder('请输入IP地址')"
                 clearable
                 v-model="form.ipAddress"
               />
@@ -16,14 +16,14 @@
             <el-form-item label="区域位置">
               <el-button type="primary" size="mini" @click.native="modgis()">绘制区域</el-button>
               <p v-if="form.longitude" style="display: inline-block;">
-                <span>{{form.longitude}}</span>,
-                <span>{{form.latitude}}</span>
+                <span>{{ form.longitude }}</span>,
+                <span>{{ form.latitude }}</span>
               </p>
             </el-form-item>
             <el-form-item label="端口号:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入端口号"
+                :placeholder="havePlaceholder('请输入端口号')"
                 clearable
                 v-model="form.porte"
               />
@@ -31,7 +31,7 @@
             <el-form-item label="通道号:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入通道号"
+                :placeholder="havePlaceholder('请输入通道号')"
                 clearable
                 v-model="form.aisleNumber"
               />
@@ -39,7 +39,7 @@
             <el-form-item label="用户名:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入用户名"
+                :placeholder="havePlaceholder('请输入用户名')"
                 clearable
                 v-model="form.userName"
               />
@@ -47,7 +47,7 @@
             <el-form-item label="密码:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入密码"
+                :placeholder="havePlaceholder('请输入密码')"
                 clearable
                 v-model="form.password"
               />
@@ -55,13 +55,13 @@
             <el-form-item label="名称:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入名称"
+                :placeholder="havePlaceholder('请输入名称')"
                 clearable
                 v-model="form.videoName"
               />
             </el-form-item>
             <el-form-item label="视频类型:">
-              <el-select v-model="form.videoType" clearable placeholder="请选择">
+              <el-select v-model="form.videoType" clearable :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="item in videoList"
                   :key="item.value"
@@ -73,7 +73,7 @@
             <el-form-item label="h5地址:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入h5地址"
+                :placeholder="havePlaceholder('请输入h5地址')"
                 clearable
                 v-model="form.h5Address"
               />
@@ -81,7 +81,7 @@
             <el-form-item label="rtmp地址:">
               <el-input
                 :readonly="readonly"
-                    placeholder="请输入rtmp地址"
+                :placeholder="havePlaceholder('请输入rtmp地址')"
                 clearable
                 v-model="form.rtmpSite"
               />
@@ -89,7 +89,7 @@
             <el-form-item label="hls地址:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入hls地址"
+                :placeholder="havePlaceholder('请输入hls地址')"
                 clearable
                 v-model="form.hisAddress"
               />
@@ -97,13 +97,14 @@
             <el-form-item label="接口服务器根地址:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入接口服务器根地址"
+                :placeholder="havePlaceholder('请输入接口服务器根地址')"
                 clearable
                 v-model="form.serveInterfaceAddress"
               />
             </el-form-item>
             <el-form-item label="回放类型:">
-              <el-select v-model="form.playbackType" clearable placeholder="请选择">
+              <el-select v-model="form.playbackType" clearable
+                         :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="item in playBackList"
                   :key="item.value"
@@ -113,7 +114,10 @@
               </el-select>
             </el-form-item>
             <el-form-item label="直播方式:">
-              <el-select v-model="form.playType" clearable placeholder="请选择">
+              <el-select
+                v-model="form.playType"
+                clearable
+                :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="item in playList"
                   :key="item.value"
@@ -125,7 +129,7 @@
             <el-form-item label="回放流名称:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入回放流名称"
+                :placeholder="havePlaceholder('请输入回放流名称')"
                 clearable
                 v-model="form.playbackName"
               />
@@ -133,7 +137,7 @@
             <el-form-item label="回放频道:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入回放频道"
+                :placeholder="havePlaceholder('请输入回放频道')"
                 clearable
                 v-model="form.playbackChannel"
               />
@@ -141,7 +145,7 @@
             <el-form-item label="回放超时:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入回放超时"
+                :placeholder="havePlaceholder('请输入回放超时')"
                 clearable
                 v-model="form.playbackOvertime"
               />
@@ -149,7 +153,7 @@
             <el-form-item label="设备编号:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入设备编号"
+                :placeholder="havePlaceholder('请输入设备编号')"
                 clearable
                 v-model="form.equipmentNumber"
               />
@@ -255,6 +259,9 @@ export default {
     this.getgis()
   },
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))

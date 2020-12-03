@@ -32,6 +32,8 @@
         <div class="table_search_buttonLeft">
           <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">添加
           </el-button>
+          <el-button type="primary" icon="el-icon-refresh-left" size="small" class="blueButton" @click="reset">重置
+          </el-button>
         </div>
       </div>
       <div class="table">
@@ -187,6 +189,12 @@ export default {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
+    },
+    reset () {
+      this.page.pageNum = 1
+      this.keyword = null
+      this.selected = null
+      this.list()
     },
     _delt (listId) {
       delt(listId).then(response => {

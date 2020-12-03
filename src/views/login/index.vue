@@ -44,6 +44,7 @@
                        :loading="loading"
                        @click.native.prevent="handleLogin">登录</el-button>
           </div>
+          <span class="font">建议屏幕分辨率为1920*1080</span>
         </el-form>
       </div>
     </div>
@@ -378,6 +379,14 @@ $light_gray: #eee;
       width: 100%;
       margin-top: 30px;
     }
+  }
+  .font{
+    padding-top: 10px;
+    color: #888;
+    width: 100%;
+    text-align: right;
+    display: inline-block;
+    font-size: 12px;
   }
 }
 </style>

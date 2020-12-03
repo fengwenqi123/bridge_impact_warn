@@ -17,7 +17,7 @@
             >
               <el-input
                 v-model="form.loginName"
-                placeholder="请输入登录名"
+                :placeholder="havePlaceholder('请输入登录名')"
                 :readonly="readonly"
                 clearable
               />
@@ -29,7 +29,7 @@
               <el-input
                 v-model="form.name"
                 :readonly="readonly"
-                placeholder="请输入名称"
+                :placeholder="havePlaceholder('请输入名称')"
                 clearable
               />
             </el-form-item>
@@ -38,7 +38,7 @@
                 v-model="departmentIds"
                 filterable
                 clearable
-                placeholder="请选择"
+                :placeholder="havePlaceholder('请选择')"
                 @change="changes"
               >
                 <el-option
@@ -58,7 +58,7 @@
                 v-model="form.code"
                 :readonly="readonly"
                 clearable
-                placeholder="请输入员工编号"
+                :placeholder="havePlaceholder('请输入员工编号')"
               />
             </el-form-item>
             <el-form-item
@@ -88,7 +88,7 @@
                 v-model="form.email"
                 clearable
                 :readonly="readonly"
-                placeholder="请输入email"
+                :placeholder="havePlaceholder('请输入email')"
               />
             </el-form-item>
             <el-form-item
@@ -99,7 +99,7 @@
                 v-model="form.mobile"
                 clearable
                 :readonly="readonly"
-                placeholder="请输入手机"
+                :placeholder="havePlaceholder('请输入手机')"
               />
             </el-form-item>
             <el-form-item
@@ -110,7 +110,7 @@
                 v-model="form.idCard"
                 clearable
                 :readonly="readonly"
-                placeholder="请输入身份证"
+                :placeholder="havePlaceholder('请输入身份证')"
               />
             </el-form-item>
             <el-form-item
@@ -122,7 +122,7 @@
                 align="right"
                 :readonly="readonly"
                 type="date"
-                placeholder="选择日期"
+                :placeholder="havePlaceholder('选择日期')"
                 format="yyyy 年 MM 月 dd 日"
                 value-format="yyyy-MM-dd"
                 :picker-options="pickerOptions1"
@@ -136,7 +136,7 @@
                 v-model="form.address"
                 clearable
                 :readonly="readonly"
-                placeholder="请输入地址"
+                :placeholder="havePlaceholder('请输入地址')"
               />
             </el-form-item>
             <el-form-item
@@ -148,7 +148,7 @@
                 type="textarea"
                 :rows="6"
                 :readonly="readonly"
-                placeholder="请输入备注"
+                :placeholder="havePlaceholder('请输入备注')"
               />
             </el-form-item>
             <el-form-item
@@ -289,6 +289,9 @@ export default {
     this.getData()
   },
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     changes () {
       this.form.departmentIds = this.departmentIds
     },

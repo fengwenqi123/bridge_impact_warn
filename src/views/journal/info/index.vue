@@ -6,10 +6,10 @@
     <el-card class="content">
       <div class="search">
         <el-form :inline="true" class="form-inline" label-width="120px">
-          <el-form-item label="船舶名称">
+          <el-form-item label="中文船名">
             <el-input
               v-model="shipName"
-              placeholder="请输入船舶名称"
+              placeholder="请输入中文船名"
               clearable
             />
           </el-form-item>
@@ -27,7 +27,7 @@
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
-          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="reset">重置
+          <el-button type="primary" icon="el-icon-refresh-left" size="small" class="blueButton" @click="reset">重置
           </el-button>
         </div>
       </div>
@@ -55,7 +55,7 @@
           />
           <el-table-column
             prop="zwShipName"
-            label="船舶名称"
+            label="中文船名"
           />
           <el-table-column
             prop="warningmethod"

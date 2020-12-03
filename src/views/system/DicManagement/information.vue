@@ -7,7 +7,7 @@
             <el-form-item label="分类:" prop="classification">
               <el-input
                 v-model="form.classification"
-                placeholder="请输入分类"
+                :placeholder="havePlaceholder('请输入分类')"
                 :readonly="readonly"
                 clearable
               />
@@ -16,7 +16,7 @@
               <el-input
                 v-model="form.itemName"
                 :readonly="readonly"
-                placeholder="请输入项目名称"
+                :placeholder="havePlaceholder('请输入项目名称')"
                 clearable
               />
             </el-form-item>
@@ -24,7 +24,7 @@
               <el-input
                 v-model="form.itemValue"
                 :readonly="readonly"
-                placeholder="请输入项目值"
+                :placeholder="havePlaceholder('请输入项目值')"
                 clearable
               />
             </el-form-item>
@@ -34,7 +34,7 @@
                 :readonly="readonly"
                 type="textarea"
                 :rows="6"
-                placeholder="请输入备注"
+                :placeholder="havePlaceholder('请输入备注')"
               />
             </el-form-item>
             <el-form-item label="类型:" prop="type">
@@ -117,6 +117,9 @@ export default {
   },
 
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))

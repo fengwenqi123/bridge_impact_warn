@@ -6,8 +6,7 @@
       <div class="con">
         <el-row>
           <el-col :span="14" class="font">
-            <div class="grid-content bg-purple"><span>联系人：</span><span></span></div>
-            <div class="grid-content bg-purple"><span>联系电话：</span><span></span></div>
+            <div class="grid-content bg-purple"><span>船舶类型：{{ shipInfo.shipType | shipType}}</span><span></span></div>
           </el-col>
         </el-row>
       </div>
@@ -32,6 +31,22 @@ export default {
   methods: {
     closeTab () {
       this.$emit('closeTab')
+    }
+  },
+  filters: {
+    shipType (type) {
+      let typeName = null
+      switch (type) {
+        case 1: typeName = '客船'
+          break
+        case 2: typeName = '货船'
+          break
+        case 3: typeName = '危险品船'
+          break
+        case 99:typeName = '其他船'
+          break
+      }
+      return typeName
     }
   }
 }

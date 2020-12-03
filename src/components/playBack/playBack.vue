@@ -116,9 +116,6 @@ export default {
       }, {
         value: 2,
         label: 'AIS'
-      }, {
-        value: 3,
-        label: 'RFID'
       }],
       shipName: '浙长兴货5028',
       shipTime: [timeToString(new Date().getTime() - 1800000), timeToString(new Date().getTime())],

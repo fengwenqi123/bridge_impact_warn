@@ -7,7 +7,7 @@
             <el-form-item label="围栏名称:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入围栏名称"
+                :placeholder="havePlaceholder('请输入围栏名称')"
                 clearable
                 v-model="form.cereaName"
               />
@@ -21,7 +21,7 @@
                 v-model="form.deptId"
                 clearable
                 filterable
-                placeholder="请选择"
+                :placeholder="havePlaceholder('请选择')"
               >
                 <el-option
                   v-for="(item,index) in departmentList"
@@ -35,13 +35,14 @@
             <el-form-item label="围栏编号:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入围栏编号"
+                :placeholder="havePlaceholder('请输入围栏编号')"
                 v-model="form.serialNumber"
                 clearable
               />
             </el-form-item>
             <el-form-item label="预警类型:">
-              <el-select v-model="form.areaType" clearable placeholder="请选择">
+              <el-select v-model="form.areaType" clearable
+                         :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="item in warningTypeList"
                   :key="item.value"
@@ -53,7 +54,7 @@
             <el-form-item label="围栏坐标:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入围栏坐标"
+                :placeholder="havePlaceholder('请输入围栏坐标')"
                 v-model="form.cereaCoordinates"
                 clearable
               />
@@ -63,7 +64,7 @@
               <el-input
                 type="textarea"
                 :rows="6"
-                placeholder="请输入内容"
+                :placeholder="havePlaceholder('请输入内容')"
                 v-model="form.remark">
               </el-input>
             </el-form-item>
@@ -157,6 +158,9 @@ export default {
     this.getCoor()
   },
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))

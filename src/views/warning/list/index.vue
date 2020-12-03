@@ -37,6 +37,8 @@
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
+          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="reset">重置
+          </el-button>
         </div>
       </div>
       <div class="table">
@@ -175,6 +177,13 @@ export default {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
+    },
+    reset () {
+      this.page.pageNum = 1
+      this.name = null
+      this.startTime = null
+      this.warnValue = null
+      this.list()
     }
   }
 }

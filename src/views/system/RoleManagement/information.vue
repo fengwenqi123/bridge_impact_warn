@@ -18,7 +18,7 @@
               <el-input
                 v-model="form.name"
                 :readonly="readonly"
-                placeholder="请输入名称"
+                :placeholder="havePlaceholder('请输入名称')"
                 clearable
               />
             </el-form-item>
@@ -28,7 +28,7 @@
                 :readonly="readonly"
                 type="textarea"
                 :rows="6"
-                placeholder="请输入备注"
+                :placeholder="havePlaceholder('请输入备注')"
               />
             </el-form-item>
             <el-form-item label="状态:" prop="status">
@@ -107,6 +107,9 @@ export default {
     this.getAll()
   },
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))

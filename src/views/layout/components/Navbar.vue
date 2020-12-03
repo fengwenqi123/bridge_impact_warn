@@ -9,6 +9,7 @@
         <ul class="ul1">
           <li>
             <div class="item"
+                 style="cursor: pointer"
                  @click="logout">
               <i class="el-icon-third-tuichudenglu"></i>
               退出登录

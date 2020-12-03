@@ -7,13 +7,13 @@
             <el-form-item label="用户姓名:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入用户姓名"
+                :placeholder="havePlaceholder('请输入用户姓名')"
                 clearable
                 v-model="form.userName"
               />
             </el-form-item>
             <el-form-item label="预警类型:">
-              <el-select v-model="form.warningType" clearable placeholder="请选择">
+              <el-select v-model="form.warningType" clearable :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="item in warningTypeList"
                   :key="item.value"
@@ -31,7 +31,7 @@
             <el-form-item label="录音内容:">
               <el-input
                 :readonly="readonly"
-                placeholder="请输入录音内容"
+                :placeholder="havePlaceholder('请输入录音内容')"
                 clearable
                 v-model="form.gravacaoCondeudo"
               />
@@ -125,6 +125,9 @@ export default {
   },
 
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))

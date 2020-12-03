@@ -11,34 +11,34 @@
               <el-form-item label="中文船名">
                 <el-input
                   v-model="form.zwShipName"
-                  placeholder="请输入中文船名"
+                  :placeholder="havePlaceholder('请输入中文船名')"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="船舶识别号">
                 <el-input
                   v-model="form.identifynumber"
-                  placeholder="请输入船舶识别号"
+                  :placeholder="havePlaceholder('请输入船舶识别号')"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="联系电话">
                 <el-input
                   v-model="form.phone"
-                  placeholder="请输入联系电话"
+                  :placeholder="havePlaceholder('请输入联系电话')"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="预警时间">
                 <el-input
                   v-model="form.addTimeString"
-                  placeholder="请输入预警时间"
+                  :placeholder="havePlaceholder('请输入预警时间')"
                   clearable
                 />
               </el-form-item>
               <el-form-item label="预警地址">
                 <el-input
-                  placeholder="请输入预警地址"
+                  :placeholder="havePlaceholder('请输入预警地址')"
                   v-model="form.warningways"
                   clearable
                 />
@@ -46,7 +46,7 @@
               <el-form-item label="预警方式">
                 <el-input
                   v-model="form.warningmethod"
-                  placeholder="请输入预警方式"
+                  :placeholder="havePlaceholder('请输入预警方式')"
                   clearable
                 />
               </el-form-item>
@@ -279,6 +279,9 @@ export default {
   },
 
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))

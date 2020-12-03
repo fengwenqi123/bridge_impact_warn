@@ -6,7 +6,7 @@
           <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
             <el-form-item label="归属:" prop="supLayer">
               <el-input v-if="form.id" v-model="parent" disabled />
-              <el-select v-if="!form.id" filterable clearable v-model="form.supLayer" placeholder="请选择">
+              <el-select v-if="!form.id" filterable clearable v-model="form.supLayer" :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="(item,index) in data2"
                   :key="index"
@@ -19,7 +19,7 @@
             <el-form-item label="部门名称:" prop="name">
               <el-input
                 v-model="form.name"
-                placeholder="请输入部门名称"
+                :placeholder="havePlaceholder('请输入部门名称')"
                 :readonly="readonly"
                 clearable
               />
@@ -28,7 +28,7 @@
               <el-input
                 v-model="form.code"
                 :readonly="readonly"
-                placeholder="请输入部门编号"
+               :placeholder="havePlaceholder('请输入部门编号')"
                 clearable
               />
             </el-form-item>
@@ -38,7 +38,7 @@
                 :readonly="readonly"
                 type="textarea"
                 :rows="6"
-                placeholder="请输入备注"
+                :placeholder="havePlaceholder('请输入备注')"
               />
             </el-form-item>
           </el-form>
@@ -112,6 +112,9 @@ export default {
   },
 
   methods: {
+    havePlaceholder (string) {
+      return this.readonly ? '' : string
+    },
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))

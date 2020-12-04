@@ -1,12 +1,12 @@
 import request from '@/utils/request1'
 import qs from 'qs'
 
-export function lists (pageNum, pageSize, ipAddress, videoType) {
+export function lists (pageNum, pageSize, keyword, videoType) {
   return request({
     url: '/videoManagement/getVideoDataList',
     method: 'GET',
     params: {
-      pageNum, pageSize, ipAddress, videoType
+      pageNum, pageSize, keyword, videoType
     }
   })
 }

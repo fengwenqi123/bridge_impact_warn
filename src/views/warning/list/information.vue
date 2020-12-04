@@ -60,7 +60,8 @@
               <div class="video">
                 <div class="title">视频回放</div>
                 <div class="item">
-                  <videoRtmp :url="videoUrl"></videoRtmp>
+                  <videoRtmp v-if="videoUrl" :url="videoUrl"></videoRtmp>
+                  <p v-else>暂无视频</p>
                 </div>
               </div>
               <div class="gj">
@@ -352,6 +353,14 @@ export default {
           .item {
             width: 800px;
             height: 400px;
+            p{
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 20px;
+              background: #c8c9cc;
+            }
           }
         }
 
@@ -359,6 +368,7 @@ export default {
           .item {
             width: 800px;
             height: 400px;
+
           }
         }
       }

@@ -34,7 +34,7 @@ import videoList from '@/views/map/videoList'
 import { lists } from '@/api/videoManagement'
 
 export default {
-  name: 'mapView',
+  name: 'mapView1',
   computed: {
     ...mapGetters([
       'app'

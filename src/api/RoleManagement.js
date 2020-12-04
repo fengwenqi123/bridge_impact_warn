@@ -26,24 +26,45 @@ export function add (form) {
 }
 
 export function delt (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/role/remove',
+    method: 'PUT',
+    params: {
+      id: id.join(',')
+    }
   })
-  return request.put('/role/remove', data)
+  // const data = qs.stringify({
+  //   id: id.join(',')
+  // })
+  // return request.put('/role/remove', data)
 }
 
 export function enable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/role/enable',
+    method: 'PUT',
+    params: {
+      id: id.join(',')
+    }
   })
-  return request.put('/role/enable', data)
+  // const data = qs.stringify({
+  //   id: id.join(',')
+  // })
+  // return request.put('/role/enable', data)
 }
 
 export function disable (id) {
-  const data = qs.stringify({
-    id: id.join(',')
+  return request({
+    url: '/role/disable',
+    method: 'PUT',
+    params: {
+      id: id.join(',')
+    }
   })
-  return request.put('/role/disable', data)
+  // const data = qs.stringify({
+  //   id: id.join(',')
+  // })
+  // return request.put('/role/disable', data)
 }
 
 export function findRole () {

@@ -4,16 +4,16 @@
       <el-scrollbar class="scrolls">
         <div class="information-form">
           <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
-            <el-form-item label="用户姓名:">
-              <el-input
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入用户姓名')"
-                clearable
-                v-model="form.userName"
-              />
-            </el-form-item>
+<!--            <el-form-item label="用户姓名:">-->
+<!--              <el-input-->
+<!--                :readonly="readonly"-->
+<!--                :placeholder="havePlaceholder('请输入用户姓名')"-->
+<!--                clearable-->
+<!--                v-model="form.userName"-->
+<!--              />-->
+<!--            </el-form-item>-->
             <el-form-item label="预警类型:">
-              <el-select v-model="form.warningType" clearable :placeholder="havePlaceholder('请选择')">
+              <el-select v-model="form.warningType" disabled :placeholder="havePlaceholder('请选择')">
                 <el-option
                   v-for="item in warningTypeList"
                   :key="item.value"
@@ -21,25 +21,20 @@
                   :value="item.value">
                 </el-option>
               </el-select>
-<!--              <el-input-->
-<!--                :readonly="readonly"-->
-<!--                placeholder="请输入预警类型"-->
-<!--                clearable-->
-<!--                v-model="form.warningType"-->
-<!--              />-->
             </el-form-item>
             <el-form-item label="录音内容:">
               <el-input
+                type="textarea"
                 :readonly="readonly"
+                :rows="6"
                 :placeholder="havePlaceholder('请输入录音内容')"
-                clearable
-                v-model="form.gravacaoCondeudo"
-              />
+                v-model="form.gravacaoCondeudo">
+              </el-input>
             </el-form-item>
-            <el-form-item label="启用状态:">
-              <el-radio v-model="form.start" :readonly="readonly" label="2">启用</el-radio>
-              <el-radio v-model="form.start" :readonly="readonly" label="1">禁用</el-radio>
-            </el-form-item>
+            <!--            <el-form-item label="启用状态:">-->
+            <!--              <el-radio v-model="form.start" :readonly="readonly" label="2">启用</el-radio>-->
+            <!--              <el-radio v-model="form.start" :readonly="readonly" label="1">禁用</el-radio>-->
+            <!--            </el-form-item>-->
             <el-form-item label="预警方式:">
               <el-checkbox-group v-model="form.warningMethod">
                 <el-checkbox label="广播呼叫"></el-checkbox>
@@ -145,7 +140,9 @@ export default {
       delete this.form.modifyTime
       delete this.form.modifyTimeString
       delete this.form.addTime
-      if (typeof this.form.warningMethod === 'object') { this.form.warningMethod = this.form.warningMethod.join(',') }
+      if (typeof this.form.warningMethod === 'object') {
+        this.form.warningMethod = this.form.warningMethod.join(',')
+      }
       add(this.form).then(response => {
         this.$message({
           message: response.msg,

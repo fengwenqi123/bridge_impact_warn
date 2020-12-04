@@ -102,7 +102,8 @@ export default {
       },
       // 表单验证
       rules: {
-        name: [{ required: true, message: '请输入部门名称', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入部门名称', trigger: 'blur' }],
+        code: [{ required: true, message: '请输入部门编号', trigger: 'blur' }]
       }
     }
   },

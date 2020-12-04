@@ -13,7 +13,17 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: 3000,
-    open: true
+    open: true,
+    proxy: {
+      '/asset': {
+        target: 'http://img.ksbbs.com/asset',
+        ws: true,
+        changOrigin: true,
+        pathRewrite: {
+          '^/asset': '/'
+        }
+      }
+    }
   },
   configureWebpack: {
     resolve: {

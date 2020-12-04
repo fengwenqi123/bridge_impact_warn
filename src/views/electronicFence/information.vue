@@ -4,7 +4,7 @@
       <el-scrollbar class="scrolls">
         <div class="information-form">
           <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
-            <el-form-item label="围栏名称:">
+            <el-form-item label="围栏名称:" prop="cereaName">
               <el-input
                 :readonly="readonly"
                 :placeholder="havePlaceholder('请输入围栏名称')"
@@ -32,7 +32,7 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="围栏编号:">
+            <el-form-item label="围栏编号:" prop="serialNumber">
               <el-input
                 :readonly="readonly"
                 :placeholder="havePlaceholder('请输入围栏编号')"
@@ -134,7 +134,10 @@ export default {
         areaType: null
       },
       url: null,
-      rules: {},
+      rules: {
+        cereaName: [{ required: true, message: '请输入围栏名称', trigger: 'blur' }],
+        serialNumber: [{ required: true, message: '请输入围栏编号', trigger: 'blur' }]
+      },
       warningTypeList: [{
         value: '1',
         label: '预警警告（一级)'

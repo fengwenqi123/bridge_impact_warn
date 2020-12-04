@@ -17,7 +17,7 @@
             <el-date-picker
               v-model="startTime"
               type="date"
-              placeholder="选择开始日期"
+              placeholder="选择预警时间"
               value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>

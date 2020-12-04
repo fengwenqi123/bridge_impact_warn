@@ -39,8 +39,8 @@
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
-          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">添加
-          </el-button>
+<!--          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">添加-->
+<!--          </el-button>-->
           <el-button type="primary" icon="el-icon-refresh-left" size="small" class="blueButton" @click="reset">重置
           </el-button>
         </div>
@@ -68,10 +68,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="用户姓名"
-            prop="userName">
-          </el-table-column>
-          <el-table-column
             prop="warningType"
             label="预警类型">
             <template slot-scope="scope">
@@ -80,6 +76,7 @@
           </el-table-column>
           <el-table-column
             prop="warningMethod"
+            width="300"
             label="预警方式"
           />
           <el-table-column
@@ -88,6 +85,11 @@
               <span>{{ scope.row.start==='1'?'禁用':scope.row.start==='2'?'启用':'' }} </span>
             </template>
           </el-table-column>
+          <el-table-column
+            prop="gravacaoCondeudo"
+            width="600"
+            label="录音内容"
+          />
           <el-table-column
             label="操作"
             fixed="right"
@@ -110,20 +112,20 @@
       </div>
       <div class="bottom">
         <div class="option">
-          <el-checkbox
-            v-model="checked"
-            @change="toggleSelection(checked)"
-          >全选
-          </el-checkbox>
-          <el-button
-            class="whiteButton"
-            icon="el-icon-delete"
-            size="small"
-            @click="del"
-          >
-            批量删除
-          </el-button>
-          <span class="checkNum">已选择{{ selectData.length }}项</span>
+<!--          <el-checkbox-->
+<!--            v-model="checked"-->
+<!--            @change="toggleSelection(checked)"-->
+<!--          >全选-->
+<!--          </el-checkbox>-->
+<!--          <el-button-->
+<!--            class="whiteButton"-->
+<!--            icon="el-icon-delete"-->
+<!--            size="small"-->
+<!--            @click="del"-->
+<!--          >-->
+<!--            批量删除-->
+<!--          </el-button>-->
+<!--          <span class="checkNum">已选择{{ selectData.length }}项</span>-->
         </div>
         <div class="pagination">
           <pagination

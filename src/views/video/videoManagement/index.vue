@@ -6,10 +6,10 @@
     <el-card class="content">
       <div class="search">
         <el-form :inline="true" class="form-inline" label-width="120px">
-          <el-form-item label="IP地址">
+          <el-form-item label="关键字">
             <el-input
-              v-model="cercaCoordinates"
-              placeholder="请输入IP地址"
+              v-model="keyword"
+              placeholder="请输入关键字"
               clearable
             />
           </el-form-item>
@@ -58,13 +58,9 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="IP地址"
-            prop="ipAddress">
+            label="视频名称"
+            prop="videoName">
           </el-table-column>
-          <el-table-column
-            prop="porte"
-            label="端口"
-          />
           <el-table-column
             prop="videoType"
             label="视频类型"
@@ -74,6 +70,18 @@
             label="回放类型"
             width="180"
           />
+          <el-table-column
+            label="直播方式"
+            prop="playType"/>
+          <el-table-column
+            label="回放流名称"
+            prop="playbackName"/>
+          <el-table-column
+            label="回放频道"
+            prop="playbackChannel"/>
+          <el-table-column
+            label="设备编号"
+            prop="equipmentNumber"/>
           <el-table-column
             label="操作"
             fixed="right"
@@ -146,7 +154,7 @@ export default {
   mixins: [tableMixin],
   data () {
     return {
-      cercaCoordinates: null,
+      keyword: null,
       tableData: [],
       initiateState: null,
       videoList: [{
@@ -163,14 +171,14 @@ export default {
   },
   methods: {
     list () {
-      lists(this.page.pageNum, this.page.pageSize, this.cercaCoordinates, this.initiateState).then(response => {
+      lists(this.page.pageNum, this.page.pageSize, this.keyword, this.initiateState).then(response => {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
     },
     reset () {
       this.page.pageNum = 1
-      this.cercaCoordinates = null
+      this.keyword = null
       this.initiateState = null
       this.list()
     },

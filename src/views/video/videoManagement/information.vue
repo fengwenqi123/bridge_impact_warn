@@ -5,12 +5,12 @@
         <div class="information-form">
           <el-form ref="addForm" :inline="true" :model="form" status-icon :rules="rules" label-position="right"
                    label-width="180px">
-            <el-form-item label="IP地址:">
+            <el-form-item label="视频名称:">
               <el-input
                 :readonly="readonly"
-                :placeholder="havePlaceholder('请输入IP地址')"
+                :placeholder="havePlaceholder('请输入视频名称')"
                 clearable
-                v-model="form.ipAddress"
+                v-model="form.videoName"
               />
             </el-form-item>
             <el-form-item label="区域位置">
@@ -19,6 +19,32 @@
                 <span>{{ form.longitude }}</span>,
                 <span>{{ form.latitude }}</span>
               </p>
+            </el-form-item>
+            <el-form-item label="视频类型:">
+              <el-select v-model="form.videoType" clearable :placeholder="havePlaceholder('请选择')">
+                <el-option
+                  v-for="item in videoList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="设备编号:">
+              <el-input
+                :readonly="readonly"
+                :placeholder="havePlaceholder('请输入设备编号')"
+                clearable
+                v-model="form.equipmentNumber"
+              />
+            </el-form-item>
+            <el-form-item label="IP地址:">
+              <el-input
+                :readonly="readonly"
+                :placeholder="havePlaceholder('请输入IP地址')"
+                clearable
+                v-model="form.ipAddress"
+              />
             </el-form-item>
             <el-form-item label="端口号:">
               <el-input
@@ -52,18 +78,13 @@
                 v-model="form.password"
               />
             </el-form-item>
-            <el-form-item label="名称:">
-              <el-input
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入名称')"
+            <el-form-item label="直播方式:">
+              <el-select
+                v-model="form.playType"
                 clearable
-                v-model="form.videoName"
-              />
-            </el-form-item>
-            <el-form-item label="视频类型:">
-              <el-select v-model="form.videoType" clearable :placeholder="havePlaceholder('请选择')">
+                :placeholder="havePlaceholder('请选择')">
                 <el-option
-                  v-for="item in videoList"
+                  v-for="item in playList"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -113,19 +134,6 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="直播方式:">
-              <el-select
-                v-model="form.playType"
-                clearable
-                :placeholder="havePlaceholder('请选择')">
-                <el-option
-                  v-for="item in playList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
             <el-form-item label="回放流名称:">
               <el-input
                 :readonly="readonly"
@@ -148,14 +156,6 @@
                 :placeholder="havePlaceholder('请输入回放超时')"
                 clearable
                 v-model="form.playbackOvertime"
-              />
-            </el-form-item>
-            <el-form-item label="设备编号:">
-              <el-input
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入设备编号')"
-                clearable
-                v-model="form.equipmentNumber"
               />
             </el-form-item>
           </el-form>

@@ -1,10 +1,11 @@
 <template>
-  <video
-    :id="videoId"
-    controls = "true"
-    height="100%"
-    width="100%">
-  </video>
+  <div class="app">
+    <video
+      :id="videoId"
+      controls = "true"
+      class="video-class">
+    </video>
+  </div>
 </template>
 <script>
 import flvjs from 'flv.js'
@@ -45,5 +46,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.app{
+  height: 100%;
+  .video-class{
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+  }
+}
 </style>

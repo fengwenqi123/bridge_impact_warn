@@ -5,7 +5,9 @@
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item) in tableData" :key="item.id">
             <div class="item" @click="play(item)" :class="{active:active===item.id}">
+              <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
              <div class="title"> {{item.videoName}}</div>
+              </el-tooltip>
               <div class="value">
                 <img :src="jk" alt="">
               </div>
@@ -13,7 +15,7 @@
           </el-col>
         </el-row>
       </div>
-      <div class="video" v-if="bannerUrl">
+      <div class="video">
         <videoRtmp :url="bannerUrl" :ids="ids"></videoRtmp>
       </div>
     </div>
@@ -21,7 +23,9 @@
       <el-row :gutter="20">
         <el-col :span="4" v-for="item in tableData1" :key="item.id">
           <div class="item" @click="play(item)" :class="{active:active===item.id}">
+            <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
             <div class="title"> {{item.videoName}}</div>
+            </el-tooltip>
             <div class="value">
               <img :src="jk" alt="">
             </div>

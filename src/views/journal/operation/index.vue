@@ -22,7 +22,14 @@
           </el-form-item>
           <el-form-item label="操作时间">
             <el-date-picker
-              v-model="addTime"
+              v-model="startTime"
+              type="date"
+              placeholder="选择日期"
+              value-format="yyyy-MM-dd">
+            </el-date-picker>
+            <span>-</span>
+            <el-date-picker
+              v-model="endTime"
               type="date"
               placeholder="选择日期"
               value-format="yyyy-MM-dd">
@@ -114,7 +121,8 @@ export default {
     return {
       tableData: [],
       userLoginName: null,
-      addTime: null,
+      startTime: null,
+      endTime: null,
       description: null
     }
   },
@@ -123,7 +131,7 @@ export default {
   },
   methods: {
     list () {
-      lists(this.page.pageNum, this.page.pageSize, this.userLoginName, this.description, this.addTime).then(response => {
+      lists(this.page.pageNum, this.page.pageSize, this.userLoginName, this.description, this.startTime, this.endTime).then(response => {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
@@ -131,7 +139,8 @@ export default {
     reset () {
       this.userLoginName = null
       this.description = null
-      this.addTime = null
+      this.startTime = null
+      this.endTime = null
       this.list()
     }
   }

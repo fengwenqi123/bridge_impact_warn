@@ -15,7 +15,14 @@
           </el-form-item>
           <el-form-item label="操作时间">
             <el-date-picker
-              v-model="warningTime"
+              v-model="startTime"
+              type="date"
+              placeholder="选择日期"
+              value-format="yyyy-MM-dd">
+            </el-date-picker>
+            <span>-</span>
+            <el-date-picker
+              v-model="endTime"
               type="date"
               placeholder="选择日期"
               value-format="yyyy-MM-dd">
@@ -104,7 +111,8 @@ export default {
     return {
       tableData: [],
       shipName: null,
-      warningTime: null
+      startTime: null,
+      endTime: null
     }
   },
   created () {
@@ -112,14 +120,15 @@ export default {
   },
   methods: {
     list () {
-      lists(this.page.pageNum, this.page.pageSize, this.shipName, this.warningTime).then(response => {
+      lists(this.page.pageNum, this.page.pageSize, this.shipName, this.startTime, this.endTime).then(response => {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
     },
     reset () {
       this.shipName = null
-      this.warningTime = null
+      this.startTime = null
+      this.endTime = null
       this.list()
     }
   }

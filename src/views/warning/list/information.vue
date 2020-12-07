@@ -36,10 +36,10 @@
                   clearable
                 />
               </el-form-item>
-              <el-form-item label="预警地址">
+              <el-form-item label="围栏名称">
                 <el-input
-                  :placeholder="havePlaceholder('请输入预警地址')"
-                  v-model="form.warningways"
+                  :placeholder="havePlaceholder('请输入围栏名称')"
+                  v-model="form.zoneZwName"
                   clearable
                 />
               </el-form-item>

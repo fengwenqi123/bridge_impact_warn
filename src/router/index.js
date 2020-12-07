@@ -20,11 +20,11 @@ Router.prototype.push = function push (location) {
 export const constantRouterMap = [
   ...base,
   map,
+  electronicFence,
   warning,
-  video,
-  journal,
   yawWarning,
-  electronicFence
+  video,
+  journal
 
 ]
 

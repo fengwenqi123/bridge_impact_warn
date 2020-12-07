@@ -158,7 +158,7 @@ import information from './information'
 import Pagination from '@/components/Paginations'
 import elDragDialog from '@/directive/el-drag-dialog'
 import tableMixin from '@/mixins/tableMixin'
-import { findDepartmentsByPersonnel } from '@/api/DepManagement'
+import { findDep } from '@/api/DepManagement'
 
 export default {
   components: {
@@ -203,9 +203,8 @@ export default {
       this.list()
     },
     findAuth () {
-      var id = this.$store.state.user.userInfo.id
-      findDepartmentsByPersonnel(id).then(response => {
-        this.departmentList = response.data
+      findDep().then(response => {
+        this.departmentList = response.data.dataList
       })
     },
     _delt (listId) {

@@ -20,6 +20,13 @@
               placeholder="选择预警时间"
               value-format="yyyy-MM-dd">
             </el-date-picker>
+            <span>-</span>
+            <el-date-picker
+              v-model="endTime"
+              type="date"
+              placeholder="选择预警时间"
+              value-format="yyyy-MM-dd">
+            </el-date-picker>
           </el-form-item>
           <el-form-item label="预警类型">
             <el-select v-model="warnValue" clearable placeholder="请选择">
@@ -80,7 +87,7 @@
             prop="warnLevel"
             label="预警类型">
             <template slot-scope="scope">
-              {{scope.row.warnLevel==='1'?'预警警告（一级)':scope.row.warnLevel==='2'?'紧急警告（二级)':scope.row.warnLevel==='3'?'危急警告（三级)':scope.row.warnLevel==='4'?'碰撞警告（四级)':''}}
+              {{scope.row.warningType==='1'?'预警警告（一级)':scope.row.warningType==='2'?'紧急警告（二级)':scope.row.warningType==='3'?'危急警告（三级)':scope.row.warningType==='4'?'碰撞警告（四级)':''}}
             </template>
           </el-table-column>
           <el-table-column
@@ -151,6 +158,7 @@ export default {
       border: true,
       name: null,
       startTime: null,
+      endTime: null,
       tableData: [],
       warnValue: null,
       warnType: [{
@@ -173,7 +181,7 @@ export default {
   },
   methods: {
     list () {
-      lists(this.page.pageNum, this.page.pageSize, this.name, this.startTime, this.warnValue).then(response => {
+      lists(this.page.pageNum, this.page.pageSize, this.name, this.startTime, this.endTime, this.warnValue).then(response => {
         this.tableData = response.data.dataList
         this.page = response.data.page
       })
@@ -182,6 +190,7 @@ export default {
       this.page.pageNum = 1
       this.name = null
       this.startTime = null
+      this.endTime = null
       this.warnValue = null
       this.list()
     }

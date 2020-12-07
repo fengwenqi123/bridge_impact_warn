@@ -137,7 +137,7 @@
 
 <script>
 import titleHeader from '@/components/title/index'
-import { lists, delt, findDepartmentsByPersonnel } from '@/api/DepManagement'
+import { findDep, lists, delt } from '@/api/DepManagement'
 import information from './information'
 import Pagination from '@/components/Paginations'
 import elDragDialog from '@/directive/el-drag-dialog'
@@ -178,10 +178,15 @@ export default {
     getupperDepartmentId () {
       this.selected = JSON.parse(JSON.stringify(this.userInfo)).upperDepartmentId
     },
+    // findAuth () {
+    //   var id = this.userInfo.id
+    //   findDepartmentsByPersonnel(id).then(response => {
+    //     this.data2 = response.data
+    //   })
+    // },
     findAuth () {
-      var id = this.userInfo.id
-      findDepartmentsByPersonnel(id).then(response => {
-        this.data2 = response.data
+      findDep().then(response => {
+        this.data2 = response.data.dataList
       })
     },
     list () {

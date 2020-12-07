@@ -3,8 +3,7 @@
   <video
     :id="ids"
     controls = "true"
-    height="100%"
-    width="100%">
+    class="video-class">
   </video>
 </div>
 </template>
@@ -45,5 +44,10 @@ export default {
 <style lang="scss" scoped>
 .app{
   height: 100%;
+  .video-class{
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+  }
 }
 </style>

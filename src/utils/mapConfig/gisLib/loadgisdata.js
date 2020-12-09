@@ -37,6 +37,7 @@ function loadCheckArea () {
         datatype: 'checkarea'
       }
       if (item.cereaCoordinates != null && item.cereaCoordinates !== '') {
+        console.log(item.code)
         var areaPoints = JSON.parse(item.cereaCoordinates)
         var points = []
         for (var i = 0; i < areaPoints.length; i++) {

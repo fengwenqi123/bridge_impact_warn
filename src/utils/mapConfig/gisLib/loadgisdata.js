@@ -34,10 +34,10 @@ function loadCheckArea () {
     store.getters.app.checkAreaLayer.clear()
     $.each(areadata, function (i, item) {
       var careaAttr = {
-        datatype: 'checkarea'
+        datatype: 'checkarea',
+        code: item.code
       }
       if (item.cereaCoordinates != null && item.cereaCoordinates !== '') {
-        console.log(item.code)
         var areaPoints = JSON.parse(item.cereaCoordinates)
         var points = []
         for (var i = 0; i < areaPoints.length; i++) {
@@ -127,7 +127,6 @@ function loadVideo () {
     var videoClusterSource = new Cluster({
       source: store.getters.app.videoSource
     })
-    console.log(videoClusterSource)
     store.getters.app.videoLayer.layer.setSource(videoClusterSource)
     // /* var videofeatures = */store.getters.app.videoSource.getFeaturesInExtent(store.getters.app.currentExtent)
     // showVideoNameIntable(videofeatures)

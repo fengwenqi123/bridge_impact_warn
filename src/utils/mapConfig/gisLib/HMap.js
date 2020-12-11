@@ -8,7 +8,7 @@ import store from '@/store'
 import { getMapLevel } from './HTool'
 import HInfoLayer from './HInfoLayer'
 import { loadInfoLayer } from './loadgisdata'
-import { showPopup } from './gis'
+import { showPopup,checkareaAlarm } from './gis'
 import { Vector } from 'ol/layer'
 import { Vector as SVector } from 'ol/source'
 import HSymbol from './HSymbol'
@@ -100,4 +100,8 @@ export function startGISWork () {
     loadInfoLayer()// 分图层加载要素
     showPopup(store.getters.app)// 显示弹出框
   }, 0)
+
+  // setTimeout(() => {
+  //   checkareaAlarm()
+  // }, 1000)
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <div class="logo"><img src="@/assets/img/logo.png" alt=""></div>
+    <div class="logo"><img src="@/assets/img/logo-1.png" alt=""></div>
     <div class="scrollbar-wrapper">
       <el-scrollbar class="scrolls">
         <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>

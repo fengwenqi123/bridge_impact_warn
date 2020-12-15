@@ -50,15 +50,15 @@
       <el-scrollbar class="scrolls">
         <el-row class="el1" v-if="Signal">
           <el-col :span="12"><span>信号接收时间</span></el-col>
-          <el-col :span="12"><span>{{Signal.signalReceivedTime}}</span></el-col>
+          <el-col :span="12"><span>{{Signal.receiveTimeString}}</span></el-col>
           <el-col :span="12"><span>航向</span></el-col>
-          <el-col :span="12"><span>{{Signal.courseAngle}}</span></el-col>
+          <el-col :span="12"><span>{{Signal.direction}}</span></el-col>
           <el-col :span="12"><span>纬度</span></el-col>
           <el-col :span="12"><span>{{Signal.latitude}}</span></el-col>
           <el-col :span="12"><span>经度</span></el-col>
           <el-col :span="12"><span>{{Signal.longitude}}</span></el-col>
           <el-col :span="12"><span>船舶信息</span></el-col>
-          <el-col :span="12"><span>{{Signal.shipMessage}}</span></el-col>
+          <el-col :span="12"><span>{{Signal.shipName}}</span></el-col>
           <el-col :span="12"><span>速度</span></el-col>
           <el-col :span="12"><span>{{Signal.speed}}</span></el-col>
         </el-row>

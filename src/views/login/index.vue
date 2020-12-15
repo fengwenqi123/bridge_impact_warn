@@ -2,8 +2,6 @@
   <div class="container">
     <div class="tip">
       <img src="../../assets/img/tip.jpg" alt="">
-<!--      <div class="p1">杭州绕城高速公路</div>-->
-<!--      <div class="p2">桥梁防撞与预警监测系统</div>-->
       <div class="login-container">
 
         <el-form class="login-form"
@@ -44,7 +42,7 @@
                        :loading="loading"
                        @click.native.prevent="handleLogin">登录</el-button>
           </div>
-          <span class="font">建议屏幕分辨率为1920*1080</span>
+          <span class="font">建议屏幕分辨率大于1600*900</span>
         </el-form>
       </div>
     </div>

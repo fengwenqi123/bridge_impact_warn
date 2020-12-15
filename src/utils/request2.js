@@ -6,7 +6,8 @@ const timeout = 10000
 // 创建axios实例
 const service = axios.create({
   // baseURL: 'http://10.100.70.226:80/api', // api的base_url
-  baseURL: '/api', // api的base_url
+  // baseURL: '/api', // api的base_url
+  baseURL: 'http://192.168.1.120:83/api', // api的base_url
   timeout
 })
 

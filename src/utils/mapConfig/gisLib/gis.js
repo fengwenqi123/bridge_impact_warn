@@ -575,6 +575,32 @@ export function locateToVideo (name) {
 
 /** ************************************************地图操控开始*******************************************/
 
+
+export function checkareaAlarm(){
+  var areaStyle = new Style({
+    fill: new Fill({
+      color: [255, 255, 255, 0.1]
+    }),
+    stroke: new Stroke({
+      color: [255, 255, 255],
+      width: 2,
+      lineDash: false
+    })
+  })
+  //获取区域
+  var checkareas = store.getters.app.checkAreaLayer.getFeatureArray()
+  for (var i = 0; i < checkareas.length; i++) {
+    var checkarea = checkareas[i]
+    var areaOriStyle = checkarea.getStyle()
+    var areaCode = checkarea.getProperties()['code']
+    if(areaCode === '1'){
+      checkarea.setStyle(areaStyle)
+    } else {
+      checkarea.setStyle(areaOriStyle)
+    }
+  }
+}
+
 /**
  * 显示电子地图
  */
@@ -1006,33 +1032,6 @@ function queryForShipnameOrShipno (nameorno) {
  * @description 参考
  */
 function getShipsInArea () {
-  // var queryURL =
-  //   'http://10.100.70.227:8090/geoserver/geobase/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geobase:zj_city&maxFeatures=20&outputFormat=application/json'
-  // var queryFilter = '&cql_filter=' + encodeURI('NAME = \'湖州\'')
-  // var areaURL = queryURL + queryFilter
-  // var geoformat = new ol.format.GeoJSON()
-  // $.ajax({
-  //   url: areaURL,
-  //   type: 'get',
-  //   async: false,
-  //   success: function(data) {
-  //     var features = geoformat.readFeatures(data)
-  //     features[0].setStyle(
-  //       new ol.style.Style({
-  //         fill: new ol.style.Fill({
-  //           color: [255, 255, 0, 0.5]
-  //         }),
-  //         stroke: new ol.style.Stroke({
-  //           color: [255, 0, 0],
-  //           width: 1.5
-  //         })
-  //       }))
-  //     app.testFeatureLayer.addPolygonSymbol(features)
-  //     var areaGeometry = features[0].getGeometry()
-  //     // HShipLayer.queryShipsFeaturesInArea(areaGeometry) //市区坐标太大
-  //   }
-  // })
-
   // 测试区域
   var arr = [[120.1298, 30.9511], [120.1195, 30.9466], [120.1195, 30.9295], [120.1260, 30.9264], [120.1335, 30.9307], [120.1361, 30.9458], [120.1298, 30.9511]]
   var coors = []
@@ -1060,130 +1059,5 @@ function getShipsInArea () {
     console.log(property.shipname)
   }
 }
-
-/**
- * 通航预警闪烁
- */
-function navAlarmFlash () {
-  var overlays = store.getters.app.map.getOverlays()
-  overlays.forEach(function (e) {
-    setTimeout(function () {
-      store.getters.app.map.removeOverlay(e)
-    }, 5)
-  }, this)
-  $.ajax({
-    url: GIS_SERVERIP + '/safety/navigationWarning/gisFlicker',
-    type: 'get',
-    dataType: 'json',
-    async: false,
-    success: function (d) {
-      var alarmdata = d.data
-      for (var i = 0; i < alarmdata.length; i++) {
-        var lon = alarmdata[i].longitude
-        var lat = alarmdata[i].latitude
-        if (lon && lat) {
-          var coor = wgs84ToWebMct(lon, lat)
-          var flash_div = document.createElement('div')
-          flash_div.className = 'nav_animation'
-          var flashOverlay = new Overlay({
-            element: flash_div,
-            positioning: 'center-center',
-            offset: [0, 0],
-            stopEvent: false
-          })
-          flashOverlay.setPosition(coor)
-          store.getters.app.map.addOverlay(flashOverlay)
-        }
-      }
-    }
-  })
-}
-
-/* function refreshNavAlarmFlash () {
-  navAlarmFlash()
-  setInterval(() => {
-    navAlarmFlash()
-  }, 10000)
-}
-
-/!**
- * 获取框选区域内船舶信息
- *!/
-function getShipInfoOfMangerArea () {
-  clearFeature()
-  var source = new SVector({
-    wrapX: false
-  })
-  var vector = new Vector({
-    type: 'draw',
-    source: source,
-    style: new Style({
-      fill: new Fill({
-        color: [255, 255, 255, 0.3]
-      }),
-      stroke: new Stroke({
-        color: [255, 255, 0],
-        width: 3
-      })
-    })
-  })
-  var layers = store.getters.app.map.getLayers()
-  layers.insertAt(5, vector)
-  var draw
-  var geometryFunction = Draw.createBox()
-  draw = new Draw({
-    source: source,
-    type: 'Circle',
-    geometryFunction: geometryFunction
-  })
-  draw.on('drawend', function (evt) {
-    var fea = evt.feature
-    var boxExtent = fea.getGeometry().getExtent()
-    // 获取框选区域内的船
-    showShipInfo(HShipLayers.queryShipFeatures(boxExtent))
-    store.getters.app.map.removeInteraction(draw)
-  }, this)
-  store.getters.app.map.addInteraction(draw)
-} */
-
-// 框选区域显示分类船舶
-// function showShipInfo (shipFeatures) {
-//   var shipinfo = {}
-//   var allShips = [] // 全部船舶名称
-//   var hxtShips = [] // 海巡艇船舶名称
-//   var passengerShips = [] // 客船名称
-//   var goodsShips = [] // 货船名称
-//   var dangerShips = [] // 危险品船舶名称
-//   var otherShips = [] // 其他船舶名称
-//   for (var i = 0; i < shipFeatures.length; i++) {
-//     var shiptype = shipFeatures[i].getProperties().shiptype // 船舶种类 1:客船 2:货船 3:危险品船 0或99:其他
-//     var shipname = shipFeatures[i].getProperties().shipname
-//     allShips.push(shipname)
-//     if (shipname.substr(0, 3) === GIS_HXTSHIP) {
-//       hxtShips.push(shipname)
-//     } else if (shiptype === GIS_PASSENGERSHIP) {
-//       passengerShips.push(shipname)
-//     } else if (shiptype === GIS_GOODSSHIP) {
-//       goodsShips.push(shipname)
-//     } else if (shiptype === GIS_DANGERSHIP) {
-//       dangerShips.push(shipname)
-//     } else {
-//       otherShips.push(shipname)
-//     }
-//   }
-//   shipinfo.all = allShips
-//   shipinfo.hxt = hxtShips
-//   shipinfo.passenger = passengerShips
-//   shipinfo.goods = goodsShips
-//   shipinfo.danger = dangerShips
-//   shipinfo.other = otherShips
-//   console.log(shipinfo)
-//   parent.postMessage({
-//     act: 'qySelect',
-//     msg: {
-//       obj: JSON.stringify(shipinfo)
-//     }
-//   }, '*')
-// }
 
 /** ***********************************************业务工具栏结束******************************************/

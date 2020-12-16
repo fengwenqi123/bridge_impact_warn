@@ -576,7 +576,8 @@ export function locateToVideo (name) {
 /** ************************************************地图操控开始*******************************************/
 
 
-export function checkareaAlarm(){
+export function checkareaAlarm () {
+  //获取区域
   var areaStyle = new Style({
     fill: new Fill({
       color: [255, 255, 255, 0.1]
@@ -584,21 +585,64 @@ export function checkareaAlarm(){
     stroke: new Stroke({
       color: [255, 255, 255],
       width: 2,
-      lineDash: false
+      lineDash: [0, 1, 2, 3, 4]
     })
   })
-  //获取区域
   var checkareas = store.getters.app.checkAreaLayer.getFeatureArray()
-  for (var i = 0; i < checkareas.length; i++) {
-    var checkarea = checkareas[i]
+
+  const F = async () => {
+    for (var i = 0; i < checkareas.length; i++) {
+      var checkarea = checkareas[i]
+      // const a = await changeAreaStyle(checkarea, areaStyle)
+      await A(i)
+    }
+  }
+  F()
+
+}
+
+const A = (i) => {
+  return new Promise(resolve => {
+    setTimeout(()=>{
+      console.log(i)
+    },500)
+  })
+}
+
+function changeAreaStyle (checkarea, areastyle) {
+  return new Promise(resolve => {
     var areaOriStyle = checkarea.getStyle()
     var areaCode = checkarea.getProperties()['code']
-    if(areaCode === '1'){
-      checkarea.setStyle(areaStyle)
+
+    function circulatefunc (areastyle, areaoristyle) {
+      checkarea.setStyle(areastyle)
+      setTimeout(() => {
+        checkarea.setStyle(areaoristyle)
+        resolve()
+      }, 500)
+    }
+
+    if (areaCode === '1') {
+      circulatefunc(areastyle, areaOriStyle)
     } else {
       checkarea.setStyle(areaOriStyle)
     }
-  }
+  })
+  // var areaOriStyle = checkarea.getStyle()
+  // var areaCode = checkarea.getProperties()['code']
+  //
+  // function circulatefunc (areastyle, areaoristyle) {
+  //   checkarea.setStyle(areastyle)
+  //   setTimeout(() => {
+  //     checkarea.setStyle(areaoristyle)
+  //   }, 500)
+  // }
+  //
+  // if (areaCode === '1') {
+  //   circulatefunc(areastyle, areaOriStyle)
+  // } else {
+  //   checkarea.setStyle(areaOriStyle)
+  // }
 }
 
 /**

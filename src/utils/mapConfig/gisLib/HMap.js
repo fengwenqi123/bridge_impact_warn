@@ -101,7 +101,7 @@ export function startGISWork () {
     showPopup(store.getters.app)// 显示弹出框
   }, 0)
 
-  // setTimeout(() => {
-  //   checkareaAlarm()
-  // }, 1000)
+  setTimeout(() => {
+    checkareaAlarm()
+  }, 1000)
 }

@@ -1111,49 +1111,6 @@ function getShipsInArea() {
 }
 
 /**
- * 通航预警闪烁
- */
-function navAlarmFlash() {
-  var overlays = app.map.getOverlays()
-  overlays.forEach(function(e) {
-    setTimeout(function() {
-      app.map.removeOverlay(e)
-    }, 5)
-  }, this)
-  $.ajax({
-    url: GIS_SERVERIP + '/safety/navigationWarning/gisFlicker',
-    type: 'get',
-    dataType: 'json',
-    async: false,
-    success: function(d) {
-      var alarmdata = d.data
-      for (var i = 0; i < alarmdata.length; i++) {
-        var lon = alarmdata[i].longitude
-        var lat = alarmdata[i].latitude
-        if (lon && lat) {
-          var coor = wgs84ToWebMct(lon, lat)
-          var flash_div = document.createElement('div')
-          flash_div.className = 'nav_animation'
-          var flashOverlay = new ol.Overlay({
-            element: flash_div,
-            positioning: 'center-center',
-            offset: [0, 0],
-            stopEvent: false
-          })
-          flashOverlay.setPosition(coor)
-          app.map.addOverlay(flashOverlay)
-        }
-      }
-    }
-  })
-}
-
-function refreshNavAlarmFlash() {
-  navAlarmFlash()
-  setInterval('navAlarmFlash()', 10000)
-}
-
-/**
  * 获取框选区域内船舶信息
  */
 function getShipInfoOfMangerArea() {

@@ -300,6 +300,5 @@ let startGISWork = (map) => {
     // 在页面显示当前范围内船舶名称
     showShipNameIntable(HShipLayer.queryShipFeatures(app.currentExtent))
     loadInfoLayer() // 分图层加载要素
-    // refreshNavAlarmFlash() //通航预警提示
   }, 1200)
 }

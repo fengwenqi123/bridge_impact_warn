@@ -79,7 +79,7 @@
             <el-form v-if="ShipSignal" :inline="true" class="form-inline" label-width="120px">
               <el-form-item label="信号接收时间">
                 <el-input
-                  v-model="ShipSignal.signalReceivedTime"
+                  v-model="ShipSignal.receiveTimeString"
                   clearable
                 />
               </el-form-item>
@@ -97,7 +97,7 @@
               </el-form-item>
               <el-form-item label="船舶信息">
                 <el-input
-                  v-model="ShipSignal.shipMessage"
+                  v-model="ShipSignal.shipName"
                   clearable
                 />
               </el-form-item>
@@ -109,7 +109,7 @@
               </el-form-item>
               <el-form-item label="航向">
                 <el-input
-                  v-model="ShipSignal.courseAngle"
+                  v-model="ShipSignal.direction"
                   clearable
                 />
               </el-form-item>

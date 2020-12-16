@@ -42,13 +42,13 @@
           <el-form-item>
             <el-button type="primary" icon="el-icon-search" size="small" class="blueButton" @click="search">查询
             </el-button>
+            <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">添加
+            </el-button>
+            <el-button type="primary" icon="el-icon-refresh-left" size="small" class="blueButton" @click="reset">重置
+            </el-button>
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
-          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="add">添加
-          </el-button>
-          <el-button type="primary" icon="el-icon-refresh-left" size="small" class="blueButton" @click="reset">重置
-          </el-button>
         </div>
       </div>
       <div class="table">
@@ -92,7 +92,7 @@
             prop="serialNumber">
           </el-table-column>
           <el-table-column
-            label="告警等级">
+            label="预警类型">
             <template slot-scope="scope">
               {{scope.row.areaType==='1'?'预警警告（一级)':scope.row.areaType==='2'?'紧急警告（二级)':scope.row.areaType==='3'?'危急警告（三级)':scope.row.areaType==='4'?'碰撞警告（四级)':''}}
             </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
          <div class="img">
-           钱江五桥桥梁防撞与预警监测系统
+           杭州绕城高速公路桥梁防撞与预警监测系统
          </div>
     <div class="tabs">
       <el-button round icon="el-icon-map-location" @click="toMap">地图</el-button>

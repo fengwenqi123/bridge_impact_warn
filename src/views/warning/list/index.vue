@@ -17,14 +17,14 @@
             <el-date-picker
               v-model="startTime"
               type="date"
-              placeholder="选择预警时间"
+              placeholder="选择开始时间"
               value-format="yyyy-MM-dd">
             </el-date-picker>
             <span>-</span>
             <el-date-picker
               v-model="endTime"
               type="date"
-              placeholder="选择预警时间"
+              placeholder="选择结束时间"
               value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
@@ -41,11 +41,12 @@
           <el-form-item>
             <el-button type="primary" icon="el-icon-search" size="small" class="blueButton" @click="search">查询
             </el-button>
+            <el-button type="primary" icon="el-icon-refresh-left" size="small" class="blueButton" @click="reset">重置
+            </el-button>
           </el-form-item>
         </el-form>
         <div class="table_search_buttonLeft">
-          <el-button type="primary" icon="el-icon-circle-plus" size="small" class="blueButton" @click="reset">重置
-          </el-button>
+
         </div>
       </div>
       <div class="table">
@@ -84,7 +85,6 @@
             label="预警时间"
           />
           <el-table-column
-            prop="warnLevel"
             label="预警类型">
             <template slot-scope="scope">
               {{scope.row.warningType==='1'?'预警警告（一级)':scope.row.warningType==='2'?'紧急警告（二级)':scope.row.warningType==='3'?'危急警告（三级)':scope.row.warningType==='4'?'碰撞警告（四级)':''}}

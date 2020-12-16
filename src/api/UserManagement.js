@@ -109,12 +109,12 @@ export function resetpassword (id) {
   // return request.put('/personnel/passwordReset', data)
 }
 
-export function findRoleById (id) {
+export function findRoleById (personnelId) {
   return request({
     url: '/role/findListByPersonnel',
     method: 'GET',
     params: {
-      id
+      personnelId
     }
   })
 }

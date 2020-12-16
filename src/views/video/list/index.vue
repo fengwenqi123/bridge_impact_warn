@@ -16,7 +16,7 @@
         </el-row>
       </div>
       <div class="video">
-        <videoRtmp :url="bannerUrl" :ids="ids"></videoRtmp>
+        <videoRtmp v-if="flag" :url="bannerUrl" :ids="ids"></videoRtmp>
       </div>
     </div>
     <div class="line2" v-if="tableData1.length">
@@ -51,7 +51,8 @@ export default {
       tableData1: [],
       bannerUrl: null,
       ids: null,
-      active: null
+      active: null,
+      flag: false
     }
   },
   created () {
@@ -74,12 +75,17 @@ export default {
         this.bannerUrl = this.tableData[0].h5Address
         // this.bannerUrl = '/asset/Mon_1704/15868902d399b87.flv'
         this.ids = this.tableData[0].id
+        this.flag = true
       })
     },
     play (item) {
-      this.bannerUrl = item.h5Address
-      this.ids = item.id
-      this.active = item.id
+      this.flag = false
+      this.$nextTick(() => {
+        this.bannerUrl = item.h5Address
+        this.ids = item.id
+        this.active = item.id
+        this.flag = true
+      })
     }
   }
 }

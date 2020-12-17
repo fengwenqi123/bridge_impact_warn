@@ -590,43 +590,46 @@ export function checkareaAlarm () {
   })
   var checkareas = store.getters.app.checkAreaLayer.getFeatureArray()
 
-  const F = async () => {
+  async function loop () {
     for (var i = 0; i < checkareas.length; i++) {
       var checkarea = checkareas[i]
-      // const a = await changeAreaStyle(checkarea, areaStyle)
-      await A(i)
+      await changeAreaStyle(checkarea, areaStyle)
+      if(i===checkareas.length-1){
+        loop()
+      }
     }
   }
-  F()
 
-}
-
-const A = (i) => {
-  return new Promise(resolve => {
-    setTimeout(()=>{
-      console.log(i)
-    },500)
-  })
+  loop()
 }
 
 function changeAreaStyle (checkarea, areastyle) {
-  return new Promise(resolve => {
+  return new Promise(function (res, rej) {
     var areaOriStyle = checkarea.getStyle()
     var areaCode = checkarea.getProperties()['code']
-
-    function circulatefunc (areastyle, areaoristyle) {
+    if (areaCode === '1') {
       checkarea.setStyle(areastyle)
       setTimeout(() => {
-        checkarea.setStyle(areaoristyle)
-        resolve()
+        checkarea.setStyle(areaOriStyle)
+        res()
       }, 500)
-    }
-
-    if (areaCode === '1') {
-      circulatefunc(areastyle, areaOriStyle)
     } else {
       checkarea.setStyle(areaOriStyle)
+      res()
     }
+
+    // var areaOriStyle = checkarea.getStyle()
+    // var areaCode = checkarea.getProperties()['code']
+    //
+    // if (areaCode === '1') {
+    //   checkarea.setStyle(areastyle)
+    //   setTimeout(() => {
+    //     checkarea.setStyle(areaOriStyle)
+    //     res()
+    //   }, 500)
+    // } else {
+    //   checkarea.setStyle(areaOriStyle)
+    // }
   })
   // var areaOriStyle = checkarea.getStyle()
   // var areaCode = checkarea.getProperties()['code']

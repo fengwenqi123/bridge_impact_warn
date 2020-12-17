@@ -2,7 +2,9 @@
   <section class="app-main">
     <el-scrollbar class="scrolls">
       <transition name="fade-transform" mode="out-in">
+        <keep-alive include="mapView1">
         <router-view></router-view>
+        </keep-alive>
       </transition>
     </el-scrollbar>
   </section>

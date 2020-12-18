@@ -580,11 +580,11 @@ export function checkareaAlarm () {
   //获取区域
   var areaStyle = new Style({
     fill: new Fill({
-      color: [255, 255, 255, 0.1]
+      color: [248, 248, 255, 0.5]
     }),
     stroke: new Stroke({
-      color: [255, 255, 255],
-      width: 2,
+      color: [248, 248, 255],
+      width: 1,
       lineDash: [0, 1, 2, 3, 4]
     })
   })
@@ -599,7 +599,6 @@ export function checkareaAlarm () {
       }
     }
   }
-
   loop()
 }
 
@@ -610,6 +609,7 @@ function changeAreaStyle (checkarea, areastyle) {
     if (areaCode === '1') {
       checkarea.setStyle(areastyle)
       setTimeout(() => {
+        console.log('测试')
         checkarea.setStyle(areaOriStyle)
         res()
       }, 500)
@@ -617,35 +617,7 @@ function changeAreaStyle (checkarea, areastyle) {
       checkarea.setStyle(areaOriStyle)
       res()
     }
-
-    // var areaOriStyle = checkarea.getStyle()
-    // var areaCode = checkarea.getProperties()['code']
-    //
-    // if (areaCode === '1') {
-    //   checkarea.setStyle(areastyle)
-    //   setTimeout(() => {
-    //     checkarea.setStyle(areaOriStyle)
-    //     res()
-    //   }, 500)
-    // } else {
-    //   checkarea.setStyle(areaOriStyle)
-    // }
   })
-  // var areaOriStyle = checkarea.getStyle()
-  // var areaCode = checkarea.getProperties()['code']
-  //
-  // function circulatefunc (areastyle, areaoristyle) {
-  //   checkarea.setStyle(areastyle)
-  //   setTimeout(() => {
-  //     checkarea.setStyle(areaoristyle)
-  //   }, 500)
-  // }
-  //
-  // if (areaCode === '1') {
-  //   circulatefunc(areastyle, areaOriStyle)
-  // } else {
-  //   checkarea.setStyle(areaOriStyle)
-  // }
 }
 
 /**

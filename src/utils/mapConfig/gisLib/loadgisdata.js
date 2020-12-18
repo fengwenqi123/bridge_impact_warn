@@ -27,7 +27,7 @@ export function loadInfoLayer (type) {
   if ((type == null || type === 'checkarea') && store.getters.app.checkAreaLayer) loadCheckArea()
 }
 
-function loadCheckArea () {
+export function loadCheckArea () {
   checkAreaList().then(d => {
     var areadata = d.data.dataList
     var polygonSymbol = []
@@ -38,6 +38,7 @@ function loadCheckArea () {
         code: item.code
       }
       if (item.cereaCoordinates != null && item.cereaCoordinates !== '') {
+        console.log(item.code)
         var areaPoints = JSON.parse(item.cereaCoordinates)
         var points = []
         for (var i = 0; i < areaPoints.length; i++) {

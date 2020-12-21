@@ -245,7 +245,7 @@
 <script>
 import { add } from '@/api/DepManagement'
 import dialogFormMixin from '@/mixins/dialogFormMixin'
-import videoRtmp from '@/components/video/flv'
+import videoRtmp from '@/components/video/flv1'
 import playBack from '@/components/playBack/playBack'
 import { getShipInfo, getShipSignal, getPaybackList, getRtmp } from '@/api/warning'
 

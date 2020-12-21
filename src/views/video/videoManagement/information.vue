@@ -15,11 +15,28 @@
             </el-form-item>
             <el-form-item label="区域位置">
               <el-button type="primary" size="mini" @click.native="modgis()">绘制区域</el-button>
-              <p v-if="form.longitude" style="display: inline-block;">
-                <span>{{ form.longitude }}</span>,
-                <span>{{ form.latitude }}</span>
-              </p>
+<!--              <p v-if="form.longitude" style="display: inline-block;">-->
+<!--&lt;!&ndash;                <span>{{ form.longitude }}</span>,&ndash;&gt;-->
+<!--&lt;!&ndash;                <span>{{ form.latitude }}</span>&ndash;&gt;-->
+<!--              </p>-->
             </el-form-item>
+            <el-form-item label="经度:">
+              <el-input
+                :readonly="readonly"
+                :placeholder="havePlaceholder('请输入经度')"
+                clearable
+                v-model="form.longitude"
+              />
+            </el-form-item>
+            <el-form-item label="纬度:">
+              <el-input
+                :readonly="readonly"
+                :placeholder="havePlaceholder('请输入纬度')"
+                clearable
+                v-model="form.latitude"
+              />
+            </el-form-item>
+
             <el-form-item label="视频类型:">
               <el-select v-model="form.videoType" clearable :placeholder="havePlaceholder('请选择')">
                 <el-option

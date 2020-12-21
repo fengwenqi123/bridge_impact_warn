@@ -6,7 +6,7 @@
           <el-col :span="6" v-for="(item) in tableData" :key="item.id">
             <div class="item" @click="play(item)" :class="{active:active===item.id}">
               <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
-             <div class="title"> {{item.videoName}}</div>
+                <div class="title"> {{ item.videoName }}</div>
               </el-tooltip>
               <div class="value">
                 <img :src="jk" alt="">
@@ -20,18 +20,14 @@
       </div>
     </div>
     <div class="line2" v-if="tableData1.length">
-      <el-row :gutter="20">
-        <el-col :span="4" v-for="item in tableData1" :key="item.id">
-          <div class="item" @click="play(item)" :class="{active:active===item.id}">
-            <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
-            <div class="title"> {{item.videoName}}</div>
-            </el-tooltip>
-            <div class="value">
-              <img :src="jk" alt="">
-            </div>
-          </div>
-        </el-col>
-      </el-row>
+      <div class="item-main" v-for="item in tableData1" :key="item.id" @click="play(item)" :class="{active:active===item.id}">
+        <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
+          <div class="title"> {{ item.videoName }}</div>
+        </el-tooltip>
+        <div class="value">
+          <img :src="jk" alt="">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +35,7 @@
 <script>
 import videoRtmp from '@/components/video/flv1.vue'
 import { lists } from '@/api/video.js'
+
 export default {
   components: {
     videoRtmp
@@ -92,59 +89,74 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container{
+.container {
   padding: 10px;
-  .line1{
+
+  .line1 {
     display: flex;
     align-items: flex-start;
-    .img{
+
+    .img {
       margin-right: 20px;
       flex: 1;
-      .item{
+
+      .item {
         margin: 10px 0;
         cursor: pointer;
-        .title{
+
+        .title {
           height: 30px;
           line-height: 30px;
           background: #DCDCDC;
           text-indent: 10px;
         }
-        .value{
-          img{
+
+        .value {
+          img {
             width: 100%;
             height: 130px;
           }
         }
       }
     }
-    .video{
-      width: 600px;
-      height: 460px;
+
+    .video {
+      width: 657px;
+      height: 563px;
     }
   }
-  .line2{
-    .item{
-      margin: 4px 0;
+
+  .line2 {
+    width: 1400px;
+    display: flex;
+    flex-wrap: wrap;
+    .item-main {
+      margin-right: 20px;
+      //margin: 4px 10px;
       cursor: pointer;
-      .title{
+
+      .title {
         background: #DCDCDC;
         height: 30px;
         line-height: 30px;
         text-indent: 10px;
       }
-      .value{
-        img{
-          width: 100%;
+
+      .value {
+        img {
+          width: 245px;
           height: 130px;
         }
       }
     }
   }
 }
-.active{
+
+.active {
   box-shadow: 10px 10px 5px #888888;
-  .title{
-    background: #00BFFF!important;
+
+  .title {
+    background: #00BFFF !important;
 
     color: #fff;
   }

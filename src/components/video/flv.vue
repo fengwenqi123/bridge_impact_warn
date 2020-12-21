@@ -3,6 +3,7 @@
     <video
       :id="videoId"
       controls = "true"
+      muted
       class="video-class">
     </video>
   </div>

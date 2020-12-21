@@ -3,6 +3,7 @@
   <video
     :id="ids"
     controls = "true"
+    muted
     class="video-class">
   </video>
 </div>
@@ -10,7 +11,17 @@
 <script>
 import flvjs from 'flv.js'
 export default {
-  props: ['url', 'ids'],
+  // props: ['url', 'ids'],
+  props: {
+    url: {
+      type: String,
+      default: ''
+    },
+    ids: {
+      type: String,
+      default: 'ids'
+    }
+  },
   methods: {
     play () {
       const url = this.url

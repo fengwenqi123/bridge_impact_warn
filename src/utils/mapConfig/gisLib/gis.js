@@ -581,31 +581,31 @@ export function checkareaAlarm () {
   var areaStyle = [
       new Style({
         fill: new Fill({
-          color: [0, 191, 255, 0.8]
+          color: [0, 191, 255]
         }),
         stroke: new Stroke({
-          color: [0, 191, 255, 0.8],
-          width: 2.5,
+          color: [255, 255, 255],
+          width: 2,
           lineDash: [0, 1, 2, 3, 4]
         })
       }),
       new Style({
         fill: new Fill({
-          color: [255, 255, 0, 0.8]
+          color: [255, 255, 0]
         }),
         stroke: new Stroke({
-          color: [255, 255, 0, 0.8],
-          width: 2.5,
+          color: [255, 255, 255],
+          width: 2,
           lineDash: [0, 1, 2, 3, 4]
         })
       }),
       new Style({
         fill: new Fill({
-          color: [255, 127, 80, 0.8]
+          color: [255, 85, 85]
         }),
         stroke: new Stroke({
-          color: [255, 127, 80, 0.8],
-          width: 2.5,
+          color: [255, 255, 255],
+          width: 2,
           lineDash: [0, 1, 2, 3, 4]
         })
       })
@@ -641,11 +641,11 @@ function changeAreaStyle (checkarea, areastyle) {
     var areaCode = checkarea.getProperties()['code']
     if (areaCode === '1') {
       checkarea.setStyle(areastyle)
-      console.log(checkarea.getStyle().getFill().getColor())
+      // console.log(checkarea.getStyle().getFill().getColor())
       setTimeout(() => {
-        console.log(checkarea.getProperties()['name'])
+        // console.log(checkarea.getProperties()['name'])
         checkarea.setStyle(areaOriStyle)
-        console.log(checkarea.getStyle().getFill().getColor())
+        // console.log(checkarea.getStyle().getFill().getColor())
         res()
       }, 500)
     } else {

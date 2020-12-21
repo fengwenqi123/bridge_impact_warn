@@ -137,7 +137,6 @@ function showVideoNameIntable (shipinFeatures) {
         name: JSON.stringify(shipinNames)
       }
     }, '*')
-    // console.log(shipinNames);
   }
 }
 
@@ -160,8 +159,6 @@ function showSupportNameIntable (supportFeatures) {
         type: 'support'
       }
     }, '*')
-    // console.log(supportType);
-    // console.log(supportNames);
   }
 }
 
@@ -247,8 +244,6 @@ export function showPopup (map) {
       chosenCircleGeometry.setCenter(newCirleCenter)
       HShipLayers.setChosenShipname(obj.shipName)
     }
-    console.log(property)
-    console.log(obj)
     switch (propertyType) {
       case 0:
         bus.$emit('shipManage', obj)
@@ -577,75 +572,87 @@ export function locateToVideo (name) {
 
 
 export function checkareaAlarm () {
+  /**
+   *  1 [30, 144, 255, 0.8] 预警
+   *  2 [255, 165, 0, 0.8]  紧急
+   *  3 [255, 0, 0, 0.8]    危急
+   */
   //获取区域
-  var areaStyle = new Style({
-    fill: new Fill({
-      color: [255, 255, 255, 0.1]
-    }),
-    stroke: new Stroke({
-      color: [255, 255, 255],
-      width: 2,
-      lineDash: [0, 1, 2, 3, 4]
-    })
-  })
+  var areaStyle = [
+      new Style({
+        fill: new Fill({
+          color: [0, 191, 255]
+        }),
+        stroke: new Stroke({
+          color: [255, 255, 255],
+          width: 2,
+          lineDash: [0, 1, 2, 3, 4]
+        })
+      }),
+      new Style({
+        fill: new Fill({
+          color: [255, 255, 0]
+        }),
+        stroke: new Stroke({
+          color: [255, 255, 255],
+          width: 2,
+          lineDash: [0, 1, 2, 3, 4]
+        })
+      }),
+      new Style({
+        fill: new Fill({
+          color: [255, 85, 85]
+        }),
+        stroke: new Stroke({
+          color: [255, 255, 255],
+          width: 2,
+          lineDash: [0, 1, 2, 3, 4]
+        })
+      })
+    ]
   var checkareas = store.getters.app.checkAreaLayer.getFeatureArray()
 
   async function loop () {
     for (var i = 0; i < checkareas.length; i++) {
       var checkarea = checkareas[i]
-      await changeAreaStyle(checkarea, areaStyle)
+      var areaType = checkarea.getProperties()['areaType']
+      var areastyle
+      if(areaType === '1'){
+        areastyle = areaStyle[0]
+      }else if(areaType === '2'){
+        areastyle = areaStyle[1]
+      }else if(areaType === '3'){
+        areastyle = areaStyle[2]
+      }
+      await changeAreaStyle(checkarea, areastyle)
       if(i===checkareas.length-1){
         loop()
       }
     }
   }
-
-  loop()
+  if(checkareas.length !== 0){
+    loop()
+  }
 }
 
 function changeAreaStyle (checkarea, areastyle) {
-  return new Promise(function (res, rej) {
+  return new Promise(function (res) {
     var areaOriStyle = checkarea.getStyle()
     var areaCode = checkarea.getProperties()['code']
     if (areaCode === '1') {
       checkarea.setStyle(areastyle)
+      // console.log(checkarea.getStyle().getFill().getColor())
       setTimeout(() => {
+        // console.log(checkarea.getProperties()['name'])
         checkarea.setStyle(areaOriStyle)
+        // console.log(checkarea.getStyle().getFill().getColor())
         res()
       }, 500)
     } else {
       checkarea.setStyle(areaOriStyle)
       res()
     }
-
-    // var areaOriStyle = checkarea.getStyle()
-    // var areaCode = checkarea.getProperties()['code']
-    //
-    // if (areaCode === '1') {
-    //   checkarea.setStyle(areastyle)
-    //   setTimeout(() => {
-    //     checkarea.setStyle(areaOriStyle)
-    //     res()
-    //   }, 500)
-    // } else {
-    //   checkarea.setStyle(areaOriStyle)
-    // }
   })
-  // var areaOriStyle = checkarea.getStyle()
-  // var areaCode = checkarea.getProperties()['code']
-  //
-  // function circulatefunc (areastyle, areaoristyle) {
-  //   checkarea.setStyle(areastyle)
-  //   setTimeout(() => {
-  //     checkarea.setStyle(areaoristyle)
-  //   }, 500)
-  // }
-  //
-  // if (areaCode === '1') {
-  //   circulatefunc(areastyle, areaOriStyle)
-  // } else {
-  //   checkarea.setStyle(areaOriStyle)
-  // }
 }
 
 /**
@@ -745,7 +752,6 @@ function hideChosenCricle () {
  * @description 控制显示船舶图层，包括船舶信号类型、船舶数据类型、船舶离线时间、船舶行驶状态(静止或行驶)
  */
 function signalSettings (offlineTime, datatype, shiptype, speedsignal) {
-  console.log(datatype)
   HShipLayers.setQueryParams(offlineTime, datatype, shiptype, speedsignal)
   HShipLayers.queryWMSShips()
   HShipLayers.queryWFSShips(false)
@@ -758,7 +764,6 @@ function signalSettings (offlineTime, datatype, shiptype, speedsignal) {
  * @description 显示持续关注船舶用
  */
 function auditStatusSettings (auditstatus) {
-  console.log(auditstatus)
   HShipLayers.setAuditStatusFlag(auditstatus)
   HShipLayers.queryWMSShips()
   HShipLayers.queryWFSShips(false)
@@ -782,7 +787,6 @@ function locateToCounty (countyname) {
         store.getters.app.countyLayer.clear()
         const countyFeature = geoformat.readFeatures(data)
         if (countyFeature.length !== 0) {
-          // console.log(countyFeature[0])
           const textFont = 16 + 'px Microsoft YaHei'
           const countyLabel = new Text({
             text: countyname,
@@ -946,7 +950,6 @@ function quantityOfTheManagearea (manageName) {
       break
     }
   }
-  // console.log(theManageAreaFeature)
   var theExtent = theManageAreaFeature.getGeometry().getExtent()
   var themanageGeo = theManageAreaFeature.getGeometry().getCoordinates(true)
   // 辖区turf polygon
@@ -1037,7 +1040,6 @@ function quantityOfTheSegment (segmentName) {
   segmentShipInfo.passengerships = passengerShips.length
   segmentShipInfo.dangerships = dangerShips.length
   segmentShipInfo.otherships = otherShips.length
-  // console.log(segmentShipInfo)
   parent.postMessage({
     act: 'segmentShipInfo',
     msg: {
@@ -1071,7 +1073,6 @@ function queryForShipnameOrShipno (nameorno) {
       name: selectedships
     }
   }, '*')
-  // console.log(selectedships)
 }
 
 /**
@@ -1103,7 +1104,6 @@ function getShipsInArea () {
   var shipFeatures = HShipLayer.queryShipsFeaturesInArea(areaGeometry)
   for (var i = 0; i < shipFeatures.length; i++) {
     var property = shipFeatures[i].getProperties()
-    console.log(property.shipname)
   }
 }
 

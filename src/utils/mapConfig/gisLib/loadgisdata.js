@@ -27,14 +27,16 @@ export function loadInfoLayer (type) {
   if ((type == null || type === 'checkarea') && store.getters.app.checkAreaLayer) loadCheckArea()
 }
 
-function loadCheckArea () {
+export function loadCheckArea () {
   checkAreaList().then(d => {
     var areadata = d.data.dataList
     var polygonSymbol = []
     store.getters.app.checkAreaLayer.clear()
     $.each(areadata, function (i, item) {
       var careaAttr = {
+        name: item.cereaName,
         datatype: 'checkarea',
+        areaType: item.areaType,
         code: item.code
       }
       if (item.cereaCoordinates != null && item.cereaCoordinates !== '') {
@@ -45,12 +47,12 @@ function loadCheckArea () {
           points.push(lonlat)
         }
         var careaSymbol
-        if (item.areaType === '1') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [30, 144, 255, 0.8], [30, 144, 255], 2, false)
+          if (item.areaType === '1') {
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [0, 0, 255], [0, 0, 255], 2, false)
         } else if (item.areaType === '2') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 165, 0, 0.8], [255, 165, 0], 2, false)
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 165, 0], [255, 165, 0], 2, false)
         } else if (item.areaType === '3') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 0, 0, 0.8], [255, 0, 0], 2, false)
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [220, 20, 60], [220, 20, 60], 2, false)
         }
         polygonSymbol.push(careaSymbol)
       }

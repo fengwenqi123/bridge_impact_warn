@@ -7,7 +7,7 @@ import { defaults as Idefaults } from 'ol/interaction'
 import store from '@/store'
 import { getMapLevel } from './HTool'
 import HInfoLayer from './HInfoLayer'
-import { loadInfoLayer } from './loadgisdata'
+import { loadInfoLayer} from './loadgisdata'
 import { showPopup,checkareaAlarm } from './gis'
 import { Vector } from 'ol/layer'
 import { Vector as SVector } from 'ol/source'
@@ -100,8 +100,8 @@ export function startGISWork () {
     loadInfoLayer()// 分图层加载要素
     showPopup(store.getters.app)// 显示弹出框
   }, 0)
-
   setTimeout(() => {
     checkareaAlarm()
+    // setInterval('loadCheckArea()', 10000)
   }, 1000)
 }

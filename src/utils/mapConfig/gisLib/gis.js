@@ -572,23 +572,59 @@ export function locateToVideo (name) {
 
 
 export function checkareaAlarm () {
+  /**
+   *  1 [30, 144, 255, 0.8] 预警
+   *  2 [255, 165, 0, 0.8]  紧急
+   *  3 [255, 0, 0, 0.8]    危急
+   */
   //获取区域
-  var areaStyle = new Style({
-    fill: new Fill({
-      color: [248, 248, 255, 0.5]
-    }),
-    stroke: new Stroke({
-      color: [248, 248, 255],
-      width: 1,
-      lineDash: [0, 1, 2, 3, 4]
-    })
-  })
+  var areaStyle = [
+      new Style({
+        fill: new Fill({
+          color: [0, 191, 255, 0.8]
+        }),
+        stroke: new Stroke({
+          color: [0, 191, 255, 0.8],
+          width: 2.5,
+          lineDash: [0, 1, 2, 3, 4]
+        })
+      }),
+      new Style({
+        fill: new Fill({
+          color: [255, 255, 0, 0.8]
+        }),
+        stroke: new Stroke({
+          color: [255, 255, 0, 0.8],
+          width: 2.5,
+          lineDash: [0, 1, 2, 3, 4]
+        })
+      }),
+      new Style({
+        fill: new Fill({
+          color: [255, 127, 80, 0.8]
+        }),
+        stroke: new Stroke({
+          color: [255, 127, 80, 0.8],
+          width: 2.5,
+          lineDash: [0, 1, 2, 3, 4]
+        })
+      })
+    ]
   var checkareas = store.getters.app.checkAreaLayer.getFeatureArray()
 
   async function loop () {
     for (var i = 0; i < checkareas.length; i++) {
       var checkarea = checkareas[i]
-      await changeAreaStyle(checkarea, areaStyle)
+      var areaType = checkarea.getProperties()['areaType']
+      var areastyle
+      if(areaType === '1'){
+        areastyle = areaStyle[0]
+      }else if(areaType === '2'){
+        areastyle = areaStyle[1]
+      }else if(areaType === '3'){
+        areastyle = areaStyle[2]
+      }
+      await changeAreaStyle(checkarea, areastyle)
       if(i===checkareas.length-1){
         loop()
       }
@@ -611,7 +647,7 @@ function changeAreaStyle (checkarea, areastyle) {
         checkarea.setStyle(areaOriStyle)
         console.log(checkarea.getStyle().getFill().getColor())
         res()
-      }, 2000)
+      }, 500)
     } else {
       checkarea.setStyle(areaOriStyle)
       res()

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="map" ref="map"></div>
-    <div id="coor"></div>
+    <div class="computed" id="coor"></div>
     <div class="maplevel">
       级别：<span id="maplevel"></span>
     </div>
@@ -37,9 +37,26 @@ export default {
   display: none;
 }
 
+.computed {
+  position: fixed;
+  bottom: 45px;
+  right: 90px;
+  width: 200px;
+}
+
+/*层级和坐标颜色*/
+.ol-mouse-position {
+  width: 200px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.65);
+}
+
 .maplevel {
   position: fixed;
   bottom: 20px;
-  right: 10px;
+  right: 18px;
+  width: 80px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.65);
 }
 </style>

@@ -95,7 +95,6 @@ export function addInfoLayers (app) {
 /**
  * 所有地图资源加载完毕后执行的GIS操作
  */
-import {loadCheckArea} from './loadgisdata'
 export function startGISWork () {
   setTimeout(() => {
     loadInfoLayer()// 分图层加载要素

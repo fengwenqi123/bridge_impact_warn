@@ -34,6 +34,7 @@ export function loadCheckArea () {
     store.getters.app.checkAreaLayer.clear()
     $.each(areadata, function (i, item) {
       var careaAttr = {
+        name: item.cereaName,
         datatype: 'checkarea',
         code: item.code
       }

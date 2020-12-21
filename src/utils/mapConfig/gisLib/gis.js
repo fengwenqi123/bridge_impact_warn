@@ -137,7 +137,6 @@ function showVideoNameIntable (shipinFeatures) {
         name: JSON.stringify(shipinNames)
       }
     }, '*')
-    // console.log(shipinNames);
   }
 }
 
@@ -160,8 +159,6 @@ function showSupportNameIntable (supportFeatures) {
         type: 'support'
       }
     }, '*')
-    // console.log(supportType);
-    // console.log(supportNames);
   }
 }
 
@@ -247,8 +244,6 @@ export function showPopup (map) {
       chosenCircleGeometry.setCenter(newCirleCenter)
       HShipLayers.setChosenShipname(obj.shipName)
     }
-    console.log(property)
-    console.log(obj)
     switch (propertyType) {
       case 0:
         bus.$emit('shipManage', obj)
@@ -599,20 +594,24 @@ export function checkareaAlarm () {
       }
     }
   }
-  loop()
+  if(checkareas.length !== 0){
+    loop()
+  }
 }
 
 function changeAreaStyle (checkarea, areastyle) {
-  return new Promise(function (res, rej) {
+  return new Promise(function (res) {
     var areaOriStyle = checkarea.getStyle()
     var areaCode = checkarea.getProperties()['code']
     if (areaCode === '1') {
       checkarea.setStyle(areastyle)
+      console.log(checkarea.getStyle().getFill().getColor())
       setTimeout(() => {
-        console.log('测试')
+        console.log(checkarea.getProperties()['name'])
         checkarea.setStyle(areaOriStyle)
+        console.log(checkarea.getStyle().getFill().getColor())
         res()
-      }, 500)
+      }, 2000)
     } else {
       checkarea.setStyle(areaOriStyle)
       res()
@@ -717,7 +716,6 @@ function hideChosenCricle () {
  * @description 控制显示船舶图层，包括船舶信号类型、船舶数据类型、船舶离线时间、船舶行驶状态(静止或行驶)
  */
 function signalSettings (offlineTime, datatype, shiptype, speedsignal) {
-  console.log(datatype)
   HShipLayers.setQueryParams(offlineTime, datatype, shiptype, speedsignal)
   HShipLayers.queryWMSShips()
   HShipLayers.queryWFSShips(false)
@@ -730,7 +728,6 @@ function signalSettings (offlineTime, datatype, shiptype, speedsignal) {
  * @description 显示持续关注船舶用
  */
 function auditStatusSettings (auditstatus) {
-  console.log(auditstatus)
   HShipLayers.setAuditStatusFlag(auditstatus)
   HShipLayers.queryWMSShips()
   HShipLayers.queryWFSShips(false)
@@ -754,7 +751,6 @@ function locateToCounty (countyname) {
         store.getters.app.countyLayer.clear()
         const countyFeature = geoformat.readFeatures(data)
         if (countyFeature.length !== 0) {
-          // console.log(countyFeature[0])
           const textFont = 16 + 'px Microsoft YaHei'
           const countyLabel = new Text({
             text: countyname,
@@ -918,7 +914,6 @@ function quantityOfTheManagearea (manageName) {
       break
     }
   }
-  // console.log(theManageAreaFeature)
   var theExtent = theManageAreaFeature.getGeometry().getExtent()
   var themanageGeo = theManageAreaFeature.getGeometry().getCoordinates(true)
   // 辖区turf polygon
@@ -1009,7 +1004,6 @@ function quantityOfTheSegment (segmentName) {
   segmentShipInfo.passengerships = passengerShips.length
   segmentShipInfo.dangerships = dangerShips.length
   segmentShipInfo.otherships = otherShips.length
-  // console.log(segmentShipInfo)
   parent.postMessage({
     act: 'segmentShipInfo',
     msg: {
@@ -1043,7 +1037,6 @@ function queryForShipnameOrShipno (nameorno) {
       name: selectedships
     }
   }, '*')
-  // console.log(selectedships)
 }
 
 /**
@@ -1075,7 +1068,6 @@ function getShipsInArea () {
   var shipFeatures = HShipLayer.queryShipsFeaturesInArea(areaGeometry)
   for (var i = 0; i < shipFeatures.length; i++) {
     var property = shipFeatures[i].getProperties()
-    console.log(property.shipname)
   }
 }
 

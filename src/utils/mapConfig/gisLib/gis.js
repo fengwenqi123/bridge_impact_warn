@@ -651,6 +651,9 @@ function changeAreaStyle (checkarea, areastyle) {
       }, 500)
     } else {
       checkarea.setStyle(areaOriStyle)
+      setTimeout(() => {
+        res()
+      }, 500)
     }
   })
 }

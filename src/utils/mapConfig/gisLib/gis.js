@@ -639,6 +639,7 @@ function changeAreaStyle (checkarea, areastyle) {
   return new Promise(function (res) {
     var areaOriStyle = checkarea.getStyle()
     var areaCode = checkarea.getProperties()['code']
+    console.log(areaCode)
     if (areaCode === '1') {
       checkarea.setStyle(areastyle)
       // console.log(checkarea.getStyle().getFill().getColor())
@@ -650,7 +651,6 @@ function changeAreaStyle (checkarea, areastyle) {
       }, 500)
     } else {
       checkarea.setStyle(areaOriStyle)
-      res()
     }
   })
 }

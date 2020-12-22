@@ -9,7 +9,7 @@ var coorapp = {}
 
 $(function() {
   // initPage('http://192.168.1.209:8090')
-  initPage('http://172.20.20.15:8080')
+  initPage('/gis')
 })
 
 //初始化页面

@@ -202,7 +202,7 @@ class HShipLayer {
           FORMAT: 'image/png',
           VERSION: '1.1.0',
           STYLES: '',
-          LAYERS: 'geobase:zjghship'
+          LAYERS: 'geobase:ship_position'
         }
       })
     })

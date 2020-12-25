@@ -22,33 +22,48 @@ export default {
       default: 'ids'
     }
   },
+  data () {
+    return {
+      flvPlayer: null
+    }
+  },
+  mounted () {
+    this.play()
+  },
   methods: {
     play () {
       const url = this.url
       if (flvjs.isSupported()) {
         var videoElement = document.getElementById(this.ids)
-        var flvPlayer = flvjs.createPlayer({
+        this.flvPlayer = flvjs.createPlayer({
           type: 'flv',
           url: url
         })
-        flvPlayer.attachMediaElement(videoElement)
-        flvPlayer.load()
-        flvPlayer.play()
+        this.flvPlayer.attachMediaElement(videoElement)
+        this.flvPlayer.load()
+        this.flvPlayer.play()
       }
     }
   },
-  watch: {
-    url: { //  深度监听，可监听到对象、数组的变化
-      handler (val, oldVal) {
-        if (val) {
-          setTimeout(() => {
-            this.play()
-          })
-        }
-      },
-      immediate: true
-    }
+  beforeDestroy () {
+    this.flvPlayer.pause()
+    this.flvPlayer.unload()
+    this.flvPlayer.detachMediaElement()
+    this.flvPlayer.destroy()
+    this.flvPlayer = null
   }
+  // watch: {
+  //   url: { //  深度监听，可监听到对象、数组的变化
+  //     handler (val, oldVal) {
+  //       if (val) {
+  //         setTimeout(() => {
+  //           this.play()
+  //         })
+  //       }
+  //     },
+  //     immediate: true
+  //   }
+  // }
 }
 </script>
 

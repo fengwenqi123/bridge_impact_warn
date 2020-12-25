@@ -346,13 +346,13 @@ function clearShipTrack() {
   trackapp.historyTrackLayer.clear()
 }
 
-function addHistoryTrack(mmsi, starTime, endTime) {
+function addHistoryTrack(zwcm, starTime, endTime) {
   trackapp.historyTrackLayer.clear()
   var distanceElement // 当前测量值
   var distanceoverlay // 当前测试提示
   var lastPt //上点坐标
   var lastTime //上点时间
-  var getUrl = GIS_HISTORYSHIP + 'mmsi=' + mmsi + '&' + 'starTime=' + starTime + '&'
+  var getUrl = GIS_HISTORYSHIP + 'zwcm=' + zwcm + '&' + 'starTime=' + starTime + '&'
     + 'endTime=' + endTime
   $.ajax({
     url: getUrl,
@@ -363,7 +363,7 @@ function addHistoryTrack(mmsi, starTime, endTime) {
       var lineSymbol = []
       var markerSymbol = []
       var onePositionArray = []
-      var shipData = d.data.dataList
+      var shipData = d.data
       var trackPointSymbol
       if (shipData.length === 0) {
         alert('信号轨迹数据不存在')

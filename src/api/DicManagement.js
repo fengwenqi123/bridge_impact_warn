@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function lists (pageNum, pageSize, order, sort, classification, type, status, keyword) {
   return request({
-    url: '/dataDictionary/list',
+    url: '/generico-service/dataDictionary/list',
     method: 'GET',
     params: {
       pageNum,
@@ -21,7 +21,7 @@ export function lists (pageNum, pageSize, order, sort, classification, type, sta
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/dataDictionary',
+    url: '/generico-service/dataDictionary',
     method: 'POST',
     data
   })
@@ -29,7 +29,7 @@ export function add (form) {
 
 export function delt (id) {
   return request({
-    url: '/dataDictionary/remove',
+    url: '/generico-service/dataDictionary/remove',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -43,7 +43,7 @@ export function delt (id) {
 
 export function enable (id) {
   return request({
-    url: '/dataDictionary/enable',
+    url: '/generico-service/dataDictionary/enable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -57,7 +57,7 @@ export function enable (id) {
 
 export function disable (id) {
   return request({
-    url: '/dataDictionary/disable',
+    url: '/generico-service/dataDictionary/disable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -71,7 +71,7 @@ export function disable (id) {
 
 export function classification (classification, status) {
   return request({
-    url: '/dataDictionary/findListByClassification',
+    url: '/generico-service/dataDictionary/findListByClassification',
     method: 'GET',
     params: {
       classification, status

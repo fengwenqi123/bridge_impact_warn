@@ -9,7 +9,7 @@ export function login (loginName, password, loginType, loginSource) {
     loginSource
   })
   return request({
-    url: '/user/login',
+    url: '/generico-service/user/login',
     method: 'post',
     data
   })
@@ -30,7 +30,7 @@ export function getInfo (token) {
     accessToken: token
   })
   return request({
-    url: '/user/online',
+    url: '/generico-service/user/online',
     method: 'POST',
     data
   })
@@ -38,7 +38,7 @@ export function getInfo (token) {
 
 export function logout () {
   return request({
-    url: '/user/logout',
+    url: '/generico-service/user/logout',
     method: 'post'
   })
 }

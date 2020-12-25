@@ -67,7 +67,7 @@
               <div class="gj">
                 <div class="title">船舶航行轨迹</div>
                 <div class="item">
-                  <playBack :mmsi="form.mmsi"></playBack>
+                  <playBack :zwcm="Parameters"></playBack>
                 </div>
               </div>
             </div>
@@ -272,7 +272,8 @@ export default {
       form: null,
       shipInfo: null,
       ShipSignal: null,
-      videoUrl: null
+      videoUrl: null,
+      Parameters: null
     }
   },
   created () {
@@ -286,6 +287,13 @@ export default {
     init () {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))
+        if (this.form.zwShipName) {
+          this.Parameters = this.form.zwShipName
+        } else if (this.form.shipEn) {
+          this.Parameters = this.form.shipEn
+        } else if (this.form.mmsi) {
+          this.Parameters = this.form.mmsi
+        }
         this.getShipInfoFun(this.form.zwShipName)
         this.getShipSignalFun(this.form.zwShipName)
         // this.getPaybackListFun('0c21970f-e694-4bb8-a2dc-1b93049b421f')

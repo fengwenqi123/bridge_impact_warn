@@ -31,6 +31,13 @@
                 v-model="form.gravacaoCondeudo">
               </el-input>
             </el-form-item>
+            <el-form-item label="短信内容:">
+             <div class="message">
+               <div>预警来自xxx桥梁</div>
+               <div>xx所属船户请注意，您的船舶<el-input v-model="form.status"></el-input>！请立即<el-input v-model="form.handle"></el-input></div>
+               <div>说明<el-input v-model="form.remark"></el-input>,预警时间：{{time}}</div>
+             </div>
+            </el-form-item>
             <!--            <el-form-item label="启用状态:">-->
             <!--              <el-radio v-model="form.start" :readonly="readonly" label="2">启用</el-radio>-->
             <!--              <el-radio v-model="form.start" :readonly="readonly" label="1">禁用</el-radio>-->
@@ -73,6 +80,7 @@
 <script>
 import { add } from '@/api/yawWarning'
 import dialogFormMixin from '@/mixins/dialogFormMixin'
+import { timeToString } from '@/utils/index'
 
 export default {
   mixins: [dialogFormMixin],
@@ -89,6 +97,7 @@ export default {
   },
   data () {
     return {
+      time: timeToString(new Date().getTime()),
       // 表单内容
       form: {
         id: null,
@@ -96,6 +105,9 @@ export default {
         warningType: null,
         gravacaoCondeudo: null,
         start: null,
+        status: null,
+        handle: null,
+        remark: null,
         warningMethod: []
       },
       // 表单验证
@@ -160,5 +172,4 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-
 </style>

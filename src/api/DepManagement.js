@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function lists (pageNum, pageSize, order, sort, status, keyword, parentId) {
   return request({
-    url: '/department',
+    url: '/generico-service/department',
     method: 'GET',
     params: {
       pageNum,
@@ -20,7 +20,7 @@ export function lists (pageNum, pageSize, order, sort, status, keyword, parentId
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/department',
+    url: '/generico-service/department',
     method: 'POST',
     data
   })
@@ -28,7 +28,7 @@ export function add (form) {
 
 export function delt (id) {
   return request({
-    url: '/department/remove',
+    url: '/generico-service/department/remove',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -38,7 +38,7 @@ export function delt (id) {
 
 export function findDep () {
   return request({
-    url: '/department',
+    url: '/generico-service/department',
     method: 'GET',
     params: {
       pageNum: 1,
@@ -52,14 +52,14 @@ export function findDep () {
 
 export function findDepName (id) {
   return request({
-    url: '/department/' + id,
+    url: '/generico-service/department/' + id,
     method: 'GET'
   })
 }
 
 export function findDepartmentsByPersonnel (id) {
   return request({
-    url: '/department/findDepartmentsByPersonnel',
+    url: '/generico-service/department/findDepartmentsByPersonnel',
     method: 'GET',
     params: {
       id
@@ -69,7 +69,7 @@ export function findDepartmentsByPersonnel (id) {
 
 export function findListByLayer (layer) {
   return request({
-    url: '/department/findListByLayer',
+    url: '/generico-service/department/findListByLayer',
     method: 'GET',
     params: {
       layer

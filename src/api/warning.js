@@ -1,10 +1,9 @@
-import request from '@/utils/request1'
-import request2 from '@/utils/request2'
+import request from '@/utils/request'
 import qs from 'qs'
 
 export function lists (pageNum, pageSize, name, startTime, endTime, warnLevel) {
   return request({
-    url: '/eventRecording/getEventDataList',
+    url: '/alerta-service/eventRecording/getEventDataList',
     method: 'GET',
     params: {
       pageNum, pageSize, name, startTime, endTime, warnLevel
@@ -15,7 +14,7 @@ export function lists (pageNum, pageSize, name, startTime, endTime, warnLevel) {
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/videoManagement/saveOrUpdate',
+    url: '/alerta-service/videoManagement/saveOrUpdate',
     method: 'POST',
     data
   })
@@ -23,7 +22,7 @@ export function add (form) {
 
 export function delt (id) {
   return request({
-    url: '/videoManagement/remove',
+    url: '/alerta-service/videoManagement/remove',
     method: 'delete',
     params: {
       idList: id.join(',')
@@ -32,7 +31,7 @@ export function delt (id) {
 }
 export function getShipInfo (zwcm) {
   return request({
-    url: '/shipAdministration/getSipAdminDataList',
+    url: '/alerta-service/shipAdministration/getSipAdminDataList',
     method: 'GET',
     params: {
       zwcm
@@ -41,8 +40,8 @@ export function getShipInfo (zwcm) {
 }
 
 export function getShipSignal (zwcm) {
-  return request2({
-    url: '/ais-service/signal/getSignalNameList',
+  return request({
+    url: '/alerta-service/ais-service/signal/getSignalNameList',
     method: 'GET',
     params: {
       zwcm
@@ -52,7 +51,7 @@ export function getShipSignal (zwcm) {
 
 export function getPaybackList (objId) {
   return request({
-    url: '/paybackManagement/getPaybackList',
+    url: '/alerta-service/paybackManagement/getPaybackList',
     method: 'GET',
     params: {
       objId
@@ -61,7 +60,7 @@ export function getPaybackList (objId) {
 }
 
 export function getRtmp (clientId, playbackId) {
-  return request2({
+  return request({
     url: '/synchronize-service/recordedBroadcast/rtmp',
     method: 'GET',
     params: {

@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function lists (pageNum, pageSize, order, sort, status, keyword) {
   return request({
-    url: '/role',
+    url: '/generico-service/role',
     method: 'GET',
     params: {
       pageNum,
@@ -19,7 +19,7 @@ export function lists (pageNum, pageSize, order, sort, status, keyword) {
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/role',
+    url: '/generico-service/role',
     method: 'POST',
     data
   })
@@ -27,7 +27,7 @@ export function add (form) {
 
 export function delt (id) {
   return request({
-    url: '/role/remove',
+    url: '/generico-service/role/remove',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -41,7 +41,7 @@ export function delt (id) {
 
 export function enable (id) {
   return request({
-    url: '/role/enable',
+    url: '/generico-service/role/enable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -55,7 +55,7 @@ export function enable (id) {
 
 export function disable (id) {
   return request({
-    url: '/role/disable',
+    url: '/generico-service/role/disable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -69,14 +69,14 @@ export function disable (id) {
 
 export function findRole () {
   return request({
-    url: '/authorize/findAllListWithPid',
+    url: '/generico-service/authorize/findAllListWithPid',
     method: 'GET'
   })
 }
 
 export function findRoleById (roleId) {
   return request({
-    url: '/authorize/findListByRole',
+    url: '/generico-service/authorize/findListByRole',
     method: 'GET',
     params: {
       roleId

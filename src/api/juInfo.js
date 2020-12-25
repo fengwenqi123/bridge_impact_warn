@@ -1,9 +1,9 @@
-import request from '@/utils/request1'
+import request from '@/utils/request'
 // import qs from 'qs'
 
 export function lists (pageNum, pageSize, shipName, startTime, endTime) {
   return request({
-    url: '/eventRecording/getMsgLog',
+    url: '/alerta-service/eventRecording/getMsgLog',
     method: 'GET',
     params: {
       pageNum, pageSize, shipName, startTime, endTime

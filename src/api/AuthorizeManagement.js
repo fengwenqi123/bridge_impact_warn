@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function lists (pageNum, pageSize, order, sort, status, keyword) {
   return request({
-    url: '/authorize',
+    url: '/generico-service/authorize',
     method: 'GET',
     params: {
       pageNum,
@@ -19,7 +19,7 @@ export function lists (pageNum, pageSize, order, sort, status, keyword) {
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/authorize',
+    url: '/generico-service/authorize',
     method: 'POST',
     data
   })
@@ -27,7 +27,7 @@ export function add (form) {
 
 export function delt (id) {
   return request({
-    url: '/authorize/remove',
+    url: '/generico-service/authorize/remove',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -37,7 +37,7 @@ export function delt (id) {
 
 export function enable (id) {
   return request({
-    url: '/authorize/enable',
+    url: '/generico-service/authorize/enable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -47,7 +47,7 @@ export function enable (id) {
 
 export function disable (id) {
   return request({
-    url: '/authorize/disable',
+    url: '/generico-service/authorize/disable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -57,7 +57,7 @@ export function disable (id) {
 
 export function findAuthorize () {
   return request({
-    url: '/authorize',
+    url: '/generico-service/authorize',
     method: 'GET',
     params: {
       pageNum: 1,

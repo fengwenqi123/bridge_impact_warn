@@ -1,9 +1,8 @@
-import request from '@/utils/request1'
-import request2 from '@/utils/request2'
+import request from '@/utils/request'
 import qs from 'qs'
 
 export function getSignal (zwcm) {
-  return request2({
+  return request({
     url: '/ais-service/signal/getSignalNameList',
     method: 'GET',
     params: {
@@ -14,7 +13,7 @@ export function getSignal (zwcm) {
 
 export function getShipInfo (zwcm) {
   return request({
-    url: '/shipAdministration/getSipAdminDataList',
+    url: '/alerta-service/shipAdministration/getSipAdminDataList',
     method: 'GET',
     params: { zwcm }
   })
@@ -22,7 +21,7 @@ export function getShipInfo (zwcm) {
 
 export function shipzhzs (zhzs) {
   return request({
-    url: '/collaboration/certificateAll',
+    url: '/alerta-service/collaboration/certificateAll',
     method: 'GET',
     params: zhzs
   })
@@ -30,7 +29,7 @@ export function shipzhzs (zhzs) {
 
 export function shipdzbg (dzbg) {
   return request({
-    url: '/cvicse/shipReport',
+    url: '/alerta-service/cvicse/shipReport',
     method: 'GET',
     params: dzbg
   })
@@ -38,7 +37,7 @@ export function shipdzbg (dzbg) {
 
 export function shipJy (jy) {
   return request({
-    url: '/collaboration/shipInspect/list',
+    url: '/alerta-service/collaboration/shipInspect/list',
     method: 'GET',
     params: jy
   })
@@ -46,7 +45,7 @@ export function shipJy (jy) {
 
 export function shipdzbg1 (pageNum, pageSize, order, sort, keyword, shipName) {
   return request({
-    url: '/cvicse/shipReport',
+    url: '/alerta-service/cvicse/shipReport',
     method: 'GET',
     params: {
       pageNum,
@@ -69,7 +68,7 @@ export function add (id, loginName, name, mobile, status, description) {
     description
   })
   return request({
-    url: '/account/account',
+    url: '/alerta-service/account/account',
     method: 'POST',
     data
   })
@@ -77,7 +76,7 @@ export function add (id, loginName, name, mobile, status, description) {
 
 export function hcList (shipName, pageNum, pageSize, order, sort, mmsi, type, direction, keyword) {
   return request({
-    url: '/inspection/shipFrequency',
+    url: '/alerta-service/inspection/shipFrequency',
     method: 'GET',
     params: {
       pageNum,
@@ -94,7 +93,7 @@ export function hcList (shipName, pageNum, pageSize, order, sort, mmsi, type, di
 }
 export function cyrz (page, row, zwcm, cyxm) {
   return request({
-    url: '/check/dataForward/data/rzcyxx',
+    url: '/alerta-service/check/dataForward/data/rzcyxx',
     method: 'POST',
     params: {
       page,
@@ -106,7 +105,7 @@ export function cyrz (page, row, zwcm, cyxm) {
 }
 export function gpsInfo (shipName) {
   return request({
-    url: '/gps/status/findLatestByShipName',
+    url: '/alerta-service/gps/status/findLatestByShipName',
     method: 'GET',
     params: {
       shipName

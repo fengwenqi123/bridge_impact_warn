@@ -23,7 +23,7 @@
       <div class="item-main" v-for="item in tableData1" :key="item.id" @click="play(item)" :class="{active:active===item.id}">
         <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
           <div class="title"> {{ item.videoName }}</div>
-        </el-tooltip>
+        </el-tooltip>`
         <div class="value">
           <img :src="jk" alt="">
         </div>
@@ -73,6 +73,7 @@ export default {
         // this.bannerUrl = '/asset/Mon_1704/15868902d399b87.flv'
         this.ids = this.tableData[0].id
         this.flag = true
+        this.active = this.tableData[0].id
       })
     },
     play (item) {
@@ -81,6 +82,14 @@ export default {
         this.bannerUrl = item.h5Address
         this.ids = item.id
         this.active = item.id
+        if (!this.bannerUrl) {
+          // this.$message('当前无视频,请切换其他视频！')
+          this.$message({
+            dangerouslyUseHTMLString: true,
+            message: '<strong>当前无视频,请切换其他视频！</strong>'
+          })
+          return
+        }
         this.flag = true
       })
     }
@@ -121,16 +130,18 @@ export default {
     }
 
     .video {
+      background: #333;
       width: 657px;
       height: 563px;
     }
   }
 
   .line2 {
-    width: 1400px;
+    width: 1800px;
     display: flex;
     flex-wrap: wrap;
     .item-main {
+      margin-top: 20px;
       margin-right: 20px;
       //margin: 4px 10px;
       cursor: pointer;

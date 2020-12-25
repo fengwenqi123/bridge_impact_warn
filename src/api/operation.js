@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function lists (pageNum, pageSize, userLoginName, description, startTime, endTime) {
   return request({
-    url: '/log/getLogListPage',
+    url: '/generico-service/log/getLogListPage',
     method: 'GET',
     params: {
       pageNum, pageSize, userLoginName, description, startTime, endTime

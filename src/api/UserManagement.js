@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function lists (pageNum, pageSize, order, sort, status, keyword, parentDepartmentId) {
   return request({
-    url: '/personnel',
+    url: '/generico-service/personnel',
     method: 'GET',
     params: {
       pageNum,
@@ -19,7 +19,7 @@ export function lists (pageNum, pageSize, order, sort, status, keyword, parentDe
 
 export function lists1 (order, sort, status, departmentId, roleId, keyword) {
   return request({
-    url: '/personnel/list',
+    url: '/generico-service/personnel/list',
     method: 'GET',
     params: {
       order, sort, status, departmentId, roleId, keyword
@@ -29,7 +29,7 @@ export function lists1 (order, sort, status, departmentId, roleId, keyword) {
 
 export function watch (id) {
   return request({
-    url: '/personnel/' + id,
+    url: '/generico-service/personnel/' + id,
     method: 'GET'
   })
 }
@@ -37,7 +37,7 @@ export function watch (id) {
 export function add (form) {
   const data = qs.stringify(form)
   return request({
-    url: '/personnel',
+    url: '/generico-service/personnel',
     method: 'POST',
     data
   })
@@ -45,7 +45,7 @@ export function add (form) {
 
 export function delt (id) {
   return request({
-    url: '/personnel/remove',
+    url: '/generico-service/personnel/remove',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -55,7 +55,7 @@ export function delt (id) {
 
 export function enable (id) {
   return request({
-    url: '/personnel/enable',
+    url: '/generico-service/personnel/enable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -65,7 +65,7 @@ export function enable (id) {
 
 export function disable (id) {
   return request({
-    url: '/personnel/disable',
+    url: '/generico-service/personnel/disable',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -75,7 +75,7 @@ export function disable (id) {
 
 export function getDepartArr () {
   return request({
-    url: '/department',
+    url: '/generico-service/department',
     method: 'GET',
     params: {
       order: 'layer',
@@ -86,7 +86,7 @@ export function getDepartArr () {
 
 export function getRoleArr () {
   return request({
-    url: '/role',
+    url: '/generico-service/role',
     method: 'GET',
     params: {
       pageSize: 5000,
@@ -97,7 +97,7 @@ export function getRoleArr () {
 
 export function resetpassword (id) {
   return request({
-    url: '/personnel/passwordReset',
+    url: '/generico-service/personnel/passwordReset',
     method: 'PUT',
     params: {
       id: id.join(',')
@@ -111,7 +111,7 @@ export function resetpassword (id) {
 
 export function findRoleById (personnelId) {
   return request({
-    url: '/role/findListByPersonnel',
+    url: '/generico-service/role/findListByPersonnel',
     method: 'GET',
     params: {
       personnelId
@@ -121,7 +121,7 @@ export function findRoleById (personnelId) {
 
 export function findDepById (id) {
   return request({
-    url: '/department/findListByPersonnel',
+    url: '/generico-service/department/findListByPersonnel',
     method: 'GET',
     params: {
       id
@@ -131,7 +131,7 @@ export function findDepById (id) {
 
 export function findXq () {
   return request({
-    url: '/area/manageRange/myManageRange',
+    url: '/generico-service/area/manageRange/myManageRange',
     method: 'GET'
   })
 }

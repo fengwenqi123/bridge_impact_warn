@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function shipList (minReceiveTime, maxReceiveTime, minLongitude, maxLongitude, minLatitude, maxLatitude, type) {
   return request({
-    url: '/gps/track/trackQueryByRect',
+    url: '/generico-service/gps/track/trackQueryByRect',
     method: 'GET',
     params: {
       minReceiveTime, maxReceiveTime, minLongitude, maxLongitude, minLatitude, maxLatitude, type

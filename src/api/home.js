@@ -4,7 +4,7 @@ import qs from 'qs'
 
 export function statShipCheck (departmentId) {
   return request({
-    url: '/stats/shipCheck/statShipCheckByDepartmentId',
+    url: '/generico-service/stats/shipCheck/statShipCheckByDepartmentId',
     method: 'GET',
     params: {
       departmentId
@@ -14,7 +14,7 @@ export function statShipCheck (departmentId) {
 
 export function hydrology (pageNum, pageSize, city) {
   return request({
-    url: '/environment/hydrology/',
+    url: '/generico-service/environment/hydrology/',
     method: 'GET',
     params: {
       pageNum, pageSize, city
@@ -24,7 +24,7 @@ export function hydrology (pageNum, pageSize, city) {
 
 export function jqAlarm (departmentId, pageNo, pageSize) {
   return request({
-    url: '/area/patrolRecord/getAlarmByDepartmentId',
+    url: '/generico-service/area/patrolRecord/getAlarmByDepartmentId',
     method: 'GET',
     params: {
       departmentId, pageNo, pageSize
@@ -34,7 +34,7 @@ export function jqAlarm (departmentId, pageNo, pageSize) {
 
 export function latestReport () {
   return request({
-    url: '/cvicse/shipReport/latestReport',
+    url: '/generico-service/cvicse/shipReport/latestReport',
     method: 'GET'
   })
 }
@@ -45,7 +45,7 @@ export function getAlarmByDepartmentId (departmentId, day) {
     day
   })
   return request({
-    url: '/check/dataForward/data/getAlarmByDepartmentId',
+    url: '/generico-service/generico-service/check/dataForward/data/getAlarmByDepartmentId',
     method: 'POST',
     data
   })

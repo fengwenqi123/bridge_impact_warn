@@ -1,12 +1,14 @@
 <template>
   <div class="playback" id="playback">
     <playGis></playGis>
-    <trackBack v-if="showTime" :timeArr="time"></trackBack>
     <div class="Giscomponents" style="position: absolute;right: 14px;top: 14px;">
 <!--      <giscom></giscom>-->
     </div>
     <div class="setting">
-      <div class="tab" v-if="!showTime">
+      <div class="tab" v-show="showHide">
+        <div class="close" @click="showHide=false">
+          <i class="el-icon-circle-close"></i>
+        </div>
         <el-tabs type="border-card" @tab-click="handleClick" v-model="activeName">
           <el-tab-pane name="1" label="轨迹回放" class="back2">
             <div class="main">
@@ -48,21 +50,7 @@
           </el-tab-pane>
         </el-tabs>
       </div>
-      <div v-if="showTime" class="list">
-        <div class="title">
-          区域轨迹回放
-        </div>
-        <div class="main">
-          <div class="top">
-            <div class="stop" @click="stopPlay">
-              停止回放
-            </div>
-          </div>
-          <div class="shipList">
-            <playIndeterminate v-if="shipNameArr" :obj="shipNameArr"></playIndeterminate>
-          </div>
-        </div>
-      </div>
+      <div class="back" v-show="!showHide" @click="showHide=true">轨迹回放</div>
     </div>
   </div>
 </template>
@@ -71,8 +59,6 @@
 /* eslint-disable no-undef,no-prototype-builtins */
 
 import playGis from './playBackIframe.vue'
-import trackBack from './index'
-import playIndeterminate from './playbackIndeterminate.vue'
 // import giscom from './Giscomponents'
 import { timeToString } from '@/utils/index.js'
 import { mapGetters } from 'vuex'
@@ -85,14 +71,13 @@ export default {
     ])
   },
   components: {
-    playGis,
-    trackBack,
-    playIndeterminate
+    playGis
     // giscom
   },
-  props: ['mmsi'],
+  props: ['zwcm'],
   data () {
     return {
+      showHide: true,
       activeName: '1',
       time: [timeToString(new Date().getTime() - 1800000), timeToString(new Date().getTime())],
       maxLatitude: null,
@@ -203,7 +188,7 @@ export default {
         this.$message('请先选择时间')
         return
       }
-      $('iframe[name="playback"]').get(0).contentWindow.addHistoryTrack(this.mmsi, this.shipTime[0], this.shipTime[1]/*, this.shipType1 */)
+      $('iframe[name="playback"]').get(0).contentWindow.addHistoryTrack(this.zwcm, this.shipTime[0], this.shipTime[1]/*, this.shipType1 */)
     },
     // tab切换事件
     handleClick (tab) {
@@ -226,12 +211,34 @@ export default {
       position: absolute;
       top: 0px;
       display: inline-block;
-
+      .back{
+        margin-top: 16px;
+        margin-left: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius:50%;
+        background: #00BFFF;
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        padding-top: 5px;
+        cursor: pointer;
+      }
       .tab {
         //width: 620px;
         padding-top: 16px;
         margin-left: 16px;
 
+        .close{
+          position: absolute;
+          right: 10px;
+          top: 26px;
+          z-index: 99;
+          cursor: pointer;
+          i{
+            font-size: 20px;
+          }
+        }
         .back1, .back2 {
           .main {
             background: #fff;

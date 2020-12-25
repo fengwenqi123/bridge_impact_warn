@@ -652,7 +652,7 @@ function changeAreaStyle (checkarea, areastyle) {
       checkarea.setStyle(areaOriStyle)
       setTimeout(() => {
         res()
-      }, 500)
+      }, 0)
     }
   })
 }

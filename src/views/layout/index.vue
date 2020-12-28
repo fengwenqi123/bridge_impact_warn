@@ -6,7 +6,7 @@
       <app-main></app-main>
     </div>
     <div class="auto" v-if="voicePlay">
-      <audio controls="controls" muted="muted" loop="loop" ref="audio">
+      <audio controls autoplay="autoplay" id="bg-music" v-show="false">
         <source :src="voicePlay" type="audio/mpeg">
       </audio>
     </div>
@@ -55,7 +55,7 @@ export default {
       this.getZoneList()
       const loop = setInterval(() => {
         this.getZoneList()
-      }, 30000)
+      }, 300000)
       this.$once('hook:beforeDestroy', () => {
         this.voicePlay = null
         clearInterval(loop)
@@ -92,6 +92,7 @@ export default {
       voiceArr.sort((a, b) => b - a)
       if (voiceArr.length > 0) {
         const voice = voiceArr[0]
+        console.log(voice)
         switch (voice) {
           case '1':
             this.voicePlay = require('@/assets/voice/1.mp3')
@@ -105,11 +106,10 @@ export default {
           case '4':
             this.voicePlay = require('@/assets/voice/4.mp3')
             break
-          default:
-            this.voicePlay = null
-            break
         }
-        this.$refs.audio.play()
+        setTimeout(() => {
+          this.voicePlay = null
+        }, 10000)
       }
     }
   }

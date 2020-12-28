@@ -29,7 +29,6 @@ import videoDrawer from '@/views/map/videoDrawer'
 import shipInfo from '@/views/map/shipInfo'
 import videoList from '@/views/map/videoList'
 import { lists } from '@/api/videoManagement'
-import { listsWithNoPage } from '@/api/electronicFence'
 
 export default {
   name: 'mapView1',
@@ -46,7 +45,8 @@ export default {
       checkedVideoList: [],
       shipInfo: null,
       loop: null,
-      videoListData: null
+      videoListData: null,
+      voicePlay: null
     }
   },
   components: {
@@ -67,23 +67,13 @@ export default {
     startGISWork()
     this.onBus() // 接收地图发送的数据
   },
-  activated() {
-    this.loops()
-  },
   methods: {
-    // 循环遍历接口
-    loops() {
-      this.getZoneList()
-      const loop = setInterval(() => {
-        this.getZoneList()
-      }, 600000)
-      this.$once('hook:deactivated', () => {
-        clearInterval(loop)
-      })
-    },
     // 点击要素触发事件
     onBus() {
       bus.$on('video', (obj) => {
+        console.log(obj)
+        const a = obj.sort((a, b) => b - a)
+        console.log(a)
         this.videoList = obj
         this.drawer = true
       })
@@ -131,27 +121,6 @@ export default {
           else if (Number(a.videoName.match(/-(\S*)米/)[1]) !== Number(b.videoName.match(/-(\S*)米/)[1])) return Number(a.videoName.match(/(\S*)号/)[1]) < Number(b.videoName.match(/(\S*)号/)[1]) ? -1 : 1
         })
       })
-    },
-    getZoneList() {
-      const warnArray = []
-      listsWithNoPage().then(response => {
-        response.data.forEach(item => {
-          if (item.code === '1') {
-            warnArray.push(item)
-          }
-        })
-        this.setNotify(warnArray)
-      })
-    },
-    setNotify(warnArray) {
-      warnArray.forEach(item => {
-        this.$notify({
-          title: '提示',
-          message: `${item.cereaName}发生${item.areaType === '1' ? '预警' : item.areaType === '2' ? '危险' : '紧急'}告警`,
-          type: 'warning',
-          duration: 10000
-        })
-      })
     }
   },
   directives: {
@@ -183,6 +152,11 @@ export default {
 
 <style scoped lang="scss">
 .container {
+  audio {
+    position: absolute;
+    top: -100px;
+  }
+
   .rtmp {
     position: fixed;
     width: 484px;

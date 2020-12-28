@@ -5,67 +5,32 @@
         <div class="information-form">
           <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
             <el-form-item label="围栏名称:" prop="cereaName">
-              <el-input
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入围栏名称')"
-                clearable
-                v-model="form.cereaName"
-              />
+              <el-input :readonly="readonly" :placeholder="havePlaceholder('请输入围栏名称')" clearable v-model="form.cereaName" />
             </el-form-item>
             <el-form-item label="启用状态:">
               <el-radio v-model="form.initiateState" label="1">启用</el-radio>
               <el-radio v-model="form.initiateState" label="2">禁用</el-radio>
             </el-form-item>
             <el-form-item label="归属部门:">
-              <el-select
-                v-model="form.deptId"
-                clearable
-                filterable
-                :placeholder="havePlaceholder('请选择')"
-              >
-                <el-option
-                  v-for="(item,index) in departmentList"
-                  :key="index"
-                  :label="item.name"
-                  :style="{ paddingLeft : (item.layer.length-2) * 10 + 'px' }"
-                  :value="item.id"
-                />
+              <el-select v-model="form.deptId" clearable filterable :placeholder="havePlaceholder('请选择')">
+                <el-option v-for="(item,index) in departmentList" :key="index" :label="item.name" :style="{ paddingLeft : (item.layer.length-2) * 10 + 'px' }" :value="item.id" />
               </el-select>
             </el-form-item>
             <el-form-item label="围栏编号:" prop="serialNumber">
-              <el-input
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入围栏编号')"
-                v-model="form.serialNumber"
-                clearable
-              />
+              <el-input :readonly="readonly" :placeholder="havePlaceholder('请输入围栏编号')" v-model="form.serialNumber" clearable />
             </el-form-item>
             <el-form-item label="预警类型:">
-              <el-select v-model="form.areaType" clearable
-                         :placeholder="havePlaceholder('请选择')">
-                <el-option
-                  v-for="item in warningTypeList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+              <el-select v-model="form.areaType" clearable :placeholder="havePlaceholder('请选择')">
+                <el-option v-for="item in warningTypeList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="围栏坐标:">
-              <el-input
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入围栏坐标')"
-                v-model="form.cereaCoordinates"
-                clearable
-              />
+            <el-form-item label="围栏坐标:" prop="cereaCoordinates">
+              <el-input :readonly="readonly" :placeholder="havePlaceholder('请输入围栏坐标')" v-model="form.cereaCoordinates" clearable />
               <svg-icon icon-class="dingwei" @click.native="coor()" style="cursor: pointer; font-size: 15px;"></svg-icon>
             </el-form-item>
             <el-form-item label="备注:">
-              <el-input
-                type="textarea"
-                :rows="6"
-                :placeholder="havePlaceholder('请输入内容')"
-                v-model="form.remark">
+              <el-input type="textarea" :rows="6" :placeholder="havePlaceholder('请输入内容')" v-model="form.remark">
               </el-input>
             </el-form-item>
           </el-form>
@@ -73,20 +38,10 @@
       </el-scrollbar>
     </div>
     <div slot="footer" class="information-foot" v-if="!readonly">
-      <el-button
-        icon="el-icon-document"
-        size="small"
-        class="blueButton"
-        @click="submitForm('addForm')"
-      >
+      <el-button icon="el-icon-document" size="small" class="blueButton" @click="submitForm('addForm')">
         保存
       </el-button>
-      <el-button
-        icon="el-icon-refresh-left"
-        size="small"
-        class="whiteButton"
-        @click="cancel"
-      >
+      <el-button icon="el-icon-refresh-left" size="small" class="whiteButton" @click="cancel">
         返回
       </el-button>
     </div>
@@ -110,7 +65,7 @@ export default {
   props: {
     row: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
@@ -118,7 +73,7 @@ export default {
       type: Boolean
     }
   },
-  data () {
+  data() {
     return {
       // 表单内容
       departmentList: [],
@@ -136,7 +91,8 @@ export default {
       url: null,
       rules: {
         cereaName: [{ required: true, message: '请输入围栏名称', trigger: 'blur' }],
-        serialNumber: [{ required: true, message: '请输入围栏编号', trigger: 'blur' }]
+        serialNumber: [{ required: true, message: '请输入围栏编号', trigger: 'blur' }],
+        cereaCoordinates: [{ required: true, message: '请选择围栏坐标', trigger: 'blur' }]
       },
       warningTypeList: [{
         value: '1',
@@ -153,24 +109,24 @@ export default {
       }]
     }
   },
-  created () {
+  created() {
     this.init()
     this.findAuth()
   },
-  mounted () {
+  mounted() {
     this.getCoor()
   },
   methods: {
-    havePlaceholder (string) {
+    havePlaceholder(string) {
       return this.readonly ? '' : string
     },
-    init () {
+    init() {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))
       }
     },
     // 表单操作
-    submit () {
+    submit() {
       this.departmentList.forEach(item => {
         if (item.id === this.form.deptId) {
           this.form.deptName = item.name
@@ -194,17 +150,17 @@ export default {
         this.$emit('submit')
       })
     },
-    cancel () {
+    cancel() {
       this.$emit('cancel')
     },
-    findAuth () {
+    findAuth() {
       var id = this.$store.state.user.userInfo.id
       findDepartmentsByPersonnel(id).then(response => {
         this.departmentList = response.data
       })
     },
     // 定位
-    coor () {
+    coor() {
       this.dialogTableVisible = true
       if (this.form.cereaCoordinates) {
         this.url = `/static/coor/coorMap.html?type=Polygon&precoor=${this.form.cereaCoordinates.toString()}`
@@ -212,9 +168,9 @@ export default {
         this.url = '/static/coor/coorMap.html?type=Polygon&precoor=nocoor'
       }
     },
-    getCoor () {
+    getCoor() {
       var _this = this
-      window.addEventListener('message', function (e) {
+      window.addEventListener('message', function(e) {
         if (e.data.act === 'coor') {
           _this.form.cereaCoordinates = e.data.msg.name
         }
@@ -226,5 +182,4 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-
 </style>

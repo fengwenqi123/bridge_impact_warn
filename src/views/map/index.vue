@@ -2,10 +2,7 @@
   <div class="container">
     <olMap>
     </olMap>
-    <videoDrawer
-      :videoList="videoList"
-      :drawer.sync="drawer"
-      @checked="play">
+    <videoDrawer :videoList="videoList" :drawer.sync="drawer" @checked="play">
     </videoDrawer>
     <div v-for="(item,index) in checkedVideoList" :key="item.id">
       <div class="rtmp" v-if="item.show" v-focus>
@@ -41,7 +38,7 @@ export default {
       'app'
     ])
   },
-  data () {
+  data() {
     return {
       videoList: null,
       drawer: false,
@@ -59,10 +56,10 @@ export default {
     shipInfo,
     videoList
   },
-  created () {
+  created() {
     this.getVideoListFun()
   },
-  mounted () {
+  mounted() {
     addInfoLayers(this.app) // 增加业务图层
     const shipLayer = new HShipLayer()
     shipLayer.init(this.app.map, GIS_SHIPWMS, GIS_SHIPWFS) // 船舶图层初始化
@@ -70,12 +67,12 @@ export default {
     startGISWork()
     this.onBus() // 接收地图发送的数据
   },
-  activated () {
+  activated() {
     this.loops()
   },
   methods: {
     // 循环遍历接口
-    loops () {
+    loops() {
       this.getZoneList()
       const loop = setInterval(() => {
         this.getZoneList()
@@ -85,7 +82,7 @@ export default {
       })
     },
     // 点击要素触发事件
-    onBus () {
+    onBus() {
       bus.$on('video', (obj) => {
         this.videoList = obj
         this.drawer = true
@@ -95,7 +92,7 @@ export default {
       })
     },
     // 播放视频前判断
-    play (item) {
+    play(item) {
       console.log(item)
       if (!item.rtmp) {
         this.$message({
@@ -117,21 +114,25 @@ export default {
       }
     },
     // 逻辑关闭视频
-    close (index) {
+    close(index) {
       const item = JSON.parse(JSON.stringify(this.checkedVideoList[index]))
       item.show = false
       this.$set(this.checkedVideoList, index, item)
     },
-    closeTab () {
+    closeTab() {
       this.shipInfo = null
     },
     // 视频列表
-    getVideoListFun () {
+    getVideoListFun() {
       lists(1, 30).then(response => {
         this.videoListData = response.data.dataList
+        this.videoListData.sort((a, b) => {
+          if (Number(a.videoName.match(/(\S*)号/)[1]) !== Number(b.videoName.match(/(\S*)号/)[1])) return Number(a.videoName.match(/(\S*)号/)[1]) < Number(b.videoName.match(/(\S*)号/)[1]) ? -1 : 1
+          else if (Number(a.videoName.match(/-(\S*)米/)[1]) !== Number(b.videoName.match(/-(\S*)米/)[1])) return Number(a.videoName.match(/(\S*)号/)[1]) < Number(b.videoName.match(/(\S*)号/)[1]) ? -1 : 1
+        })
       })
     },
-    getZoneList () {
+    getZoneList() {
       const warnArray = []
       listsWithNoPage().then(response => {
         response.data.forEach(item => {
@@ -142,7 +143,7 @@ export default {
         this.setNotify(warnArray)
       })
     },
-    setNotify (warnArray) {
+    setNotify(warnArray) {
       warnArray.forEach(item => {
         this.$notify({
           title: '提示',
@@ -156,8 +157,8 @@ export default {
   directives: {
     focus: {
       // 指令的定义
-      inserted (el) {
-        el.onmousedown = function (v) {
+      inserted(el) {
+        el.onmousedown = function(v) {
           var ev = v || event
           var X = ev.clientX
           var Y = ev.clientY
@@ -165,13 +166,13 @@ export default {
           var y1 = el.offsetTop
           var disx = X - x1
           var disy = Y - y1
-          document.onmousemove = function (ev1) {
+          document.onmousemove = function(ev1) {
             var ev = ev1 || event
             el.style.left = ev.clientX - disx + 200 + 'px'
             el.style.top = ev.clientY - disy + 120 + 'px'
           }
         }
-        document.onmouseup = function (ev) {
+        document.onmouseup = function(ev) {
           document.onmousemove = null
         }
       }

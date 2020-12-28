@@ -79,7 +79,7 @@ export default {
       this.getZoneList()
       const loop = setInterval(() => {
         this.getZoneList()
-      }, 10000)
+      }, 600000)
       this.$once('hook:deactivated', () => {
         clearInterval(loop)
       })

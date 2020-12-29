@@ -7,13 +7,17 @@ const yawWarning = {
   redirect: "/yawWarning/yawWarning-list",
   name: "yawWarning",
   alwaysShow: true,
-  meta: { title: "预警类型管理", icon: "sys", roles: [] },
+  meta: { title: "预警类型管理", icon: "yawWarning", roles: ["yawWarning"] },
   children: [
     {
       path: "yawWarning-list",
       name: "yawWarning-list",
       component: () => import("@/views/yawWarning/index"),
-      meta: { keepAlive: false, title: "预警类型管理", roles: [] }
+      meta: {
+        keepAlive: false,
+        title: "预警类型管理",
+        roles: ["yawWarning:list"]
+      }
     }
   ]
 };

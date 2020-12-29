@@ -87,13 +87,12 @@
 
           var aftercoor = afterUrl.split('&')[1].split('=')[1]
           if (aftercoor != 'nocoor') {
-            // aftercoor = '{"brushColor":"","fillColor":"","brushThickness":10,"pointList":[{"x":120.08947030588065,"y":30.890239490292444},{"x":120.12134025523633,"y":30.900982198272914},{"x":120.12914305271774,"y":30.87339387222849},{"x":120.08217408435203,"y":30.8746080705089},{"x":120.08947030588065,"y":30.890239490292444}]}'
+            // aftercoor = [{"x":120.08947030588065,"y":30.890239490292444},{"x":120.12134025523633,"y":30.900982198272914},{"x":120.12914305271774,"y":30.87339387222849},{"x":120.08217408435203,"y":30.8746080705089},{"x":120.08947030588065,"y":30.890239490292444}]
             // 2.获取要素坐标后向preLayer添加要素
             var polygonSymbol = []
-            var areaObj = JSON.parse(decodeURI(aftercoor))
-            var areaPoints = areaObj.pointList
+            var areaPoints = JSON.parse(decodeURI(aftercoor))
             var points = []
-            for (i = 0; i < areaPoints.length; i++) {
+            for (var i = 0; i < areaPoints.length; i++) {
               var lonlat = wgs84ToWebMct(areaPoints[i].x, areaPoints[i].y)
               points.push(lonlat)
             }

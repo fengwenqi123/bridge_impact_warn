@@ -133,7 +133,6 @@ function drawFeature() {
         })
       })
     })
-    coorapp.areaObj = {brushColor: '', fillColor: '', brushThickness: 10}// 区域json
     coorapp.areaPoints = []// 存放区域轨迹数组
     GIS_DRAW.on('drawend', function(evt) {
       var fea = evt.feature
@@ -155,8 +154,7 @@ function drawFeature() {
         areaPoint.y = lonlat[1]
         coorapp.areaPoints.push(areaPoint)
       }
-      coorapp.areaObj.pointList = coorapp.areaPoints
-      coorapp.areaObjStr = JSON.stringify(coorapp.areaObj)
+      coorapp.areaObjStr = JSON.stringify(coorapp.areaPoints)
       parent.postMessage({
         act: 'coor',
         msg: {

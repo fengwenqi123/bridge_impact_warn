@@ -14,9 +14,9 @@ import store from '@/store'
 import { wgs84ToWebMct } from './HTool'
 import HSymbol from './HSymbol'
 import { bridgeList, videoList, checkAreaList } from '../api/data'
-import { Style, Icon } from 'ol/style'
+import { Style, Icon, Fill, Stroke } from 'ol/style'
 import { Feature } from 'ol'
-import { Point } from 'ol/geom'
+import { Point, Polygon } from 'ol/geom'
 import { Vector as SVector, Cluster } from 'ol/source'
 const bridgeImg = require('@/utils/mapConfig/img/bridge.png')
 const videoImg = require('@/utils/mapConfig/img/video.png')
@@ -25,6 +25,7 @@ export function loadInfoLayer (type) {
   if ((type == null || type === 'bridge') && store.getters.app.bridgeLayer) loadBridgeLayer()
   if ((type == null || type === 'video') && store.getters.app.videoLayer) loadVideo()
   if ((type == null || type === 'checkarea') && store.getters.app.checkAreaLayer) loadCheckArea()
+  if ((type == null || type === 'monitorarea') && store.getters.app.monitoringAreaLayer) loadMonitorArea()
 }
 
 export function loadCheckArea () {
@@ -48,11 +49,11 @@ export function loadCheckArea () {
         }
         var careaSymbol
           if (item.areaType === '1') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [0, 0, 255], [0, 0, 255], 2, false)
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [0, 0, 255, 0.6], [0, 0, 255, 0.5], 2, false)
         } else if (item.areaType === '2') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 165, 0], [255, 165, 0], 2, false)
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 165, 0, 0.6], [255, 165, 0, 0.5], 2, false)
         } else if (item.areaType === '3') {
-          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [220, 20, 60], [220, 20, 60], 2, false)
+          careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [220, 20, 60, 0.6], [220, 20, 60, 0.5], 2, false)
         }
         polygonSymbol.push(careaSymbol)
       }
@@ -134,5 +135,61 @@ function loadVideo () {
     // showVideoNameIntable(videofeatures)
   })
 }
+
+function loadMonitorArea(){
+  const mlayer = store.getters.app.monitoringAreaLayer.layer
+  let layerStyle = new Style({
+    fill: new Fill({
+      color: [0,255,255,0.4]
+    }),
+    stroke: new Stroke({
+      color: [248,248,255,0.9],
+      width: 1.5
+    })
+  })
+  mlayer.setStyle(layerStyle)
+  // 添加区域
+  let polygonSymbol = []
+  let areacoors = [
+    [[120.166858,30.106406],[120.166907,30.105955],[120.167159,30.106034],[120.166858,30.106406]],
+    [[120.167245,30.105477],[120.166939,30.105867],[120.167180,30.105946],[120.167245,30.105477]],
+    [[120.167293,30.105352],[120.167336,30.104925],[120.167577,30.105004],[120.167293,30.105352]],
+    [[120.167642,30.104484],[120.167357,30.104851],[120.167604,30.104939],[120.167642,30.104484]],
+    [[120.167706,30.104350],[120.167754,30.103918],[120.168006,30.103997],[120.167706,30.104350]],
+    [[120.168076,30.103463],[120.167797,30.103821],[120.168044,30.103895],[120.168076,30.103463]]
+  ]
+  areacoors.forEach(coor => {
+    let points = []
+    coor.forEach(item => {
+      let lon = item[0]
+      let lat = item[1]
+      let lonlat = wgs84ToWebMct(lon, lat)
+      points.push(lonlat)
+    })
+    let feature = new Feature({
+      geometry: new Polygon([points])
+    })
+    feature.setProperties({datatype: 'monitorarea'}, false)
+    polygonSymbol.push(feature)
+  })
+  store.getters.app.monitoringAreaLayer.addPolygonSymbol(polygonSymbol)
+  // let polygonSymbol = []
+  // let points = []
+  // for(let i = 0; i < areacoors.length; i++){
+  //   let lon = areacoors[i][0]
+  //   let lat = areacoors[i][1]
+  //   let lonlat = wgs84ToWebMct(lon, lat)
+  //   points.push(lonlat)
+  // }
+
+  // let feature = new Feature({
+  //   geometry: new Polygon([points])
+  // })
+  // polygonSymbol.push(feature)
+  // console.log(polygonSymbol)
+  // store.getters.app.monitoringAreaLayer.addPolygonSymbol(polygonSymbol)
+}
+
+
 
 /** *****************************************要素获取及展示方法结束****************************************/

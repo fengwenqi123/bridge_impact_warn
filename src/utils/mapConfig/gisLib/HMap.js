@@ -7,7 +7,7 @@ import { defaults as Idefaults } from 'ol/interaction'
 import store from '@/store'
 import { getMapLevel } from './HTool'
 import HInfoLayer from './HInfoLayer'
-import { loadInfoLayer} from './loadgisdata'
+import { loadInfoLayer, loadCheckArea} from './loadgisdata'
 import { showPopup,checkareaAlarm } from './gis'
 import { Vector } from 'ol/layer'
 import { Vector as SVector } from 'ol/source'
@@ -81,6 +81,7 @@ function initMapEvent (map) {
 export function addInfoLayers (app) {
   app.videoLayer = new HInfoLayer('video', true, 160, 0) // 视频监控图层 ps:聚合图层设置图层显示分辨率失效;
   app.checkAreaLayer = new HInfoLayer('checkarea', true, 300, 0)// 提醒区域
+  app.monitoringAreaLayer = new HInfoLayer('monitorarea', true, 300, 0)// 视频可视区域
   app.chosenCircle = HSymbol.getCircleSymbol({ type: 'chc' }, mapconfig.mapCenterCoor, 20, [255, 255, 255, 0], [255, 255, 0], 3, true)
   app.chosenLayer = new Vector({
     source: new SVector({
@@ -91,6 +92,7 @@ export function addInfoLayers (app) {
   }) // 船舶要素选中图层
   app.map.addLayer(app.videoLayer.layer)
   app.map.addLayer(app.checkAreaLayer.layer)
+  app.map.addLayer(app.monitoringAreaLayer.layer)
 }
 /**
  * 所有地图资源加载完毕后执行的GIS操作

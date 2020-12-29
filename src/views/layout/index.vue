@@ -75,16 +75,18 @@ export default {
     setNotify(warnArray) {
       const voiceArr = []
       warnArray.forEach((item, index) => {
-        setTimeout(() => {
-          this.$notify({
-            title: '提示',
-            message: `${item.cereaName}发生${item.areaType === '1' ? '预警' : item.areaType === '2' ? '危险' : '紧急'}告警`,
-            type: 'warning',
-            duration: 5000,
-            offset: 100
-          })
-        }, index * 50)
-        voiceArr.push(item.areaType)
+        if (item.areaType === '3' && item.areaType === '4') {
+          setTimeout(() => {
+            this.$notify({
+              title: '提示',
+              message: `${item.cereaName}发生${item.areaType === '1' ? '预警' : item.areaType === '2' ? '危险' : '紧急'}告警`,
+              type: 'warning',
+              duration: 5000,
+              offset: 100
+            })
+          }, index * 50)
+          voiceArr.push(item.areaType)
+        }
       })
       this.voiceFun(voiceArr)
     },
@@ -92,7 +94,6 @@ export default {
       voiceArr.sort((a, b) => b - a)
       if (voiceArr.length > 0) {
         const voice = voiceArr[0]
-        console.log(voice)
         switch (voice) {
           case '1':
             // this.voicePlay = require('@/assets/voice/1.mp3')

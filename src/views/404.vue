@@ -30,7 +30,7 @@ export default {
   methods: {
     roterIndex() {
       this.$store.dispatch('LogOut').then(() => {
-        this.$router.push({ path: '/' })
+        this.$router.push({ path: '/login' })
       })
     }
   }

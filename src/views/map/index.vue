@@ -71,9 +71,14 @@ export default {
     // 点击要素触发事件
     onBus() {
       bus.$on('video', (obj) => {
-        console.log(obj)
-        const a = obj.sort((a, b) => b - a)
-        console.log(a)
+        obj.sort((a, b) => {
+          if (Number(a.name.split('号')[0]) !== Number(b.name.split('号')[0])) {
+            return Number(a.name.split('号')[0]) < Number(b.name.split('号')[0]) ? -1 : 1
+          }
+          else if (Number(a.name.split('-')[2].split('米')[0]) !== Number(b.name.split('-')[2].split('米')[0])) {
+            return Number(a.name.split('-')[2].split('米')[0]) < Number(b.name.split('-')[2].split('米')[0]) ? -1 : 1
+          }
+        })
         this.videoList = obj
         this.drawer = true
       })
@@ -83,7 +88,6 @@ export default {
     },
     // 播放视频前判断
     play(item) {
-      console.log(item)
       if (!item.rtmp) {
         this.$message({
           message: '该地点暂无视频',
@@ -116,10 +120,6 @@ export default {
     getVideoListFun() {
       lists(1, 30).then(response => {
         this.videoListData = response.data.dataList
-        this.videoListData.sort((a, b) => {
-          if (Number(a.videoName.match(/(\S*)号/)[1]) !== Number(b.videoName.match(/(\S*)号/)[1])) return Number(a.videoName.match(/(\S*)号/)[1]) < Number(b.videoName.match(/(\S*)号/)[1]) ? -1 : 1
-          else if (Number(a.videoName.match(/-(\S*)米/)[1]) !== Number(b.videoName.match(/-(\S*)米/)[1])) return Number(a.videoName.match(/(\S*)号/)[1]) < Number(b.videoName.match(/(\S*)号/)[1]) ? -1 : 1
-        })
       })
     }
   },

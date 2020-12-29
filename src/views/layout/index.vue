@@ -25,13 +25,13 @@ export default {
     AppMain
   },
   computed: {
-    sidebar () {
+    sidebar() {
       return this.$store.state.app.sidebar
     },
-    device () {
+    device() {
       return this.$store.state.app.device
     },
-    classObj () {
+    classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
@@ -39,19 +39,19 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       voicePlay: null
     }
   },
-  created () {
+  created() {
     this.loops()
   },
-  mounted () {
+  mounted() {
   },
   methods: {
     // 循环遍历接口
-    loops () {
+    loops() {
       this.getZoneList()
       const loop = setInterval(() => {
         this.getZoneList()
@@ -61,7 +61,7 @@ export default {
         clearInterval(loop)
       })
     },
-    getZoneList () {
+    getZoneList() {
       const warnArray = []
       listsWithNoPage().then(response => {
         response.data.forEach(item => {
@@ -72,7 +72,7 @@ export default {
         this.setNotify(warnArray)
       })
     },
-    setNotify (warnArray) {
+    setNotify(warnArray) {
       const voiceArr = []
       warnArray.forEach((item, index) => {
         setTimeout(() => {
@@ -88,17 +88,17 @@ export default {
       })
       this.voiceFun(voiceArr)
     },
-    voiceFun (voiceArr) {
+    voiceFun(voiceArr) {
       voiceArr.sort((a, b) => b - a)
       if (voiceArr.length > 0) {
         const voice = voiceArr[0]
         console.log(voice)
         switch (voice) {
           case '1':
-            this.voicePlay = require('@/assets/voice/1.mp3')
+            // this.voicePlay = require('@/assets/voice/1.mp3')
             break
           case '2':
-            this.voicePlay = require('@/assets/voice/2.mp3')
+            // this.voicePlay = require('@/assets/voice/2.mp3')
             break
           case '3':
             this.voicePlay = require('@/assets/voice/3.mp3')
@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "src/styles/mixin.scss";
+@import 'src/styles/mixin.scss';
 
 .app-wrapper {
   background: rgba(24, 144, 255, 1);

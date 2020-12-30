@@ -90,9 +90,9 @@ export function addInfoLayers (app) {
     type: 'draw',
     visible: false
   }) // 船舶要素选中图层
-  app.map.addLayer(app.videoLayer.layer)
   app.map.addLayer(app.checkAreaLayer.layer)
   app.map.addLayer(app.monitoringAreaLayer.layer)
+  app.map.addLayer(app.videoLayer.layer)
 }
 /**
  * 所有地图资源加载完毕后执行的GIS操作

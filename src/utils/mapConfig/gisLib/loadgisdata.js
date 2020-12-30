@@ -18,6 +18,7 @@ import { Style, Icon, Fill, Stroke } from 'ol/style'
 import { Feature } from 'ol'
 import { Point, Polygon } from 'ol/geom'
 import { Vector as SVector, Cluster } from 'ol/source'
+import { checkareaAlarm } from './gis'
 const bridgeImg = require('@/utils/mapConfig/img/bridge.png')
 const videoImg = require('@/utils/mapConfig/img/video.png')
 
@@ -48,7 +49,7 @@ export function loadCheckArea () {
           points.push(lonlat)
         }
         var careaSymbol
-          if (item.areaType === '1') {
+        if (item.areaType === '1') {
           careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [0, 0, 255, 0.6], [0, 0, 255, 0.5], 2, false)
         } else if (item.areaType === '2') {
           careaSymbol = HSymbol.getPolygonSymbolWithoutLabel(careaAttr, [points], [255, 165, 0, 0.6], [255, 165, 0, 0.5], 2, false)
@@ -60,6 +61,9 @@ export function loadCheckArea () {
     })
     store.getters.app.checkAreaLayer.addPolygonSymbol(polygonSymbol)
   })
+  setTimeout(() => {
+    loadCheckArea()
+  }, 10000)
 }
 
 /**

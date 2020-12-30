@@ -104,6 +104,5 @@ export function startGISWork () {
   }, 0)
   setTimeout(() => {
     checkareaAlarm()
-    // setInterval('loadCheckArea()', 10000)
   }, 1000)
 }

@@ -633,6 +633,10 @@ export function checkareaAlarm () {
   if(checkareas.length !== 0){
     loop()
   }
+
+  setTimeout(()=>{
+    checkareaAlarm()
+  },10000)
 }
 
 function changeAreaStyle (checkarea, areastyle) {

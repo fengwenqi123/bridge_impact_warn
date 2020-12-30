@@ -173,21 +173,6 @@ function loadMonitorArea(){
     polygonSymbol.push(feature)
   })
   store.getters.app.monitoringAreaLayer.addPolygonSymbol(polygonSymbol)
-  // let polygonSymbol = []
-  // let points = []
-  // for(let i = 0; i < areacoors.length; i++){
-  //   let lon = areacoors[i][0]
-  //   let lat = areacoors[i][1]
-  //   let lonlat = wgs84ToWebMct(lon, lat)
-  //   points.push(lonlat)
-  // }
-
-  // let feature = new Feature({
-  //   geometry: new Polygon([points])
-  // })
-  // polygonSymbol.push(feature)
-  // console.log(polygonSymbol)
-  // store.getters.app.monitoringAreaLayer.addPolygonSymbol(polygonSymbol)
 }
 
 

@@ -55,7 +55,7 @@ export default {
       this.getZoneList()
       const loop = setInterval(() => {
         this.getZoneList()
-      }, 300000)
+      }, 30000)
       this.$once('hook:beforeDestroy', () => {
         this.voicePlay = null
         clearInterval(loop)
@@ -65,9 +65,9 @@ export default {
       const warnArray = []
       listsWithNoPage().then(response => {
         response.data.forEach(item => {
-          if (item.code === '1') {
-            warnArray.push(item)
-          }
+          // if (item.code === '1') {
+          warnArray.push(item)
+          // }
         })
         this.setNotify(warnArray)
       })

@@ -6,7 +6,7 @@
       <app-main></app-main>
     </div>
     <div class="auto" v-if="voicePlay">
-      <audio controls autoplay="autoplay" id="bg-music" v-show="false">
+      <audio controls autoplay="autoplay" loop="loop" id="bg-music" v-show="false">
         <source :src="voicePlay" type="audio/mpeg">
       </audio>
     </div>
@@ -55,7 +55,7 @@ export default {
       this.getZoneList()
       const loop = setInterval(() => {
         this.getZoneList()
-      }, 300000)
+      }, 30000)
       this.$once('hook:beforeDestroy', () => {
         this.voicePlay = null
         clearInterval(loop)
@@ -111,7 +111,7 @@ export default {
         }
         setTimeout(() => {
           this.voicePlay = null
-        }, 10000)
+        }, 16600)
       }
     }
   }

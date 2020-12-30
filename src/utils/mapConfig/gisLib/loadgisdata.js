@@ -18,7 +18,6 @@ import { Style, Icon, Fill, Stroke } from 'ol/style'
 import { Feature } from 'ol'
 import { Point, Polygon } from 'ol/geom'
 import { Vector as SVector, Cluster } from 'ol/source'
-import { checkareaAlarm } from './gis'
 const bridgeImg = require('@/utils/mapConfig/img/bridge.png')
 const videoImg = require('@/utils/mapConfig/img/video.png')
 

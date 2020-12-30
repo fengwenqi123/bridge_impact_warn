@@ -75,7 +75,8 @@ export default {
     setNotify(warnArray) {
       const voiceArr = []
       warnArray.forEach((item, index) => {
-        if (item.areaType === '3' && item.areaType === '4') {
+        if (item.areaType === '3' || item.areaType === '4') {
+          console.log(item)
           setTimeout(() => {
             this.$notify({
               title: '提示',

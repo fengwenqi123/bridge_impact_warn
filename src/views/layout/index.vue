@@ -6,7 +6,7 @@
       <app-main></app-main>
     </div>
     <div class="auto" v-if="voicePlay">
-      <audio controls autoplay="autoplay" id="bg-music" v-show="false">
+      <audio controls autoplay="autoplay" loop="loop" id="bg-music" v-show="false">
         <source :src="voicePlay" type="audio/mpeg">
       </audio>
     </div>
@@ -65,9 +65,9 @@ export default {
       const warnArray = []
       listsWithNoPage().then(response => {
         response.data.forEach(item => {
-          // if (item.code === '1') {
-          warnArray.push(item)
-          // }
+          if (item.code === '1') {
+            warnArray.push(item)
+          }
         })
         this.setNotify(warnArray)
       })
@@ -111,7 +111,7 @@ export default {
         }
         setTimeout(() => {
           this.voicePlay = null
-        }, 10000)
+        }, 16600)
       }
     }
   }

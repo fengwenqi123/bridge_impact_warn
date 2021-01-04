@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '@/utils/requestNoLoad'
 // import qs from 'qs'
 
 export function bridgeList () {

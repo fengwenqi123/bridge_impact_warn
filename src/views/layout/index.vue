@@ -16,6 +16,7 @@
 <script>
 import { Navbar, Sidebar, AppMain } from './components'
 import { listsWithNoPage } from '@/api/electronicFence'
+import { arrInArr } from '@/utils/index'
 
 export default {
   name: 'layout',
@@ -74,19 +75,27 @@ export default {
     },
     setNotify(warnArray) {
       const voiceArr = []
+      var isShow = localStorage.getItem('isShow') ? localStorage.getItem('isShow').split(',') : []
       warnArray.forEach((item, index) => {
         if (item.areaType === '3' || item.areaType === '4') {
-          console.log(item)
-          setTimeout(() => {
-            this.$notify({
-              title: '提示',
-              message: `${item.cereaName}发生${item.areaType === '1' ? '预警' : item.areaType === '2' ? '危险' : '紧急'}告警`,
-              type: 'warning',
-              duration: 5000,
-              offset: 100
-            })
-          }, index * 50)
-          voiceArr.push(item.areaType)
+          var b = []
+          for (let i = 0; i < item.objIdData.length; i++) {
+            b.push(item.objIdData[i].objid)
+          }
+          if (!localStorage.getItem('isShow') || !arrInArr(isShow, b)) {
+            isShow = [...new Set(isShow.concat(b))]
+            localStorage.setItem('isShow', isShow.join(','))
+            setTimeout(() => {
+              this.$notify({
+                title: '提示',
+                message: `${item.cereaName}发生${item.areaType === '1' ? '预警' : item.areaType === '2' ? '危险' : '紧急'}告警`,
+                type: 'warning',
+                duration: 5000,
+                offset: 100
+              })
+            }, index * 50)
+            voiceArr.push(item.areaType)
+          }
         }
       })
       this.voiceFun(voiceArr)

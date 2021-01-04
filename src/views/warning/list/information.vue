@@ -9,46 +9,22 @@
             </div>
             <el-form v-if="form" :inline="true" class="form-inline" label-width="120px">
               <el-form-item label="中文船名">
-                <el-input
-                  v-model="form.zwShipName"
-                  :placeholder="havePlaceholder('请输入中文船名')"
-                  clearable
-                />
+                <el-input v-model="form.zwShipName" :placeholder="havePlaceholder('请输入中文船名')" clearable />
               </el-form-item>
               <el-form-item label="船舶识别号">
-                <el-input
-                  v-model="form.identifynumber"
-                  :placeholder="havePlaceholder('请输入船舶识别号')"
-                  clearable
-                />
+                <el-input v-model="form.identifynumber" :placeholder="havePlaceholder('请输入船舶识别号')" clearable />
               </el-form-item>
               <el-form-item label="联系电话">
-                <el-input
-                  v-model="form.phone"
-                  :placeholder="havePlaceholder('请输入联系电话')"
-                  clearable
-                />
+                <el-input v-model="form.phone" :placeholder="havePlaceholder('请输入联系电话')" clearable />
               </el-form-item>
               <el-form-item label="预警时间">
-                <el-input
-                  v-model="form.addTimeString"
-                  :placeholder="havePlaceholder('请输入预警时间')"
-                  clearable
-                />
+                <el-input v-model="form.addTimeString" :placeholder="havePlaceholder('请输入预警时间')" clearable />
               </el-form-item>
               <el-form-item label="围栏名称">
-                <el-input
-                  :placeholder="havePlaceholder('请输入围栏名称')"
-                  v-model="form.zoneZwName"
-                  clearable
-                />
+                <el-input :placeholder="havePlaceholder('请输入围栏名称')" v-model="form.zoneZwName" clearable />
               </el-form-item>
               <el-form-item label="预警方式">
-                <el-input
-                  v-model="form.warningmethod"
-                  :placeholder="havePlaceholder('请输入预警方式')"
-                  clearable
-                />
+                <el-input v-model="form.warningmethod" :placeholder="havePlaceholder('请输入预警方式')" clearable />
               </el-form-item>
             </el-form>
           </el-card>
@@ -78,40 +54,22 @@
             </div>
             <el-form v-if="ShipSignal" :inline="true" class="form-inline" label-width="120px">
               <el-form-item label="信号接收时间">
-                <el-input
-                  v-model="ShipSignal.receiveTimeString"
-                  clearable
-                />
+                <el-input v-model="ShipSignal.receiveTimeString" clearable />
               </el-form-item>
               <el-form-item label="经度">
-                <el-input
-                  v-model="ShipSignal.longitude"
-                  clearable
-                />
+                <el-input v-model="ShipSignal.longitude" clearable />
               </el-form-item>
               <el-form-item label="纬度">
-                <el-input
-                  v-model="ShipSignal.latitude"
-                  clearable
-                />
+                <el-input v-model="ShipSignal.latitude" clearable />
               </el-form-item>
               <el-form-item label="船舶信息">
-                <el-input
-                  v-model="ShipSignal.shipName"
-                  clearable
-                />
+                <el-input v-model="ShipSignal.shipName" clearable />
               </el-form-item>
               <el-form-item label="速度">
-                <el-input
-                  v-model="ShipSignal.speed"
-                  clearable
-                />
+                <el-input v-model="ShipSignal.speed" clearable />
               </el-form-item>
               <el-form-item label="航向">
-                <el-input
-                  v-model="ShipSignal.direction"
-                  clearable
-                />
+                <el-input v-model="ShipSignal.direction" clearable />
               </el-form-item>
             </el-form>
           </el-card>
@@ -121,100 +79,52 @@
             </div>
             <el-form v-if="shipInfo" :inline="true" class="form-inline" label-width="120px">
               <el-form-item label="中文船名">
-                <el-input
-                  v-model="shipInfo.zwcm"
-                  clearable
-                />
+                <el-input v-model="shipInfo.zwcm" clearable />
               </el-form-item>
               <el-form-item label="曾用中文船名">
-                <el-input
-                  v-model="shipInfo.cyzwcm"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cyzwcm" clearable />
               </el-form-item>
               <el-form-item label="船舶总长(米)">
-                <el-input
-                  v-model="shipInfo.cbzc"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cbzc" clearable />
               </el-form-item>
               <el-form-item label="船舶识别号">
-                <el-input
-                  v-model="shipInfo.cbsbh"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cbsbh" clearable />
               </el-form-item>
               <el-form-item label="船籍港代码">
-                <el-input
-                  v-model="shipInfo.cjgdm"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cjgdm" clearable />
               </el-form-item>
               <el-form-item label="参考载重吨(吨)">
-                <el-input
-                  v-model="shipInfo.ckzzd"
-                  clearable
-                />
+                <el-input v-model="shipInfo.ckzzd" clearable />
               </el-form-item>
               <el-form-item label="船舶种类代码">
-                <el-input
-                  v-model="shipInfo.cbzldm"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cbzldm" clearable />
               </el-form-item>
               <el-form-item label="船检登记号">
-                <el-input
-                  v-model="shipInfo.cjdjh"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cjdjh" clearable />
               </el-form-item>
               <el-form-item label="空载吃水(米)">
-                <el-input
-                  v-model="shipInfo.kzcs"
-                  clearable
-                />
+                <el-input v-model="shipInfo.kzcs" clearable />
               </el-form-item>
               <el-form-item label="满载吃水(米)">
-                <el-input
-                  v-model="shipInfo.mzcs"
-                  clearable
-                />
+                <el-input v-model="shipInfo.mzcs" clearable />
               </el-form-item>
               <el-form-item label="净吨位(吨)">
-                <el-input
-                  v-model="shipInfo.jdw"
-                  clearable
-                />
+                <el-input v-model="shipInfo.jdw" clearable />
               </el-form-item>
               <el-form-item label="船舶型宽(米)">
-                <el-input
-                  v-model="shipInfo.cbxk"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cbxk" clearable />
               </el-form-item>
               <el-form-item label="船舶型深(米)">
-                <el-input
-                  v-model="shipInfo.cbxs"
-                  clearable
-                />
+                <el-input v-model="shipInfo.cbxs" clearable />
               </el-form-item>
               <el-form-item label="牌簿号">
-                <el-input
-                  v-model="shipInfo.pbh"
-                  clearable
-                />
+                <el-input v-model="shipInfo.pbh" clearable />
               </el-form-item>
               <el-form-item label="造船厂名称">
-                <el-input
-                  v-model="shipInfo.zccmc"
-                  clearable
-                />
+                <el-input v-model="shipInfo.zccmc" clearable />
               </el-form-item>
               <el-form-item label="造船厂地址">
-                <el-input
-                  v-model="shipInfo.glrdz"
-                  clearable
-                />
+                <el-input v-model="shipInfo.glrdz" clearable />
               </el-form-item>
             </el-form>
           </el-card>
@@ -222,20 +132,10 @@
       </el-scrollbar>
     </div>
     <div slot="footer" class="information-foot" v-if="!readonly">
-      <el-button
-        icon="el-icon-document"
-        size="small"
-        class="blueButton"
-        @click="submitForm('addForm')"
-      >
+      <el-button icon="el-icon-document" size="small" class="blueButton" @click="submitForm('addForm')">
         保存
       </el-button>
-      <el-button
-        icon="el-icon-refresh-left"
-        size="small"
-        class="whiteButton"
-        @click="cancel"
-      >
+      <el-button icon="el-icon-refresh-left" size="small" class="whiteButton" @click="cancel">
         返回
       </el-button>
     </div>
@@ -257,7 +157,7 @@ export default {
   props: {
     row: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
@@ -265,7 +165,7 @@ export default {
       type: Boolean
     }
   },
-  data () {
+  data() {
     return {
       shipName: null,
       videoId: 'videoId1',
@@ -276,15 +176,15 @@ export default {
       Parameters: null
     }
   },
-  created () {
+  created() {
     this.init()
   },
 
   methods: {
-    havePlaceholder (string) {
+    havePlaceholder(string) {
       return this.readonly ? '' : string
     },
-    init () {
+    init() {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))
         if (this.form.zwShipName) {
@@ -301,24 +201,28 @@ export default {
       }
     },
     // 船舶信息
-    getShipInfoFun (zwShipName) {
-      getShipInfo(zwShipName).then(response => {
-        this.shipInfo = response.data[0]
-      })
+    getShipInfoFun(zwShipName) {
+      if (zwShipName) {
+        getShipInfo(zwShipName).then(response => {
+          this.shipInfo = response.data[0]
+        })
+      }
     },
     // 信号
-    getShipSignalFun (zwShipName) {
-      getShipSignal(zwShipName).then(response => {
-        this.ShipSignal = response.data
-      })
+    getShipSignalFun(zwShipName) {
+      if (zwShipName) {
+        getShipSignal(zwShipName).then(response => {
+          this.ShipSignal = response.data
+        })
+      }
     },
     // 回放记录，然后查视频流数据
-    getPaybackListFun (objId) {
+    getPaybackListFun(objId) {
       getPaybackList(objId).then(response => {
         this.getRtmpFun(response.data)
       })
     },
-    getRtmpFun (list) {
+    getRtmpFun(list) {
       list.forEach(item => {
         getRtmp(item.webcamId, item.playbackId).then(response => {
           this.videoUrl = response.data.url
@@ -326,7 +230,7 @@ export default {
       })
     },
     // 表单操作
-    submit () {
+    submit() {
       add(this.form).then(response => {
         this.$message({
           message: response.msg,
@@ -335,7 +239,7 @@ export default {
         this.$emit('submit')
       })
     },
-    cancel () {
+    cancel() {
       this.$emit('cancel')
     }
   }
@@ -349,7 +253,7 @@ export default {
     height: 800px;
 
     .main {
-      .box-card{
+      .box-card {
         margin-top: 20px;
       }
       .con {
@@ -361,7 +265,7 @@ export default {
           .item {
             width: 800px;
             height: 400px;
-            p{
+            p {
               height: 100%;
               display: flex;
               align-items: center;
@@ -376,7 +280,6 @@ export default {
           .item {
             width: 800px;
             height: 400px;
-
           }
         }
       }

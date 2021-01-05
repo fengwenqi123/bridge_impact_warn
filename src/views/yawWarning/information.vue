@@ -4,39 +4,31 @@
       <el-scrollbar class="scrolls">
         <div class="information-form">
           <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
-<!--            <el-form-item label="用户姓名:">-->
-<!--              <el-input-->
-<!--                :readonly="readonly"-->
-<!--                :placeholder="havePlaceholder('请输入用户姓名')"-->
-<!--                clearable-->
-<!--                v-model="form.userName"-->
-<!--              />-->
-<!--            </el-form-item>-->
+            <!--            <el-form-item label="用户姓名:">-->
+            <!--              <el-input-->
+            <!--                :readonly="readonly"-->
+            <!--                :placeholder="havePlaceholder('请输入用户姓名')"-->
+            <!--                clearable-->
+            <!--                v-model="form.userName"-->
+            <!--              />-->
+            <!--            </el-form-item>-->
             <el-form-item label="预警类型:">
               <el-select v-model="form.warningType" disabled :placeholder="havePlaceholder('请选择')">
-                <el-option
-                  v-for="item in warningTypeList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                <el-option v-for="item in warningTypeList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="录音内容:">
-              <el-input
-                type="textarea"
-                :readonly="readonly"
-                :rows="6"
-                :placeholder="havePlaceholder('请输入录音内容')"
-                v-model="form.gravacaoCondeudo">
+              <el-input type="textarea" :readonly="readonly" :rows="6" :placeholder="havePlaceholder('请输入录音内容')" v-model="form.gravacaoCondeudo">
               </el-input>
             </el-form-item>
             <el-form-item label="短信内容:">
-             <div class="message">
-               <div>预警来自xxx桥梁</div>
-               <div>xx所属船户请注意，您的船舶<el-input v-model="form.status"></el-input>！请立即<el-input v-model="form.handle"></el-input></div>
-               <div>说明<el-input v-model="form.remark"></el-input>,预警时间：{{time}}</div>
-             </div>
+              <div class="message">
+                <div>预警来自xxx桥梁</div>
+                <div>xx所属船户请注意，您的船舶<el-input v-model="form.status"></el-input>！请立即<el-input v-model="form.handle"></el-input>
+                </div>
+                <div>说明<el-input v-model="form.remark"></el-input>,预警时间：{{time}}</div>
+              </div>
             </el-form-item>
             <!--            <el-form-item label="启用状态:">-->
             <!--              <el-radio v-model="form.start" :readonly="readonly" label="2">启用</el-radio>-->
@@ -57,20 +49,10 @@
       </el-scrollbar>
     </div>
     <div slot="footer" class="information-foot" v-if="!readonly">
-      <el-button
-        icon="el-icon-document"
-        size="small"
-        class="blueButton"
-        @click="submitForm('addForm')"
-      >
+      <el-button icon="el-icon-document" size="small" class="blueButton" @click="submitForm('addForm')">
         保存
       </el-button>
-      <el-button
-        icon="el-icon-refresh-left"
-        size="small"
-        class="whiteButton"
-        @click="cancel"
-      >
+      <el-button icon="el-icon-refresh-left" size="small" class="whiteButton" @click="cancel">
         返回
       </el-button>
     </div>
@@ -87,7 +69,7 @@ export default {
   props: {
     row: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
@@ -95,7 +77,7 @@ export default {
       type: Boolean
     }
   },
-  data () {
+  data() {
     return {
       time: timeToString(new Date().getTime()),
       // 表单内容
@@ -127,15 +109,15 @@ export default {
       }]
     }
   },
-  created () {
+  created() {
     this.init()
   },
 
   methods: {
-    havePlaceholder (string) {
+    havePlaceholder(string) {
       return this.readonly ? '' : string
     },
-    init () {
+    init() {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))
         if (this.form.warningMethod) {
@@ -146,12 +128,18 @@ export default {
       }
     },
     // 表单操作
-    submit () {
+    submit() {
       delete this.form.addTimeString
       delete this.form.deleted
       delete this.form.modifyTime
       delete this.form.modifyTimeString
       delete this.form.addTime
+      this.form.broadcast = (this.form.warningMethod.indexOf('广播呼叫') > -1) ? 1 : 0
+      this.form.vhfBroadcast = (this.form.warningMethod.indexOf('VHF语音播报') > -1) ? 1 : 0
+      this.form.appPush = (this.form.warningMethod.indexOf('APP信息推送') > -1) ? 1 : 0
+      this.form.phone = (this.form.warningMethod.indexOf('拨打电话') > -1) ? 1 : 0
+      this.form.notePush = (this.form.warningMethod.indexOf('发送短信') > -1) ? 1 : 0
+      this.form.terminalPush = (this.form.warningMethod.indexOf('船载终端信息推送') > -1) ? 1 : 0
       if (typeof this.form.warningMethod === 'object') {
         this.form.warningMethod = this.form.warningMethod.join(',')
       }
@@ -163,7 +151,7 @@ export default {
         this.$emit('submit')
       })
     },
-    cancel () {
+    cancel() {
       this.$emit('cancel')
     }
   }

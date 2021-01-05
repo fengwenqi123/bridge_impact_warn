@@ -6,7 +6,7 @@
       <app-main></app-main>
     </div>
     <div class="auto" v-if="voicePlay">
-      <audio controls autoplay="autoplay" loop="loop" id="bg-music" v-show="false">
+      <audio controls autoplay="autoplay" id="bg-music" v-show="false">
         <source :src="voicePlay" type="audio/mpeg">
       </audio>
     </div>
@@ -120,7 +120,7 @@ export default {
         }
         setTimeout(() => {
           this.voicePlay = null
-        }, 16600)
+        }, 10000)
       }
     }
   }

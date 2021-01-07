@@ -82,7 +82,7 @@ const config = {
   basemap: basemap,
   projection: get('EPSG:3857'),
   extent: ypExtent,
-  minZoom: 9,
+  minZoom: 14,
   maxZoom: 18
 }
 

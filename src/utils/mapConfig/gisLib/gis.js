@@ -664,7 +664,7 @@ function changeAreaStyle (checkarea, areastyle) {
 /**
  * 显示电子地图
  */
-function openDZDT () {
+export  function openDZDT () {
   showInfoLayer('DZDT', true)
   showInfoLayer('YXT', false)
 }
@@ -672,7 +672,7 @@ function openDZDT () {
 /**
  * 显示卫星影像图
  */
-function openYXT () {
+export  function openYXT () {
   showInfoLayer('YXT', true)
   showInfoLayer('DZDT', false)
 }

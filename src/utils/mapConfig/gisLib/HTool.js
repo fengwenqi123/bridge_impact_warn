@@ -191,7 +191,7 @@ export function finaltime (distance, speed) {
 export function showInfoLayer (type, isVisible) {
   try {
     if (type) {
-      var mapLayers = app.map.getLayers().getArray()
+      var mapLayers = store.getters.app.map.getLayers().getArray()
       for (let i = 0; i < mapLayers.length; i++) {
         var layerType = mapLayers[i].getProperties().type
         if (layerType == type) {

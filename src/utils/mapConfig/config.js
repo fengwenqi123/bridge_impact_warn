@@ -35,6 +35,16 @@ var basemap = () => {
             params: { LAYERS: 'yp_image', format: 'image/jpeg', SRS: 'EPSG:3857' },
             tileGrid: tileGrid
           })
+        }),
+        new TileLayer({
+          title: '二维图',
+          type: 'DZDT',
+          source: new TileWMS({
+            url: url,
+            params: { LAYERS: 'yp_vector', format: 'image/jpeg', SRS: 'EPSG:3857' },
+            tileGrid: tileGrid
+          }),
+          visible: false
         })
       ]
       break
@@ -72,7 +82,7 @@ const config = {
   basemap: basemap,
   projection: get('EPSG:3857'),
   extent: ypExtent,
-  minZoom: 9,
+  minZoom: 14,
   maxZoom: 18
 }
 

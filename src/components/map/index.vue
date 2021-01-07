@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <div class="transfer">
+      <input type="button" value="二维图" @click="openDZDT()">
+      <input type="button" value="影像图" @click="openYXT()">
+    </div>
     <div id="map" ref="map"></div>
     <div class="computed" id="coor"></div>
     <div class="maplevel">
@@ -11,6 +15,7 @@
 <script>
 import 'ol/ol.css'
 import { init } from '@/utils/mapConfig/gisLib/HMap'
+import { openDZDT, openYXT } from '../../utils/mapConfig/gisLib/gis'
 
 export default {
   data () {
@@ -21,6 +26,10 @@ export default {
   mounted () {
     var mapcontainer = this.$refs.map
     init(mapcontainer)
+  },
+  methods: {
+    openYXT,
+    openDZDT
   }
 }
 </script>
@@ -58,5 +67,24 @@ export default {
   width: 80px;
   text-align: center;
   background: rgba(255, 255, 255, 0.65);
+}
+
+.transfer {
+  position: absolute;
+  z-index: 99;
+  left: 50px;
+  margin-right: 10px;
+  top: 25px;
+}
+
+
+input[type='button'] {
+  border: none;
+  background: #4169E1;
+  padding: 4px 14px;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  height: 35px;
 }
 </style>

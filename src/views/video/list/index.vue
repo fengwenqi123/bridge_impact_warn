@@ -1,46 +1,45 @@
 <template>
-  <div class="container">
-    <div class="line1" v-if="tableData.length">
-      <div class="img">
-        <el-row :gutter="20">
-          <el-col :span="6" v-for="(item) in tableData" :key="item.id">
-            <div class="item" @click="play(item)" :class="{active:active===item.id}">
-              <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
-                <div class="title"> {{ item.videoName }}</div>
-              </el-tooltip>
-              <div class="value">
-                <img :src="jk" alt="">
-              </div>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="video">
+  <div class="common-table">
+    <div class="title">
+      <title-header />
+    </div>
+    <el-card class="content">
+      <div class="video" ref="vedio" style="width:70%">
         <videoRtmp v-if="flag" :url="bannerUrl" :ids="ids"></videoRtmp>
       </div>
-    </div>
-    <div class="line2" v-if="tableData1.length">
-      <div class="item-main" v-for="item in tableData1" :key="item.id" @click="play(item)" :class="{active:active===item.id}">
-        <el-tooltip class="item" effect="dark" :content="item.videoName" placement="top">
-          <div class="title"> {{ item.videoName }}</div>
-        </el-tooltip>`
-        <div class="value">
-          <img :src="jk" alt="">
+      <div style="width:30%;background:#dcdcdc" ref="vedioScroll">
+        <div class="title1" style="display:flex">
+          <span style="width:75%">视频列表</span>
+          <span style="width:55px">{{chooseItem}}/{{tableData.length}}</span>
+          <span style="line-height: 30px;cursor: pointer;" @click="reverse">
+            <svg-icon :icon-class="iconClass"></svg-icon>
+          </span>
         </div>
+        <el-scrollbar style="height:95%">
+          <el-row>
+            <el-col :span="24" v-for="(item,index) in tableData" :key="item.id">
+              <div class="item" @click="play(item,index)" :class="{active:active===item.id}">
+                <div class="title1"> {{ item.videoName }}</div>
+              </div>
+            </el-col>
+          </el-row>
+        </el-scrollbar>
       </div>
-    </div>
+    </el-card>
   </div>
 </template>
 
 <script>
+import titleHeader from '@/components/title/index'
 import videoRtmp from '@/components/video/flv1.vue'
 import { lists } from '@/api/video.js'
 
 export default {
   components: {
-    videoRtmp
+    videoRtmp,
+    titleHeader
   },
-  data () {
+  data() {
     return {
       videoId: 'videoId',
       jk: require('@/assets/img/jk.jpg'),
@@ -49,26 +48,38 @@ export default {
       bannerUrl: null,
       ids: null,
       active: null,
-      flag: false
+      flag: false,
+      iconClass: 'up',
+      chooseItem: 1
     }
   },
-  created () {
+  created() {
+    this.$nextTick(() => {
+      this.windowResize()
+    })
+    window.onresize = () => this.windowResize()
     this.list()
   },
   methods: {
-    list () {
+    // 排序按钮
+    reverse() {
+      this.tableData.reverse()
+      if (this.iconClass === 'up') {
+        this.iconClass = 'down'
+      } else {
+        this.iconClass = 'up'
+      }
+      this.play(this.tableData[0], 0)
+    },
+    // 监听窗口变化
+    windowResize() {
+      const appMainHeight = document.querySelector('.app-main').clientHeight
+      this.$refs.vedio.style.height = `${appMainHeight - 86}px`
+      this.$refs.vedioScroll.style.height = `${appMainHeight - 86}px`
+    },
+    list() {
       lists(1, 500).then(response => {
-        if (response.data.dataList.length <= 12) {
-          this.tableData = response.data.dataList
-        } else {
-          response.data.dataList.forEach((item, index) => {
-            if (index < 12) {
-              this.tableData.push(item)
-            } else {
-              this.tableData1.push(item)
-            }
-          })
-        }
+        this.tableData = response.data.dataList
         this.bannerUrl = this.tableData[0].h5Address
         // this.bannerUrl = '/asset/Mon_1704/15868902d399b87.flv'
         this.ids = this.tableData[0].id
@@ -76,7 +87,8 @@ export default {
         this.active = this.tableData[0].id
       })
     },
-    play (item) {
+    play(item, index) {
+      this.chooseItem = index + 1
       this.flag = false
       this.$nextTick(() => {
         this.bannerUrl = item.h5Address
@@ -98,67 +110,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container {
-  padding: 10px;
-
-  .line1 {
+.content {
+  /deep/ .el-card__body {
     display: flex;
-    align-items: flex-start;
-
-    .img {
-      margin-right: 20px;
-      flex: 1;
-
-      .item {
-        margin: 10px 0;
-        cursor: pointer;
-
-        .title {
-          height: 30px;
-          line-height: 30px;
-          background: #DCDCDC;
-          text-indent: 10px;
-        }
-
-        .value {
-          img {
-            width: 100%;
-            height: 130px;
-          }
-        }
-      }
-    }
-
-    .video {
-      background: #333;
-      width: 657px;
-      height: 563px;
-    }
   }
-
-  .line2 {
-    width: 1800px;
-    display: flex;
-    flex-wrap: wrap;
-    .item-main {
-      margin-top: 20px;
-      margin-right: 20px;
-      //margin: 4px 10px;
-      cursor: pointer;
-
-      .title {
-        background: #DCDCDC;
-        height: 30px;
-        line-height: 30px;
-        text-indent: 10px;
-      }
-
-      .value {
-        img {
-          width: 245px;
-          height: 130px;
-        }
-      }
+  .title1 {
+    height: 30px;
+    line-height: 30px;
+    background: #dcdcdc;
+    text-indent: 10px;
+  }
+  .item {
+    cursor: pointer;
+    .title1 {
+      height: 30px;
+      line-height: 30px;
+      background: #dcdcdc;
+      text-indent: 10px;
     }
   }
 }
@@ -166,8 +134,8 @@ export default {
 .active {
   box-shadow: 10px 10px 5px #888888;
 
-  .title {
-    background: #00BFFF !important;
+  .title1 {
+    background: #00bfff !important;
 
     color: #fff;
   }

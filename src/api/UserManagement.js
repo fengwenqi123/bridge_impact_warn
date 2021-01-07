@@ -1,10 +1,18 @@
-import request from '@/utils/request'
-import qs from 'qs'
+import request from "@/utils/request";
+import qs from "qs";
 
-export function lists (pageNum, pageSize, order, sort, status, keyword, parentDepartmentId) {
+export function lists(
+  pageNum,
+  pageSize,
+  order,
+  sort,
+  status,
+  keyword,
+  parentDepartmentId
+) {
   return request({
-    url: '/generico-service/personnel',
-    method: 'GET',
+    url: "/generico-service/personnel",
+    method: "GET",
     params: {
       pageNum,
       pageSize,
@@ -14,124 +22,145 @@ export function lists (pageNum, pageSize, order, sort, status, keyword, parentDe
       keyword,
       parentDepartmentId
     }
-  })
+  });
 }
 
-export function lists1 (order, sort, status, departmentId, roleId, keyword) {
+export function lists1(order, sort, status, departmentId, roleId, keyword) {
   return request({
-    url: '/generico-service/personnel/list',
-    method: 'GET',
+    url: "/generico-service/personnel/list",
+    method: "GET",
     params: {
-      order, sort, status, departmentId, roleId, keyword
+      order,
+      sort,
+      status,
+      departmentId,
+      roleId,
+      keyword
     }
-  })
+  });
 }
 
-export function watch (id) {
+export function watch(id) {
   return request({
-    url: '/generico-service/personnel/' + id,
-    method: 'GET'
-  })
+    url: "/generico-service/personnel/" + id,
+    method: "GET"
+  });
 }
 
-export function add (form) {
-  const data = qs.stringify(form)
+export function add(form) {
+  const data = qs.stringify(form);
   return request({
-    url: '/generico-service/personnel',
-    method: 'POST',
+    url: "/generico-service/personnel",
+    method: "POST",
     data
-  })
+  });
 }
 
-export function delt (id) {
+export function delt(id) {
   return request({
-    url: '/generico-service/personnel/remove',
-    method: 'PUT',
+    url: "/generico-service/personnel/remove",
+    method: "PUT",
     params: {
-      id: id.join(',')
+      id: id.join(",")
     }
-  })
+  });
 }
 
-export function enable (id) {
+export function enable(id) {
   return request({
-    url: '/generico-service/personnel/enable',
-    method: 'PUT',
+    url: "/generico-service/personnel/enable",
+    method: "PUT",
     params: {
-      id: id.join(',')
+      id: id.join(",")
     }
-  })
+  });
 }
 
-export function disable (id) {
+export function disable(id) {
   return request({
-    url: '/generico-service/personnel/disable',
-    method: 'PUT',
+    url: "/generico-service/personnel/disable",
+    method: "PUT",
     params: {
-      id: id.join(',')
+      id: id.join(",")
     }
-  })
+  });
 }
 
-export function getDepartArr () {
+export function getDepartArr() {
   return request({
-    url: '/generico-service/department',
-    method: 'GET',
+    url: "/generico-service/department",
+    method: "GET",
     params: {
-      order: 'layer',
+      order: "layer",
       status: 1
     }
-  })
+  });
 }
 
-export function getRoleArr () {
+export function getRoleArr() {
   return request({
-    url: '/generico-service/role',
-    method: 'GET',
+    url: "/generico-service/role",
+    method: "GET",
     params: {
       pageSize: 5000,
       status: 1
     }
-  })
+  });
 }
 
-export function resetpassword (id) {
+export function resetpassword(id) {
   return request({
-    url: '/generico-service/personnel/passwordReset',
-    method: 'PUT',
+    url: "/generico-service/personnel/passwordReset",
+    method: "PUT",
     params: {
-      id: id.join(',')
+      id: id.join(",")
     }
-  })
+  });
   // const data = qs.stringify({
   //   id: id.join(',')
   // })
   // return request.put('/personnel/passwordReset', data)
 }
 
-export function findRoleById (personnelId) {
+export function findRoleById(personnelId) {
   return request({
-    url: '/generico-service/role/findListByPersonnel',
-    method: 'GET',
+    url: "/generico-service/role/findListByPersonnel",
+    method: "GET",
     params: {
       personnelId
     }
-  })
+  });
 }
 
-export function findDepById (id) {
+export function findDepById(id) {
   return request({
-    url: '/generico-service/department/findListByPersonnel',
-    method: 'GET',
+    url: "/generico-service/department/findListByPersonnel",
+    method: "GET",
     params: {
       id
     }
-  })
+  });
 }
 
-export function findXq () {
+export function findXq() {
   return request({
-    url: '/generico-service/area/manageRange/myManageRange',
-    method: 'GET'
-  })
+    url: "/generico-service/area/manageRange/myManageRange",
+    method: "GET"
+  });
+}
+
+export function updatePassword(form) {
+  return request({
+    url: "generico-service/personnel/updatePassword",
+    method: "PUT",
+    params: form
+  });
+}
+
+export function updateACPassword(form) {
+  return request({
+    url: "generico-service/account/updatePassword",
+    method: "PUT",
+    params: form
+  });
 }

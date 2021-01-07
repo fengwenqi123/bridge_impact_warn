@@ -3,183 +3,61 @@
     <div class="information-main">
       <el-scrollbar class="scrolls">
         <div class="information-form">
-          <el-form
-            ref="addForm"
-            :model="form"
-            status-icon
-            :rules="rules"
-            label-position="right"
-            label-width="180px"
-          >
-            <el-form-item
-              label="登录名:"
-              prop="loginName"
-            >
-              <el-input
-                v-model="form.loginName"
-                :placeholder="havePlaceholder('请输入登录名')"
-                :readonly="readonly"
-                clearable
-              />
+          <el-form ref="addForm" :model="form" status-icon :rules="rules" label-position="right" label-width="180px">
+            <el-form-item label="登录名:" prop="loginName">
+              <el-input v-model="form.loginName" :placeholder="havePlaceholder('请输入登录名')" :readonly="readonly" clearable />
             </el-form-item>
-            <el-form-item
-              label="名称:"
-              prop="name"
-            >
-              <el-input
-                v-model="form.name"
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入名称')"
-                clearable
-              />
+            <el-form-item label="名称:" prop="name">
+              <el-input v-model="form.name" :readonly="readonly" :placeholder="havePlaceholder('请输入名称')" clearable />
+            </el-form-item>
+            <el-form-item label="用户密码:" prop="password" v-if="!form.id">
+              <el-input v-model="form.password" :readonly="readonly" show-password :placeholder="havePlaceholder('请输入密码')" clearable />
             </el-form-item>
             <el-form-item label="选择部门:">
-              <el-select
-                v-model="departmentIds"
-                filterable
-                clearable
-                :placeholder="havePlaceholder('请选择')"
-                @change="changes"
-              >
-                <el-option
-                  v-for="item in data2"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                  :style="{ paddingLeft : (item.layer.length-2) * 10 + 'px' }"
-                />
+              <el-select v-model="departmentIds" filterable clearable :placeholder="havePlaceholder('请选择')" @change="changes">
+                <el-option v-for="item in data2" :key="item.id" :label="item.name" :value="item.id" :style="{ paddingLeft : (item.layer.length-2) * 10 + 'px' }" />
               </el-select>
             </el-form-item>
-            <el-form-item
-              label="员工编号:"
-              prop="code"
-            >
-              <el-input
-                v-model="form.code"
-                :readonly="readonly"
-                clearable
-                :placeholder="havePlaceholder('请输入员工编号')"
-              />
+            <el-form-item label="员工编号:" prop="code">
+              <el-input v-model="form.code" :readonly="readonly" clearable :placeholder="havePlaceholder('请输入员工编号')" />
             </el-form-item>
-            <el-form-item
-              label="性别:"
-              prop="type"
-            >
-              <el-radio
-                v-model="form.gender"
-                label="1"
-                :readonly="readonly"
-              >
+            <el-form-item label="性别:" prop="type">
+              <el-radio v-model="form.gender" label="1" :readonly="readonly">
                 男
               </el-radio>
-              <el-radio
-                v-model="form.gender"
-                label="2"
-                :readonly="readonly"
-              >
+              <el-radio v-model="form.gender" label="2" :readonly="readonly">
                 女
               </el-radio>
             </el-form-item>
-            <el-form-item
-              label="email:"
-              prop="email"
-            >
-              <el-input
-                v-model="form.email"
-                clearable
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入email')"
-              />
+            <el-form-item label="email:" prop="email">
+              <el-input v-model="form.email" clearable :readonly="readonly" :placeholder="havePlaceholder('请输入email')" />
             </el-form-item>
-            <el-form-item
-              label="手机:"
-              prop="mobile"
-            >
-              <el-input
-                v-model="form.mobile"
-                clearable
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入手机')"
-              />
+            <el-form-item label="手机:" prop="mobile">
+              <el-input v-model="form.mobile" clearable :readonly="readonly" :placeholder="havePlaceholder('请输入手机')" />
             </el-form-item>
-            <el-form-item
-              label="身份证:"
-              prop="idCard"
-            >
-              <el-input
-                v-model="form.idCard"
-                clearable
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入身份证')"
-              />
+            <el-form-item label="身份证:" prop="idCard">
+              <el-input v-model="form.idCard" clearable :readonly="readonly" :placeholder="havePlaceholder('请输入身份证')" />
             </el-form-item>
-            <el-form-item
-              label="生日:"
-              prop="birthday"
-            >
-              <el-date-picker
-                v-model="form.birthday"
-                align="right"
-                :readonly="readonly"
-                type="date"
-                :placeholder="havePlaceholder('选择日期')"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd"
-                :picker-options="pickerOptions1"
-              />
+            <el-form-item label="生日:" prop="birthday">
+              <el-date-picker v-model="form.birthday" align="right" :readonly="readonly" type="date" :placeholder="havePlaceholder('选择日期')" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" :picker-options="pickerOptions1" />
             </el-form-item>
-            <el-form-item
-              label="地址:"
-              prop="address"
-            >
-              <el-input
-                v-model="form.address"
-                clearable
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入地址')"
-              />
+            <el-form-item label="地址:" prop="address">
+              <el-input v-model="form.address" clearable :readonly="readonly" :placeholder="havePlaceholder('请输入地址')" />
             </el-form-item>
-            <el-form-item
-              label="备注:"
-              prop="description"
-            >
-              <el-input
-                v-model="form.description"
-                type="textarea"
-                :rows="6"
-                :readonly="readonly"
-                :placeholder="havePlaceholder('请输入备注')"
-              />
+            <el-form-item label="备注:" prop="description">
+              <el-input v-model="form.description" type="textarea" :rows="6" :readonly="readonly" :placeholder="havePlaceholder('请输入备注')" />
             </el-form-item>
-            <el-form-item
-              label="状态:"
-              prop="status"
-            >
-              <el-radio
-                v-model="form.status"
-                label="1"
-                :readonly="readonly"
-              >
+            <el-form-item label="状态:" prop="status">
+              <el-radio v-model="form.status" label="1" :readonly="readonly">
                 启用
               </el-radio>
-              <el-radio
-                v-model="form.status"
-                label="2"
-                :readonly="readonly"
-              >
+              <el-radio v-model="form.status" label="2" :readonly="readonly">
                 禁用
               </el-radio>
             </el-form-item>
             <el-form-item label="选择角色:">
-              <el-checkbox-group
-                v-for="item in roleArr"
-                :key="item.id"
-                v-model="roleIds"
-              >
-                <el-checkbox
-                  :label="item.id"
-                  :readonly="readonly"
-                >
+              <el-checkbox-group v-for="item in roleArr" :key="item.id" v-model="roleIds">
+                <el-checkbox :label="item.id" :readonly="readonly">
                   {{ item.name }}
                 </el-checkbox>
               </el-checkbox-group>
@@ -188,21 +66,11 @@
         </div>
       </el-scrollbar>
     </div>
-    <div slot="footer" class="information-foot"  v-if="!readonly">
-      <el-button
-        icon="el-icon-document"
-        size="small"
-        class="blueButton"
-        @click="submitForm('addForm')"
-      >
+    <div slot="footer" class="information-foot" v-if="!readonly">
+      <el-button icon="el-icon-document" size="small" class="blueButton" @click="submitForm('addForm')">
         保存
       </el-button>
-      <el-button
-        icon="el-icon-refresh-left"
-        size="small"
-        class="whiteButton"
-        @click="cancel"
-      >
+      <el-button icon="el-icon-refresh-left" size="small" class="whiteButton" @click="cancel">
         返回
       </el-button>
     </div>
@@ -218,7 +86,7 @@ export default {
   props: {
     row: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
@@ -226,31 +94,31 @@ export default {
       type: Boolean
     }
   },
-  data () {
+  data() {
     return {
       roleArr: [],
       roleIds: [],
       data2: null,
       departmentIds: null,
       pickerOptions1: {
-        disabledDate (time) {
+        disabledDate(time) {
           return time.getTime() > Date.now()
         },
         shortcuts: [{
           text: '今天',
-          onClick (picker) {
+          onClick(picker) {
             picker.$emit('pick', new Date())
           }
         }, {
           text: '昨天',
-          onClick (picker) {
+          onClick(picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24)
             picker.$emit('pick', date)
           }
         }, {
           text: '一周前',
-          onClick (picker) {
+          onClick(picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
             picker.$emit('pick', date)
@@ -279,23 +147,24 @@ export default {
       // 表单验证
       rules: {
         loginName: [{ required: true, message: '请输入登录名', trigger: 'blur' }],
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
     }
   },
-  created () {
+  created() {
     this.init()
     this.findAuth()
     this.getData()
   },
   methods: {
-    havePlaceholder (string) {
+    havePlaceholder(string) {
       return this.readonly ? '' : string
     },
-    changes () {
+    changes() {
       this.form.departmentIds = this.departmentIds
     },
-    init () {
+    init() {
       if (this.row) {
         this.form = JSON.parse(JSON.stringify(this.row))
         this.form.status = this.form.status.toString()
@@ -306,7 +175,7 @@ export default {
       }
     },
     // 数据操作
-    findAuth () {
+    findAuth() {
       findDep().then(response => {
         this.data2 = response.data.dataList
         if (this.form.id) {
@@ -314,7 +183,7 @@ export default {
         }
       })
     },
-    getData () {
+    getData() {
       getRoleArr().then(response => {
         this.roleArr = response.data.dataList
         if (this.form.id) {
@@ -322,21 +191,21 @@ export default {
         }
       })
     },
-    findRoleByIds () {
+    findRoleByIds() {
       findRoleById(this.form.id).then(response => {
         response.data.forEach((item, index) => {
           this.roleIds.push(item.id)
         })
       })
     },
-    findDepByIds () {
+    findDepByIds() {
       findDepById(this.form.id).then(response => {
         this.departmentIds = response.data[0].id
         this.form.departmentIds = this.departmentIds
       })
     },
     // 表单操作
-    submitForm (formName) {
+    submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.form.roleIds = this.roleIds.join(',')
@@ -353,10 +222,10 @@ export default {
         }
       })
     },
-    submit () {
+    submit() {
       this.$emit('submit')
     },
-    cancel () {
+    cancel() {
       this.$emit('cancel')
     }
   }

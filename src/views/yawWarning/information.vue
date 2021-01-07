@@ -36,12 +36,12 @@
             <!--            </el-form-item>-->
             <el-form-item label="预警方式:">
               <el-checkbox-group v-model="form.warningMethod">
-                <el-checkbox label="广播呼叫"></el-checkbox>
+                <el-checkbox label="高音喇叭"></el-checkbox>
                 <el-checkbox label="VHF语音播报"></el-checkbox>
-                <el-checkbox label="APP信息推送"></el-checkbox>
-                <el-checkbox label="拨打电话"></el-checkbox>
-                <el-checkbox label="发送短信"></el-checkbox>
-                <el-checkbox label="船载终端信息推送"></el-checkbox>
+                <el-checkbox label="船佳宝"></el-checkbox>
+                <!-- <el-checkbox label="拨打电话"></el-checkbox> -->
+                <el-checkbox label="E航运"></el-checkbox>
+                <el-checkbox label="短信通知"></el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </el-form>
@@ -134,12 +134,11 @@ export default {
       delete this.form.modifyTime
       delete this.form.modifyTimeString
       delete this.form.addTime
-      this.form.broadcast = (this.form.warningMethod.indexOf('广播呼叫') > -1) ? 1 : 0
+      this.form.broadcast = (this.form.warningMethod.indexOf('高音喇叭') > -1) ? 1 : 0
       this.form.vhfBroadcast = (this.form.warningMethod.indexOf('VHF语音播报') > -1) ? 1 : 0
-      this.form.appPush = (this.form.warningMethod.indexOf('APP信息推送') > -1) ? 1 : 0
-      this.form.phone = (this.form.warningMethod.indexOf('拨打电话') > -1) ? 1 : 0
-      this.form.notePush = (this.form.warningMethod.indexOf('发送短信') > -1) ? 1 : 0
-      this.form.terminalPush = (this.form.warningMethod.indexOf('船载终端信息推送') > -1) ? 1 : 0
+      this.form.cjbPush = (this.form.warningMethod.indexOf('船佳宝') > -1) ? 1 : 0
+      this.form.notePush = (this.form.warningMethod.indexOf('短信通知') > -1) ? 1 : 0
+      this.form.ehyPush = (this.form.warningMethod.indexOf('E航运') > -1) ? 1 : 0
       if (typeof this.form.warningMethod === 'object') {
         this.form.warningMethod = this.form.warningMethod.join(',')
       }
